@@ -1,5 +1,6 @@
 package br.com.lhlibrarymanagement.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -13,7 +14,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Livro {
+public class Livro implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,7 +31,8 @@ public class Livro {
 	private Categoria categoria;
 	@OneToMany(mappedBy = "livro")
 	private List<Emprestimo> emprestimos;
-	@OneToMany(mappedBy = "livro")
-	private List<Setor> setor;
+	@ManyToOne
+	@JoinColumn(name="id_setor")
+	private Setor setor;
 
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+  <link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
+  <script th:href="@{/js/bootstrap.bundle.min.js}"></script>
+  <title>Cadastrar Categorias - LH Library Management</title>
+</head>
+
+
+<body>
+  <div class="wrapper">
+	<div th:insert="fragments/menuFuncionario :: menuFuncionario"></div>
+    <div class="main p-3">
+      <section class="d-block">
+        <h1 class="m-3 fs-1 roboto-bold"> <span><img th:src="@{/img/register-svgrepo-com.svg}" alt=""></span> Cadastrar Categorias</h1>
+        <div class="container p-4 mt-2 ">
+          <div class="row">
+            <div class="col-md-6 bg-light p-4 shadow">
+              <form action="/categoria/cadastrarCategoria" method="post">
+                <div class="row mb-3">
+                  <div class="col-9">
+                    <label for="inputNome" class="form-label">Nome da Categoria</label>
+                    <input type="text" class="form-control" id="inputCategoria" placeholder="Digite o nome da categoria" value="" name="nome" >
+                  </div>
+                  <button type="submit" class="btn btn-primary align-self-end ms-2 mt-2">Cadastrar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>

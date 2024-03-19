@@ -1,5 +1,6 @@
 package br.com.lhlibrarymanagement.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
@@ -13,7 +14,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Membro {
+public class Membro implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 		
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)

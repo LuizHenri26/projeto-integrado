@@ -12,6 +12,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Perfil {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
