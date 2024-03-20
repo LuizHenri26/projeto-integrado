@@ -14,6 +14,10 @@
     <div class="wrapper">
 	<div th:insert="fragments/menuFuncionario :: menuFuncionario"></div>
       <div class="main p-3">
+		<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			<span th:text="${mensagem}"></span>
+		</div>
         <section class="d-block">
           <h1 class="m-3 fs-1 roboto-bold">
             <span><img src="img/books-svgrepo-com 1.svg" alt="" /></span>

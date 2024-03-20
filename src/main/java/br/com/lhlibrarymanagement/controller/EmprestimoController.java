@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.lhlibrarymanagement.model.Categoria;
 import br.com.lhlibrarymanagement.model.Emprestimo;
 import br.com.lhlibrarymanagement.model.Livro;
 import br.com.lhlibrarymanagement.model.Membro;
-import br.com.lhlibrarymanagement.model.Setor;
 import br.com.lhlibrarymanagement.service.EmprestimoService;
 import jakarta.validation.Valid;
 
@@ -45,7 +43,7 @@ public class EmprestimoController {
 			return "/registrarEmprestimo";
 		}
 		service.registraEmprestimo(emprestimo);
-		redirect.addFlashAttribute("mensagem", "Livro adicionado com sucesso!");
+		redirect.addFlashAttribute("mensagem", "Emprestimo Efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
 	}
 	

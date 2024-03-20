@@ -32,11 +32,12 @@ public class EmprestimoService {
 	}
 	
 	public List<Livro> getLivro() {
-		Iterable<Livro> livros = livroRepository.findAll();
+		Iterable<Livro> livros = livroRepository.findAllStatusDisponivel();
 		return Streamable.of(livros).toList();
 	}
 	
 	public void registraEmprestimo(Emprestimo emprestimo) {
+		emprestimo.getLivro().setStatus("Indisponivel");
 		emprestimoRepository.save(emprestimo);
 	}
 
