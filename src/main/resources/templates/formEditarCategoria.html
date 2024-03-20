@@ -42,8 +42,8 @@
 									<div class="col-sm-15">
 										<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
 											th:errors="*{nome}"></span>
-										<span class="mensagem" th:if="${categoriaExiste}"
-											th:text="${categoriaExiste}"></span>
+										<span class="mensagem" th:if="${categoriaExistente}"
+											th:text="${categoriaExistente}"></span>
 									</div>
 								</div>
 								<button type="submit"

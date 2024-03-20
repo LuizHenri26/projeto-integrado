@@ -1,7 +1,6 @@
 package br.com.lhlibrarymanagement.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +45,12 @@ public class LivroController {
 			model.addAttribute("setoresList", filtroSetores);
 			return "/formCadastrarLivro";
 		}
+		
+		Livro l = service.findByIsbn(livro.getIsbn());
+		if (l != null) {
+			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
+			return "/formEditarLivro";
+		}
 		livro.setStatus("Disponivel");
 		service.cadastraLivro(livro);
 		redirect.addFlashAttribute("mensagem", "Livro adicionado com sucesso!");
@@ -69,34 +74,6 @@ public class LivroController {
 		}
 		model.addAttribute("livros", livros);
 		return "/consultaLivros";
-	}
-	
-	@GetMapping("/editar/{id}")
-	public String editarLivro(@PathVariable("id") Long id, Model model) {
-		Optional<Livro> livroAnterior =  this.service.findById(id);
-		Livro livro = livroAnterior.get();
-		List<Categoria> filtroCategorias = service.getCategorias();
-		List<Setor> filtroSetores = service.getSetores();
-		model.addAttribute("categoriasList", filtroCategorias);
-		model.addAttribute("setoresList", filtroSetores);
-		model.addAttribute("livro", livro);
-		return "/formEditarLivro";
-	}
-	
-	@PostMapping("/editar/{id}")
-	public String editarLivro(@PathVariable("id") Long id, @Valid Livro livro, Model model, BindingResult result, RedirectAttributes redirect) {
-		if (result.hasErrors()) {
-			livro.setId(id);
-			return "/formEditarLivro";
-		}
-		Livro l = service.findByIsbn(livro.getIsbn());
-		if (l != null) {
-			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
-			return "/formEditarLivro";
-		}
-		service.cadastraLivro(livro);
-		redirect.addFlashAttribute("mensagem", "Categoria alterada com sucesso!");
-		return "/formEditarLivro";
 	}
 	
 	@GetMapping("/deletar/{id}")

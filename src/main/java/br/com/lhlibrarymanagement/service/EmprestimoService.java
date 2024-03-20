@@ -1,5 +1,6 @@
 package br.com.lhlibrarymanagement.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class EmprestimoService {
 	
 	
 	public List<Membro> getMembros() {
-		Iterable<Membro> membros = membroRepository.findAll();
+		Iterable<Membro> membros = membroRepository.findAllMembrosNaoPegaramLivrosEmprestados();
 		return Streamable.of(membros).toList();
 	}
 	
@@ -36,7 +37,9 @@ public class EmprestimoService {
 		return Streamable.of(livros).toList();
 	}
 	
-	public void registraEmprestimo(Emprestimo emprestimo) {
+	public void registrarEmprestimo(Emprestimo emprestimo) {
+		emprestimo.setDataEmprestimo(LocalDate.now());
+		emprestimo.setDataPrevista(LocalDate.now().plusDays(14));
 		emprestimo.getLivro().setStatus("Indisponivel");
 		emprestimoRepository.save(emprestimo);
 	}

@@ -67,7 +67,6 @@
 							<td th:text="${livro.autor}"></td>
 							<td th:text="${livro.status}"></td>
 							<th class="d-flex align-center justify-content-center gap-2">
-								<a 	th:href="@{/livro/editar/{id}(id=${livro.id})}" data-buttonEdit><img th:src="@{/img/edit.svg}" alt="" /></a>
 								<a th:href="@{/livro/deletar/{id}(id=${livro.id})}"
 									th:data-confirm-delete="|Você deseja deletar o livro ${livro.titulo}?|"
 									onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"

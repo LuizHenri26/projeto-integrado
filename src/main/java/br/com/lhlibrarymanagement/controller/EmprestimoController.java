@@ -28,6 +28,7 @@ public class EmprestimoController {
 	public String formCadastrarLivro(Model model) {
 		List<Livro> livros = service.getLivro();
 		List<Membro> membros = service.getMembros();
+		model.addAttribute("emprestimo", new Emprestimo());
 		model.addAttribute("membros", membros);
 		model.addAttribute("livros", livros);
 		return "/registrarEmprestimo";
@@ -42,7 +43,7 @@ public class EmprestimoController {
 			model.addAttribute("livros", livros);
 			return "/registrarEmprestimo";
 		}
-		service.registraEmprestimo(emprestimo);
+		service.registrarEmprestimo(emprestimo);
 		redirect.addFlashAttribute("mensagem", "Emprestimo Efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
 	}

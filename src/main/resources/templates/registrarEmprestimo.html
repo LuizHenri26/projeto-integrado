@@ -8,6 +8,11 @@
 	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <title>Registrar Emprestimo - LH Library Manager</title>
+	<style>
+		.mensagem {
+			color: red;
+		}
+	</style>
   </head>
 
   <body>
@@ -26,27 +31,31 @@
           <div class="container p-4 mt-2">
             <div class="row">
               <div class="col-md-6 bg-light shadow p-4 mb-5">
-                <form action="/emprestimo/registrarEmprestimo" method="post">
+                <form action="/emprestimo/registrarEmprestimo" method="post" th:object="${emprestimo}">
                   <div class="row mb-3">
                     <div class="col">
                       <label for="inputLivro" class="form-label">Titulo do Livro</label>
 					  <select class="form-select" id="inputLivros" name="livro">
-					  	<th:block th:each="livro : ${livros}">
-					  		<option th:value="${livro.id}"
-					  			th:text="${livro.titulo}"></option>
-					  	</th:block>
+							<option value="">Escolha um Livro</option>
+					  		<option th:each="livro : ${livros}" th:value="${livro.id}" th:text="${livro.id}"></option>
 					  </select>
                     </div>
                   </div>
                   <div class="mb-3">
                     <label for="inputLeitor" class="form-label">Membro</label>
-					<select class="form-select" id="inputMembro">
-						<th:block th:each="membro : ${membros}">
-							<option th:value="${membro.id}"
-								th:text="${membro.nome}"></option>
-						</th:block>
+					<select class="form-select" id="inputMembro" name="membro">
+							<option value="">Escolha um Membro</option>
+							<option th:each="membro : ${membros}" th:value="${membro.id}" th:text="${membro.nome}"></option>
 					</select>
                   </div>
+				  <div class="mb-3">
+				  	<label for="inputNome" class="form-label">Data de Emprestimo</label>
+				  	<input type="text" class="form-control" id="inputCategoria" name="dataEmprestimo" th:field="*{dataEmprestimo}" disabled>
+				  </div>
+				  <div class="mb-3">
+				  	<label for="inputNome" class="form-label">Data Prevista para Devolução</label>
+				  	<input type="text" class="form-control" id="inputCategoria" name="dataPrevista" th:field="*{dataPrevista}" disabled>
+				  </div>
                   <button type="submit" class="btn btn-primary">
                     Registrar
                   </button>

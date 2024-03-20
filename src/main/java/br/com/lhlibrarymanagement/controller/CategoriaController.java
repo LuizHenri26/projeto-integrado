@@ -87,18 +87,18 @@ public class CategoriaController {
 	}
 	
 	@PostMapping("/editar/{id}")
-	public String editarCategoria(@PathVariable("id") Long id, @Valid Categoria categoria, BindingResult result, RedirectAttributes redirect) {
+	public String editarCategoria(@PathVariable("id") Long id, @Valid Categoria categoria, Model model, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			categoria.setId(id);
 			return "/formEditarCategoria";
 		}
 		Categoria c = service.buscarNomeDaCategoria(categoria.getNome());
 		if (c != null) {
+			model.addAttribute("categoriaExistente", "Categoria já existente, por favor coloque um nome diferente.");
 			return "/formEditarCategoria";
 		}
 		service.cadastrarCategoria(categoria);
-		redirect.addFlashAttribute("mensagem", "Categoria alterada com sucesso!");
-		return "/formEditarCategoria";
+		return "redirect:/categoria/listar";
 	}
 	
 }
