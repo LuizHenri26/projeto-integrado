@@ -38,7 +38,7 @@
 								<form action="/livro/cadastrarLivro" method="post" th:object="${livro}">
 									<div class="mb-3">
 										<label for="inputCategoria" class="form-label">Categoria</label>
-										<select class="form-select" id="inputCategoria" th:field="*{categoria}"
+										<select class="form-select" id="inputCategoria"
 											name="categoria">
 											<th:block th:each="c : ${categoriasList}">
 												<option th:value="${c.id}" th:text="${c.nome}">
@@ -96,7 +96,7 @@
 										</div>
 										<div class="col mb-2">
 											<label for="inputSetorLivro" class="form-label">Livro Setor</label>
-											<select class="form-select" id="inputSetorLivro" th:field="*{setor}">
+											<select class="form-select" id="inputSetorLivro">
 												<th:block th:each="c : ${setoresList}">
 													<option th:value="${c.id}" th:text="${c.nome}">
 													</option>
