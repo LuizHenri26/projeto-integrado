@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<title>Editar Livro - LH Library Manager</title>
+
+	<style>
+		.mensagem {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div th:insert="fragments/menuFuncionario :: menuFuncionario"></div>
+		<div class="main p-3">
+			<section class="d-block">
+				<h1 class="m-3 fs-1 roboto-bold">
+					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="" /></span>Editar
+					Livro
+				</h1>
+				<div class="container p-4 mt-2">
+					<div class="row">
+						<div class="col-md-6 bg-light shadow p-4 mb-5">
+							<form th:action="@{/livro/editar/{id}(id=${livro.id})}" th:object="${livro}"
+								method="post">
+								<div class="mb-3">
+									<label for="inputCategoria" class="form-label">Categoria</label>
+									<select class="form-select" id="inputCategoria">
+										<th:block th:each="c : ${categoriasList}">
+											<option th:value="${c.id}" th:text="${c.nome}">
+											</option>
+										</th:block>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="inputTitulo" class="form-label">Título do Livro *</label>
+									<input type="text" class="form-control" id="inputTitulo"
+										placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
+										maxlength="60" />
+									<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
+										th:errors="*{titulo}"></span>
+								</div>
+								<div class="row mb-3">
+									<div class="col">
+										<label for="inputIsbn" class="form-label">ISBN *</label>
+										<input type="text" class="form-control" id="inputIsbn"
+											placeholder="Digite o numero do isbn" th:field="*{isbn}" name="isbn"
+											maxlength="14" />
+										<span class="mensagem" th:if="${#fields.hasErrors('isbn')}"
+											th:errors="*{isbn}"></span>
+									</div>
+									<div class="row mb-3">
+										<div class="col">
+											<label for="inputAutor" class="form-label">Autor *</label>
+											<input type="text" class="form-control" id="inputAutor"
+												placeholder="Digite o nome do autor" th:field="*{autor}" name="autor"
+												maxlength="60" />
+											<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
+												th:errors="*{autor}"></span>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<div class="col">
+											<label for="inputNumPaginas" class="form-label">Número de Páginas
+												*</label>
+											<input type="number" class="form-control" id="inputNumPaginas"
+												placeholder="Digite o número de páginas" th:field="*{numeroPaginas}"
+												name="numeroPaginas" />
+											<span class="mensagem" th:if="${#fields.hasErrors('numeroPaginas')}"
+												th:errors="*{numeroPaginas}"></span>
+										</div>
+										<div class="col">
+											<label for="inputEditora" class="form-label">Nome da Editora *</label>
+											<input type="text" class="form-control" id="inputEditora"
+												placeholder="Digite o nome da editora" th:field="*{editora}"
+												name="editora" maxlength="60" />
+											<span class="mensagem" th:if="${#fields.hasErrors('editora')}"
+												th:errors="*{editora}"></span>
+										</div>
+									</div>
+									<div class="col mb-2">
+										<label for="inputSetorLivro" class="form-label">Livro Setor</label>
+										<select class="form-select" id="inputSetorLivro">
+											<th:block th:each="s : ${setoresList}">
+												<option th:value="${s.id}"
+													th:text="${s.nome}"></option>
+											</th:block>
+										</select>
+									</div>
+									<div>
+										<button type="submit" class="btn btn-primary">
+											Atualizar
+										</button>
+									</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<script src="js/script.js"></script>
+</body>
+
+</html>

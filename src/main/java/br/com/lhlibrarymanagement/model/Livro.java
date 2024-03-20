@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -20,10 +22,15 @@ public class Livro implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "O campo titulo do livro é obrigatório.")
 	private String titulo;
+	@NotBlank(message = "O campo ISBN do livro é obrigatório.")
 	private String isbn;
+	@NotBlank(message = "O campo nome do autor é obrigatório.")
 	private String autor;
+	@NotNull(message = "O campo numero de paginas é obrigatório.")
 	private Integer numeroPaginas;
+	@NotBlank(message = "O campo nome da editora é obrigatório.")
 	private String editora;
 	private String status;
 	@ManyToOne
@@ -34,5 +41,6 @@ public class Livro implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_setor")
 	private Setor setor;
+
 
 }
