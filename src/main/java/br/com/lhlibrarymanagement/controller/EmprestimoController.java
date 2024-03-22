@@ -20,10 +20,10 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/emprestimo")
 public class EmprestimoController {
-	
+
 	@Autowired
 	private EmprestimoService service;
-	
+
 	@GetMapping("/salvar")
 	public String formCadastrarLivro(Model model) {
 		List<Livro> livros = service.getLivro();
@@ -33,9 +33,10 @@ public class EmprestimoController {
 		model.addAttribute("livros", livros);
 		return "/registrarEmprestimo";
 	}
-	
+
 	@PostMapping("/registrarEmprestimo")
-	public String adicionarNovoLivro(@Valid Emprestimo emprestimo, BindingResult result, Model model, RedirectAttributes redirect) {
+	public String adicionarNovoLivro(@Valid Emprestimo emprestimo, BindingResult result, Model model,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			List<Livro> livros = service.getLivro();
 			List<Membro> membros = service.getMembros();
@@ -47,6 +48,5 @@ public class EmprestimoController {
 		redirect.addFlashAttribute("mensagem", "Emprestimo Efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
 	}
-	
 
 }

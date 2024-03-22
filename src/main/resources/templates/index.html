@@ -1,104 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <title>Consulta Livros - LH Library Manager</title>
-  </head>
+	<title>Consulta Livros - LH Library Manager</title>
+</head>
 
-  <body>
-    <div class="wrapper">
-	<div th:insert="fragments/menuPublico :: menuPublico"></div>
-      <div class="main p-3">
-        <section class="d-block">
-          <h1 class="m-3 fs-1 roboto-bold">
-            <span><img src="img/books-svgrepo-com 1.svg" alt="" /></span>
-            Consulta Livros
-          </h1>
-          <div class="container p-4 mt-2">
-            <div class="row">
-              <div class="col-md-6 bg-light p-4 shadow">
-                <form>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <label for="inputNomeLivro" class="form-label"
-                        >Titulo do Livro</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputNome"
-                        placeholder="Digite o nome do livro"
-                      />
-                    </div>
-                    <div class="col">
-                      <label for="inputAutor" class="form-label">Autor</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputAutor"
-                        placeholder="Digite o nome do autor"
-                      />
-                    </div>
-                  </div>
-				  
-				  
-                  <div class="mb-3">
-                    <label for="inputCategoria" class="form-label"
-                      >Categoria</label
-                    >
-                    <select class="form-select" id="inputCategoria">
-                      <option selected>Escolha uma categoria</option>
-                      <option value="1">Ficção</option>
-                      <option value="2">Não-ficção</option>
-                      <option value="3">Romance</option>
-                      <option value="4">Mistério</option>
-                      <option value="5">Biografia</option>
-                      <option value="6">História</option>
-                      <option value="7">Ciência</option>
-                      <option value="8">Programação</option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-primary">
-                    Procurar
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="d-flex container-sm flex-column">
-          <div class="table-wrapper">
-            <table
-              class="table table-striped table-responsive table-bordered table-hover text-center container-sm p-4 mt-2"
-            >
-              <tr class="table-blue table-active text-uppercase">
-                <th>Categoria</th>
-                <th>Titulo do Livro</th>
-                <th>Autor</th>
-                <th>Status</th>
-              </tr>
-              <tr>
-                <td>Programação</td>
-                <td>Spring Boot</td>
-                <td>Fernando Boaglio</td>
-                <th>Disponivel</th>
-              </tr>
-              <tr>
-                <td>Programação</td>
-                <td>Teoria dos grafos</td>
-                <td>João Paulo Maida</td>
-                <th>Disponivel</th>
-              </tr>
-            </table>
-          </div>
-        </section>
-      </div>
-    </div>
+<body>
+	<div class="wrapper">
+		<div th:insert="fragments/menuPublico :: menuPublico"></div>
+		<div class="main p-3">
+			<section class="d-block">
+				<h1 class="m-3 fs-1 roboto-bold">
+					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="" /></span>
+					Consulta Livros
+				</h1>
+				<div class="container p-4 mt-2">
+					<div class="row">
+						<div class="col-md-6 bg-light p-4 shadow">
+							<form th:action="@{/library/buscar}" method="post">
+								<div class="row mb-3">
+									<div class="col">
+										<label for="inputNomeLivro" class="form-label">Titulo do Livro</label>
+										<input type="text" class="form-control" id="inputNome"
+											placeholder="Digite o nome do livro" name="titulo" />
+									</div>
+									<div class="col">
+										<label for="inputAutor" class="form-label">Autor</label>
+										<input type="text" class="form-control" id="inputAutor"
+											placeholder="Digite o nome do autor" name="autor" />
+									</div>
+								</div>
+								<button type="submit" class="btn btn-primary">
+									Procurar
+								</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="d-flex container-sm flex-column">
+				<div class="table-wrapper">
+					<table
+						class="table table-striped table-responsive table-bordered table-hover text-center container-sm p-4 mt-2">
+						<tr class="table-blue table-active text-uppercase">
+							<th>Categoria</th>
+							<th>Titulo do Livro</th>
+							<th>Autor</th>
+							<th>Status</th>
+							<th>Setor</th>
+						</tr>
+						<tr th:each="livro : ${livros}">
+							<td th:text="${livro.categoria.nome}"></td>
+							<td th:text="${livro.titulo}"></td>
+							<td th:text="${livro.autor}"></td>
+							<td th:text="${livro.status}"></td>
+							<td th:text="${livro.setor.nome}"></td>
+						</tr>
+					</table>
+				</div>
+			</section>
+		</div>
+	</div>
 	<script th:src="@{/js/script.js}"></script>
-  </body>
+</body>
+
 </html>

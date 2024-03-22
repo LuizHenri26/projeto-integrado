@@ -46,9 +46,9 @@ public class LivroService {
 		return Streamable.of(setores).toList();
 	}
 
-	public List<Livro> getLivros() {
-		Iterable<Livro> livros = livroRepository.findAll();
-		return Streamable.of(livros).toList();
+	public List<Livro> getListarLivros() {
+		List<Livro> livros = livroRepository.findAll();
+		return livros;
 	}
 
 	public void cadastraLivro(Livro livro) {

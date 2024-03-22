@@ -21,38 +21,39 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/categoria")
 public class CategoriaController {
-	
+
 	@Autowired
 	private CategoriaService service;
-	
+
 	@GetMapping("/salvar")
 	public String adicionarNovaCategoria(Model model) {
 		model.addAttribute("categoria", new Categoria());
-		return "/formCadastrarCategoria";
+		return "/funcionario/cadastrarCategoria";
 	}
 
-	@PostMapping("/cadastrarCategoria")
-	public String cadastrarCategoria(@Valid Categoria categoria, BindingResult result, Model model, RedirectAttributes redirect) {
+	@PostMapping("/cadastrar")
+	public String cadastrarCategoria(@Valid Categoria categoria, BindingResult result, Model model,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			return "/formCadastrarCategoria";
+			return "/funcionario/cadastrarCategoria";
 		}
 		Categoria c = service.buscarNomeDaCategoria(categoria.getNome());
 		if (c != null) {
 			model.addAttribute("categoriaExiste", "Categoria já existente, por favor coloque um nome diferente");
-			return "/formCadastrarCategoria";
+			return "/funcionario/cadastrarCategoria";
 		}
 		service.cadastrarCategoria(categoria);
 		redirect.addFlashAttribute("mensagem", "Categoria adicionada com sucesso!");
 		return "redirect:/categoria/salvar";
 	}
-	
+
 	@GetMapping("/listar")
 	public String listarTodasCategorias(Model model) {
-		Iterable<Categoria> categorias =  this.service.getCategorias();
+		Iterable<Categoria> categorias = this.service.getCategorias();
 		model.addAttribute("categorias", categorias);
-		return "/consultaCategorias";
+		return "/funcionario/consultaCategorias";
 	}
-	
+
 	@PostMapping("/buscar")
 	public String pesquisarPeloNomeDaCategoria(Model model, @RequestParam("nome") String nome) {
 		if (nome == null) {
@@ -60,12 +61,13 @@ public class CategoriaController {
 		}
 		List<Categoria> categorias = service.filtrarPeloNome(nome);
 		model.addAttribute("categorias", categorias);
-		return "/consultaCategorias";
+		return "/funcionario/consultaCategorias";
 	}
-	
+
 	@GetMapping("/deletar/{id}")
 	public String deletarCategoria(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
-		Categoria categoria =  service.findById(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
+		Categoria categoria = service.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
 		if (!categoria.getLivro().isEmpty()) {
 			redirect.addFlashAttribute("mensagem", "Categoria vinculada a livro!");
 			return "redirect:/categoria/listar";
@@ -74,31 +76,32 @@ public class CategoriaController {
 		model.addAttribute("categoria", categoria);
 		return "redirect:/categoria/listar";
 	}
-	
+
 	@GetMapping("/editar/{id}")
 	public String editarCategoria(@PathVariable("id") Long id, Model model) {
-		Optional<Categoria> categoriaAnterior =  this.service.findById(id);
+		Optional<Categoria> categoriaAnterior = this.service.findById(id);
 		if (!categoriaAnterior.isPresent()) {
 			throw new IllegalArgumentException("Categoria Inválida: " + id);
 		}
 		Categoria categoria = categoriaAnterior.get();
 		model.addAttribute("categoria", categoria);
-		return "/formEditarCategoria";
+		return "/funcionario/editarCategoria";
 	}
-	
+
 	@PostMapping("/editar/{id}")
-	public String editarCategoria(@PathVariable("id") Long id, @Valid Categoria categoria, Model model, BindingResult result, RedirectAttributes redirect) {
+	public String editarCategoria(@PathVariable("id") Long id, @Valid Categoria categoria, Model model,
+			BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			categoria.setId(id);
-			return "/formEditarCategoria";
+			return "/funcionario/editarCategoria";
 		}
 		Categoria c = service.buscarNomeDaCategoria(categoria.getNome());
 		if (c != null) {
 			model.addAttribute("categoriaExistente", "Categoria já existente, por favor coloque um nome diferente.");
-			return "/formEditarCategoria";
+			return "/funcionario/editarCategoria";
 		}
 		service.cadastrarCategoria(categoria);
 		return "redirect:/categoria/listar";
 	}
-	
+
 }

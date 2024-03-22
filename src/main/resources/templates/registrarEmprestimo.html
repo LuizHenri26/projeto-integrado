@@ -34,15 +34,15 @@
                 <form action="/emprestimo/registrarEmprestimo" method="post" th:object="${emprestimo}">
                   <div class="row mb-3">
                     <div class="col">
-                      <label for="inputLivro" class="form-label">Titulo do Livro</label>
+                      <label for="inputLivro" class="form-label">Titulo do Livro *</label>
 					  <select class="form-select" id="inputLivros" name="livro">
 							<option value="">Escolha um Livro</option>
-					  		<option th:each="livro : ${livros}" th:value="${livro.id}" th:text="${livro.id}"></option>
+					  		<option th:each="livro : ${livros}" th:value="${livro.id}" th:text="${livro.titulo}"></option>
 					  </select>
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label for="inputLeitor" class="form-label">Membro</label>
+                    <label for="inputLeitor" class="form-label">Membro *</label>
 					<select class="form-select" id="inputMembro" name="membro">
 							<option value="">Escolha um Membro</option>
 							<option th:each="membro : ${membros}" th:value="${membro.id}" th:text="${membro.nome}"></option>

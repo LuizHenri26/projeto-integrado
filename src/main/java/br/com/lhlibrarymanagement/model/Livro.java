@@ -33,13 +33,13 @@ public class Livro implements Serializable{
 	@NotBlank(message = "O campo nome da editora é obrigatório.")
 	private String editora;
 	private String status;
-	@NotNull(message = "O campo categoria é obrigatório.")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_categoria")
 	private Categoria categoria;
 	@OneToMany(mappedBy = "livro")
 	private List<Emprestimo> emprestimos;
-	@NotNull(message = "O campo setor é obrigatório.")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_setor")
 	private Setor setor;

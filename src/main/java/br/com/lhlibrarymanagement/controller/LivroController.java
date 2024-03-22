@@ -22,10 +22,10 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/livro")
 public class LivroController {
-	
+
 	@Autowired
 	private LivroService service;
-	
+
 	@GetMapping("/salvar")
 	public String formCadastrarLivro(Model model) {
 		List<Categoria> filtroCategorias = service.getCategorias();
@@ -33,39 +33,41 @@ public class LivroController {
 		model.addAttribute("livro", new Livro());
 		model.addAttribute("categoriasList", filtroCategorias);
 		model.addAttribute("setoresList", filtroSetores);
-		return "/formCadastrarLivro";
+		return "/funcionario/cadastrarLivro";
 	}
-	
-	@PostMapping("/cadastrarLivro")
-	public String adicionarNovoLivro(@Valid Livro livro, BindingResult result, Model model, RedirectAttributes redirect) {
+
+	@PostMapping("/cadastrar")
+	public String adicionarNovoLivro(@Valid Livro livro, BindingResult result, Model model,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			List<Categoria> filtroCategorias = service.getCategorias();
 			List<Setor> filtroSetores = service.getSetores();
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
-			return "/formCadastrarLivro";
+			return "/funcionario/cadastrarLivro";
 		}
-		
+
 		Livro l = service.findByIsbn(livro.getIsbn());
 		if (l != null) {
 			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
-			return "/formEditarLivro";
+			return "/funcionario/cadastrarLivro";
 		}
 		livro.setStatus("Disponivel");
 		service.cadastraLivro(livro);
 		redirect.addFlashAttribute("mensagem", "Livro adicionado com sucesso!");
 		return "redirect:/livro/salvar";
 	}
-	
+
 	@GetMapping("/listar")
 	public String listarLivros(Model model) {
-		Iterable<Livro> livros =  this.service.getLivros();
+		List<Livro> livros = this.service.getListarLivros();
 		model.addAttribute("livros", livros);
-		return "/consultaLivros";
+		return "/funcionario/consultaLivros";
 	}
-	
+
 	@PostMapping("/buscar")
-	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo, @RequestParam("autor") String autor) {
+	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo,
+			@RequestParam("autor") String autor) {
 		List<Livro> livros;
 		if (titulo == null && autor == null) {
 			return "redirect:/livro/listar";
@@ -73,12 +75,12 @@ public class LivroController {
 			livros = service.filtrarLivros(titulo, autor);
 		}
 		model.addAttribute("livros", livros);
-		return "/consultaLivros";
+		return "/funcionario/consultaLivros";
 	}
-	
+
 	@GetMapping("/deletar/{id}")
 	public String deletarLivro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
-		Livro livro =  service.findById(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
+		Livro livro = service.findById(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
 		if (!livro.getEmprestimos().isEmpty()) {
 			redirect.addFlashAttribute("mensagem", "Livro Emprestado!");
 			return "redirect:/livro/listar";

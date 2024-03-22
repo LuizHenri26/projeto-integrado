@@ -16,4 +16,6 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	
 	@Query("select l from Livro l where l.status = 'Disponivel'")
 	List<Livro> findAllStatusDisponivel();
+	
+	List<Livro> findAll();
 }
