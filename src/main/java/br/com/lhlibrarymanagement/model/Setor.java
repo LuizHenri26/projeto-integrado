@@ -14,12 +14,13 @@ import lombok.Data;
 @Entity
 @Data
 public class Setor implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "O campo Nome do Setor é obrigatório")
+	@NotBlank(message = "O campo nome do setor é obrigatório")
 	private String nome;
 	@OneToMany(mappedBy = "setor")
 	private List<Livro> livro;

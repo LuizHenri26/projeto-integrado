@@ -9,18 +9,19 @@
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="css/style.css" />
 
-	<title>Consulta Usuários - LH Library Manager</title>
+	<title>Consulta Usuários - LH Library Management</title>
 </head>
 
 <body>
 	<div class="wrapper">
+		<div th:insert="~{fragments/menu-usuarios :: menu-usuarios}"></div>
 		<aside id="sidebar">
 			<div class="d-flex">
 				<button class="toggle-btn" type="button">
 					<i class="lni lni-grid-alt"></i>
 				</button>
 				<div class="sidebar-logo">
-					<a href="inicio.html">LH Library Manager</a>
+					<a 					th:href="@{/listar}">LH Library Manager</a>
 				</div>
 			</div>
 			<ul class="sidebar-nav">

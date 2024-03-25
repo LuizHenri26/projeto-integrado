@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.lhlibrarymanagement.model.Perfil;
@@ -29,13 +28,13 @@ public class UsuarioController {
 	public PerfilService perfilService;
 
 	@GetMapping("/inicio")
-	public String index(@CurrentSecurityContext(expression = "authentication.name") String email) {
-		Usuario usuario = usuarioService.buscaUsuarioPorEmail(email);
+	public String index(@CurrentSecurityContext(expression = "authentication.name") String login) {
+		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
 		String redirectURL = "";
 		if (usuarioService.isAutoriza(usuario, "ADMIN")) {
-			redirectURL = "/admin/cadastrarUsuario";
+			redirectURL = "/admin/cadastrar-usuario";
 		} else if (usuarioService.isAutoriza(usuario, "FUCIONARIO")) {
-			redirectURL = "/funcionario/cadastrarCategoria";
+			redirectURL = "/cadastrar-categoria";
 		}
 		return redirectURL;
 	}
@@ -45,21 +44,21 @@ public class UsuarioController {
 		List<Perfil> perfis = perfilService.listarPapel();
 		model.addAttribute("listaPerfis", perfis);
 		model.addAttribute("usuario", new Usuario());
-		return "/admin/cadastrarUsuario";
+		return "/admin/cadastrar-usuario";
 	}
 
 	@PostMapping("/salvar")
 	public String salvarUsuario(@Valid Usuario usuario,// @RequestParam(value = "pps", required = false) int[] perfis,
 			BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
-			return "/admin/cadastrarUsuario";
+			return "/admin/cadastrar-usuario";
 		}
 
-		Usuario usr = usuarioService.buscaUsuarioPorEmail(usuario.getEmail());
+		Usuario usr = usuarioService.buscaUsuarioPorLogin(usuario.getLogin());
 
 		if (usr != null) {
 			model.addAttribute("emailExistente", "Email já cadastrado, por favor insira um E-mail diferente!");
-			return "/admin/cadastrarUsuario";
+			return "/admin/cadastrar-usuario";
 		}
 
 		/*

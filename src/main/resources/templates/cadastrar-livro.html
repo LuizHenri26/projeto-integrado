@@ -5,12 +5,11 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+	<link rel="shortcut icon" th:href="@{/img/books-svgrepo-com 1.svg}">
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-
-	<title>Cadastrar Livro - LH Library Manager</title>
-
+	<title>Cadastrar Livro - LH Library Management</title>
 	<style>
 		.mensagem {
 			color: red;
@@ -20,7 +19,7 @@
 
 <body>
 	<div class="wrapper">
-		<div th:insert="fragments/menuFuncionario :: menuFuncionario"></div>
+		<div th:insert="~{fragments/menu-usuarios :: menu-usuarios}"></div>
 		<div class="main p-3">
 			<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
 				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -35,13 +34,14 @@
 					<div class="container p-4 mt-2">
 						<div class="row">
 							<div class="col-md-6 bg-light shadow p-4 mb-5">
-								<form action="/livro/cadastrar" method="post" th:object="${livro}">
+								<form th:action="@{/livro/cadastrar}" method="post" th:object="${livro}">
 									<div class="mb-3">
 										<label for="inputCategoria" class="form-label">Categoria *</label>
 										<select class="form-select" id="inputCategoria" name="categoria">
-												<option value="" selected>Escolha uma categoria</option>	
-												<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"  th:text="${categoria.nome}">
-												</option>
+											<option value="" selected>Escolha uma categoria</option>
+											<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"
+												th:text="${categoria.nome}">
+											</option>
 										</select>
 									</div>
 									<div class="mb-3">
@@ -95,8 +95,9 @@
 										<div class="col mb-2">
 											<label for="inputSetorLivro" class="form-label">Setor *</label>
 											<select class="form-select" id="inputSetorLivro" name="setor">
-													<option value="" selected>Escolha um setor</option>	
-													<option th:each="setor : ${setoresList}" th:value="${setor.id}" th:text="${setor.nome}"></option>
+												<option value="" selected>Escolha um setor</option>
+												<option th:each="setor : ${setoresList}" th:value="${setor.id}"
+													th:text="${setor.nome}"></option>
 											</select>
 										</div>
 										<div>

@@ -1,5 +1,6 @@
 package br.com.lhlibrarymanagement.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -12,7 +13,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Perfil {
+public class Perfil implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

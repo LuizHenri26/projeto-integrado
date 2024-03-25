@@ -31,10 +31,10 @@ public class EmprestimoController {
 		model.addAttribute("emprestimo", new Emprestimo());
 		model.addAttribute("membros", membros);
 		model.addAttribute("livros", livros);
-		return "/registrarEmprestimo";
+		return "/registrar-emprestimo";
 	}
 
-	@PostMapping("/registrarEmprestimo")
+	@PostMapping("/cadastrar")
 	public String adicionarNovoLivro(@Valid Emprestimo emprestimo, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
@@ -42,7 +42,7 @@ public class EmprestimoController {
 			List<Membro> membros = service.getMembros();
 			model.addAttribute("membros", membros);
 			model.addAttribute("livros", livros);
-			return "/registrarEmprestimo";
+			return "/registrar-emprestimo";
 		}
 		service.registrarEmprestimo(emprestimo);
 		redirect.addFlashAttribute("mensagem", "Emprestimo Efetuado com sucesso!");

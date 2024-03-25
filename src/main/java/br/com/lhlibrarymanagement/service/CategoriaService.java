@@ -17,7 +17,7 @@ public class CategoriaService {
 	private CategoriaRepository categoriaRepository;
 
 	/**
-	 * Buscar categorias pelo nome
+	 * Filtra as categorias pelo nome.
 	 */
 	public List<Categoria> filtrarPeloNome(String nome) {
 		return categoriaRepository.findByNomeContainingIgnoreCase(nome);
@@ -26,7 +26,7 @@ public class CategoriaService {
 	/**
 	 * Lista todos os registros de tabela categoria de forma ordenada .
 	 * 
-	 * @return - registros da tabela categoria
+	 * @return - Os registros da tela categoria.
 	 */
 	public List<Categoria> getCategorias() {
 		Iterable<Categoria> categorias = categoriaRepository.findAllCategoriaOrdenadaPeloId();
@@ -47,7 +47,7 @@ public class CategoriaService {
 	}
 
 	/**
-	 * Deleta os dados da tabela
+	 * Deleta os dados da tabela categoria.
 	 * 
 	 * @param categoria - entidade categoria
 	 */
@@ -56,10 +56,10 @@ public class CategoriaService {
 	}
 
 	/**
-	 * Busca a categoria pelo identificador
+	 * Busca a categoria pelo identificador.
 	 * 
 	 * @param id - identificador da categoria.
-	 * @return - a categoria especifica
+	 * @return - categoria especifica
 	 */
 	public Optional<Categoria> findById(Long id) {
 		return categoriaRepository.findById(id);

@@ -10,44 +10,43 @@
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 
-
 <body>
-	<aside id="sidebar" th:fragment="menuFuncionario">
+	<aside id="sidebar" th:fragment="menu-usuarios">
 		<div class="d-flex">
 			<button class="toggle-btn" type="button">
 				<i class="lni lni-grid-alt"></i>
 			</button>
 			<div class="sidebar-logo">
-				<a 	th:href="@{/categoria/salvar}">LH Library Manager</a>
+				<a th:href="@{/categoria/salvar}">LH Library Management</a>
 			</div>
 		</div>
 		<ul class="sidebar-nav">
 			<li class="sidebar-item">
-			   <a th:href="@{/usuario/salvar}" class="sidebar-link">
-			     <i class="lni lni-user"></i>
-			     <span>Cadastrar Usuário</span>
-			   </a>
-			 </li>
-			 <li class="sidebar-item">
-			   <a th:href="@{/usuario/listar}" class="sidebar-link">
-			     <i class="lni lni-search-alt"></i>
-			     <span>Consulta Usuários</span>
-			   </a>
-			 </li>
+				<a th:href="@{/usuario/salvar}" class="sidebar-link">
+					<i class="lni lni-user"></i>
+					<span>Cadastrar Usuário</span>
+				</a>
+			</li>
 			<li class="sidebar-item">
-				<a 	th:href="@{/categoria/salvar}" class="sidebar-link">
+				<a th:href="@{/usuario/listar}" class="sidebar-link">
+					<i class="lni lni-search-alt"></i>
+					<span>Consulta Usuários</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a th:href="@{/categoria/salvar}" class="sidebar-link">
 					<i class="lni lni-tab"></i>
 					<span>Cadastrar Categorias</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a 	th:href="@{/categoria/listar}" class="sidebar-link">
+				<a th:href="@{/categoria/listar}" class="sidebar-link">
 					<i class="lni lni-search-alt"></i>
 					<span>Consulta Categorias</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a 	th:href="@{/livro/salvar}" class="sidebar-link">
+				<a th:href="@{/livro/salvar}" class="sidebar-link">
 					<i class="lni lni-book"></i>
 					<span>Cadastrar Livros</span>
 				</a>
@@ -59,13 +58,13 @@
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a 	th:href="@{/emprestimo/salvar}" class="sidebar-link">
+				<a th:href="@{/emprestimo/salvar}" class="sidebar-link">
 					<i class="lni lni-agenda"></i>
 					<span>Registrar Empréstimo</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a href="entrar.html" class="sidebar-link">
+				<a th:href="@{/logout}" class="sidebar-link">
 					<i class="lni lni-power-switch"></i>
 					<span>Sair</span>
 				</a>

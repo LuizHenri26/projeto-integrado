@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Perfil;
@@ -40,8 +39,8 @@ public class UsuarioService {
 		return usuarios;
 	}
 
-	public Usuario buscaUsuarioPorEmail(String login) {
-		Usuario usuario = usuarioRepository.findByEmail(login);
+	public Usuario buscaUsuarioPorLogin(String login) {
+		Usuario usuario = usuarioRepository.findByLogin(login);
 		return usuario;
 	}
 
@@ -49,7 +48,13 @@ public class UsuarioService {
 		usuario.setSenha(usuario.getSenha());
 		usuarioRepository.save(usuario);
 	}
-	
+
+	/**
+	 * Atribui Perfis de usuário na tela de cadastro,
+	 * 
+	 * @param usuario  - entidade usuário.
+	 * @param idsPefis - identificador dos perfis habilitados.
+	 */
 	public void atribuirPerfil(Usuario usuario, int[] idsPefis) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
 		for (int i = 0; i < idsPefis.length; i++) {
@@ -62,6 +67,13 @@ public class UsuarioService {
 		alterarUsuario(usuario);
 	}
 
+	/**
+	 * Atribui perfil para o usuário da aplicação, na tela de edição.
+	 * 
+	 * @param id       - identificador do usuário.
+	 * @param idsPefis - ids de perfis caso mais de um tenha sigo habilitado.
+	 * @param isAtivo  - se o usuário está ativo ou inativo.
+	 */
 	public void atribuirPerfilParaUsuario(Long id, int[] idsPefis, boolean isAtivo) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
 		for (int i = 0; i < idsPefis.length; i++) {
@@ -76,7 +88,7 @@ public class UsuarioService {
 	}
 
 	/**
-	 * Verifica qual o tipo de perfil o usuario tem na aplicação.
+	 * Verifica qual o tipo de perfil o possui na aplicação.
 	 */
 	public boolean isAutoriza(Usuario usuario, String nome) {
 		for (Perfil perfil : usuario.getPerfis()) {

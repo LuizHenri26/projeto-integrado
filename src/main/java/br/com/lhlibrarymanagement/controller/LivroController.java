@@ -33,7 +33,7 @@ public class LivroController {
 		model.addAttribute("livro", new Livro());
 		model.addAttribute("categoriasList", filtroCategorias);
 		model.addAttribute("setoresList", filtroSetores);
-		return "/funcionario/cadastrarLivro";
+		return "/cadastrar-livro";
 	}
 
 	@PostMapping("/cadastrar")
@@ -44,14 +44,20 @@ public class LivroController {
 			List<Setor> filtroSetores = service.getSetores();
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
-			return "/funcionario/cadastrarLivro";
+			return "/cadastrar-livro";
 		}
 
 		Livro l = service.findByIsbn(livro.getIsbn());
 		if (l != null) {
 			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
-			return "/funcionario/cadastrarLivro";
+			return "/cadastrar-livro";
 		}
+
+		if (livro.getCategoria().getId() == null && livro.getCategoria().getNome() == null) {
+			redirect.addFlashAttribute("mensagemCategoriaVazia", "Preencher o campo categoria!");
+			return "/cadastrar-livro";
+		}
+
 		livro.setStatus("Disponivel");
 		service.cadastraLivro(livro);
 		redirect.addFlashAttribute("mensagem", "Livro adicionado com sucesso!");
@@ -62,7 +68,7 @@ public class LivroController {
 	public String listarLivros(Model model) {
 		List<Livro> livros = this.service.getListarLivros();
 		model.addAttribute("livros", livros);
-		return "/funcionario/consultaLivros";
+		return "/consulta-livros";
 	}
 
 	@PostMapping("/buscar")
@@ -75,7 +81,7 @@ public class LivroController {
 			livros = service.filtrarLivros(titulo, autor);
 		}
 		model.addAttribute("livros", livros);
-		return "/funcionario/consultaLivros";
+		return "/consulta-livros";
 	}
 
 	@GetMapping("/deletar/{id}")

@@ -16,10 +16,11 @@ import lombok.Data;
 public class Categoria implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "Insira o nome da categoria")
+	@NotBlank(message = "O campo nome da categoria é obrigatório.")
 	private String nome;
 	@OneToMany(mappedBy = "categoria")
 	private List<Livro> livro;

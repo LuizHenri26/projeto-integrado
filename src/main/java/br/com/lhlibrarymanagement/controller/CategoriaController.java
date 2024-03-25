@@ -23,35 +23,35 @@ import jakarta.validation.Valid;
 public class CategoriaController {
 
 	@Autowired
-	private CategoriaService service;
+	private CategoriaService categoriaService;
 
 	@GetMapping("/salvar")
 	public String adicionarNovaCategoria(Model model) {
 		model.addAttribute("categoria", new Categoria());
-		return "/funcionario/cadastrarCategoria";
+		return "/cadastrar-categoria";
 	}
 
 	@PostMapping("/cadastrar")
 	public String cadastrarCategoria(@Valid Categoria categoria, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			return "/funcionario/cadastrarCategoria";
+			return "/cadastrar-categoria";
 		}
-		Categoria c = service.buscarNomeDaCategoria(categoria.getNome());
+		Categoria c = categoriaService.buscarNomeDaCategoria(categoria.getNome());
 		if (c != null) {
 			model.addAttribute("categoriaExiste", "Categoria já existente, por favor coloque um nome diferente");
-			return "/funcionario/cadastrarCategoria";
+			return "/cadastrar-categoria";
 		}
-		service.cadastrarCategoria(categoria);
+		categoriaService.cadastrarCategoria(categoria);
 		redirect.addFlashAttribute("mensagem", "Categoria adicionada com sucesso!");
 		return "redirect:/categoria/salvar";
 	}
 
 	@GetMapping("/listar")
 	public String listarTodasCategorias(Model model) {
-		Iterable<Categoria> categorias = this.service.getCategorias();
+		Iterable<Categoria> categorias = this.categoriaService.getCategorias();
 		model.addAttribute("categorias", categorias);
-		return "/funcionario/consultaCategorias";
+		return "/consulta-categorias";
 	}
 
 	@PostMapping("/buscar")
@@ -59,33 +59,33 @@ public class CategoriaController {
 		if (nome == null) {
 			return "redirect:/categoria/listar";
 		}
-		List<Categoria> categorias = service.filtrarPeloNome(nome);
+		List<Categoria> categorias = categoriaService.filtrarPeloNome(nome);
 		model.addAttribute("categorias", categorias);
-		return "/funcionario/consultaCategorias";
+		return "/consulta-categorias";
 	}
 
 	@GetMapping("/deletar/{id}")
 	public String deletarCategoria(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
-		Categoria categoria = service.findById(id)
+		Categoria categoria = categoriaService.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
 		if (!categoria.getLivro().isEmpty()) {
 			redirect.addFlashAttribute("mensagem", "Categoria vinculada a livro!");
 			return "redirect:/categoria/listar";
 		}
-		this.service.deletarCategoria(categoria);
+		this.categoriaService.deletarCategoria(categoria);
 		model.addAttribute("categoria", categoria);
 		return "redirect:/categoria/listar";
 	}
 
 	@GetMapping("/editar/{id}")
 	public String editarCategoria(@PathVariable("id") Long id, Model model) {
-		Optional<Categoria> categoriaAnterior = this.service.findById(id);
+		Optional<Categoria> categoriaAnterior = this.categoriaService.findById(id);
 		if (!categoriaAnterior.isPresent()) {
 			throw new IllegalArgumentException("Categoria Inválida: " + id);
 		}
 		Categoria categoria = categoriaAnterior.get();
 		model.addAttribute("categoria", categoria);
-		return "/funcionario/editarCategoria";
+		return "/editar-categoria";
 	}
 
 	@PostMapping("/editar/{id}")
@@ -93,14 +93,14 @@ public class CategoriaController {
 			BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			categoria.setId(id);
-			return "/funcionario/editarCategoria";
+			return "/editar-categoria";
 		}
-		Categoria c = service.buscarNomeDaCategoria(categoria.getNome());
+		Categoria c = categoriaService.buscarNomeDaCategoria(categoria.getNome());
 		if (c != null) {
 			model.addAttribute("categoriaExistente", "Categoria já existente, por favor coloque um nome diferente.");
-			return "/funcionario/editarCategoria";
+			return "/editar-categoria";
 		}
-		service.cadastrarCategoria(categoria);
+		categoriaService.cadastrarCategoria(categoria);
 		return "redirect:/categoria/listar";
 	}
 

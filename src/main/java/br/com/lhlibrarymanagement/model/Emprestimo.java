@@ -28,11 +28,11 @@ public class Emprestimo implements Serializable{
 	private LocalDate dataPrevista;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataDevolucao;
-	@NotNull(message = "O campo titulo do livro é obrigatório")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_livro")
 	private Livro livro;
-	@NotNull(message = "O campo nome do membro é obrigatório")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_membro")
 	private Membro membro;

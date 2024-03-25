@@ -6,6 +6,6 @@ import br.com.lhlibrarymanagement.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-	Usuario findByEmail(String login);
+	Usuario findByLogin(String login);
 
 }
