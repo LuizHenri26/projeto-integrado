@@ -13,7 +13,7 @@
 
 <body>
 	<main class="form-signin">
-		<form action="@{/login}">
+		<form th:action="@{/login}" method="post">
 			<img class="mb-4" th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management" width="72"
 				height="57" />
 			<h1 class="h3 mb-3 fw-normal">Login</h1>
@@ -23,13 +23,13 @@
 				</div>
 			</div>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="login" placeholder="nome@example.com" name="username"
+				<input type="text" class="form-control" id="login" placeholder="msousa" name="username"
 					maxlength="80" />
-				<label for="floatingInput">Insira seu E-mail</label>
+				<label for="floatingInput">Insira seu Login</label>
 			</div>
 
 			<div class="form-floating">
-				<input type="senha" class="form-control" id="senha" placeholder="Insira sua senha" name="password"
+				<input type="password" class="form-control" id="senha" placeholder="Insira sua senha" name="password"
 					maxlength="30" />
 				<label for="floatingPassword">Insira sua senha</label>
 			</div>
