@@ -123,6 +123,15 @@ public class UsuarioService implements UserDetailsService {
 
 		return usuarios;
 	}
+	
+	/**
+	 * Deleta o usuario
+	 * 
+	 * @param categoria - entidade usuario
+	 */
+	public void deletarUsuario(Usuario usuario) {
+		usuarioRepository.delete(usuario);
+	}
 
 	@Override
 	@Transactional

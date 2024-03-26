@@ -47,7 +47,7 @@ public class CategoriaService {
 	}
 
 	/**
-	 * Deleta os dados da tabela categoria.
+	 * Deletar categoria.
 	 * 
 	 * @param categoria - entidade categoria
 	 */

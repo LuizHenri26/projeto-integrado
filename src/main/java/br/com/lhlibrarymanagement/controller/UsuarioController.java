@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.lhlibrarymanagement.model.Categoria;
 import br.com.lhlibrarymanagement.model.Usuario;
 import br.com.lhlibrarymanagement.service.PerfilService;
 import br.com.lhlibrarymanagement.service.UsuarioService;
@@ -24,8 +25,6 @@ public class UsuarioController {
 
 	@Autowired
 	public UsuarioService usuarioService;
-	@Autowired
-	public PerfilService perfilService;
 
 	@GetMapping("/salvar")
 	public String adicionarUsuario(Model model) {
@@ -88,6 +87,14 @@ public class UsuarioController {
 			return "/admin/editar-usuario";
 		}
 		usuarioService.editarUsuario(idUsuario);
+		return "redirect:/usuario/listar";
+	}
+	
+	@GetMapping("/deletar/{id}")
+	public String deletarUsuario(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
+		Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+		usuarioService.deletarUsuario(usuario);
+		model.addAttribute("usuario", usuario);
 		return "redirect:/usuario/listar";
 	}
 
