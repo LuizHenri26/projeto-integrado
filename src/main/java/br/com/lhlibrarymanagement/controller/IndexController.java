@@ -24,14 +24,14 @@ public class IndexController {
 	
 	@GetMapping("/login")
 	public String entrar() {
-		return "login";
+		return "/login";
 	}
 	
 	@GetMapping("/listar")
 	public String listarLivros(Model model) {
-		List<Livro> livros = service.getListarLivros();
+		List<Livro> livros = this.service.getListarLivros();
 		model.addAttribute("livros", livros);
-		return "/index";
+		return "/consulta-livros";
 	}
 	
 	@PostMapping("/buscar")
