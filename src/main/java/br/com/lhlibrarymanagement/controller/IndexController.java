@@ -17,33 +17,15 @@ public class IndexController {
 	@Autowired
 	private LivroService service;
 	
-	@GetMapping("/index")
-	public String index() {
-		return "/index";
+	@GetMapping("/")
+	public String index(Model model) {
+		List<Livro> livros = this.service.getListarLivros();
+		model.addAttribute("livros", livros);
+		return "index";
 	}
 	
 	@GetMapping("/login")
 	public String entrar() {
-		return "/login";
+		return "login";
 	}
-	
-	@GetMapping("/listar")
-	public String listarLivros(Model model) {
-		List<Livro> livros = this.service.getListarLivros();
-		model.addAttribute("livros", livros);
-		return "/consulta-livros";
-	}
-	
-	@PostMapping("/buscar")
-	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo, @RequestParam("autor") String autor) {
-		List<Livro> livros;
-		if (titulo.isBlank() && autor.isBlank()) {
-			return "redirect:/listar";
-		} else {
-			livros = service.filtrarLivros(titulo, autor);
-		}
-		model.addAttribute("livros", livros);
-		return "redirect:/listar";
-	}
-
 }

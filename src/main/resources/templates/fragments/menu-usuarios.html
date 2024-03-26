@@ -28,7 +28,7 @@
 					<span>Cadastrar Usuário</span>
 				</a>
 			</li>
-			<li class="sidebar-item" 			th:if="${ #authorization.expression('hasAuthority(''ADMIN'')')}">
+			<li class="sidebar-item" th:if="${ #authorization.expression('hasAuthority(''ADMIN'')')}">
 				<a th:href="@{/usuario/listar}" class="sidebar-link">
 					<i class="lni lni-search-alt"></i>
 					<span>Consulta Usuários</span>

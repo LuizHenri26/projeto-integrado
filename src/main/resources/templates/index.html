@@ -21,29 +21,6 @@
 					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management" /></span>
 					Consulta Livros
 				</h1>
-				<div class="container p-4 mt-2">
-					<div class="row">
-						<div class="col-md-6 bg-light p-4 shadow">
-							<form th:action="@{/buscar}" method="post">
-								<div class="row mb-3">
-									<div class="col">
-										<label for="inputNomeLivro" class="form-label">Titulo do Livro</label>
-										<input type="text" class="form-control" id="inputNome"
-											placeholder="Digite o nome do livro" name="titulo" />
-									</div>
-									<div class="col">
-										<label for="inputAutor" class="form-label">Autor</label>
-										<input type="text" class="form-control" id="inputAutor"
-											placeholder="Digite o nome do autor" name="autor" />
-									</div>
-								</div>
-								<button type="submit" class="btn btn-primary">
-									Procurar
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
 			</section>
 
 			<section class="d-flex container-sm flex-column">
