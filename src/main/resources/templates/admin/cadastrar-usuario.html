@@ -35,7 +35,7 @@
 								<div class="mb-3">
 									<label for="inputNomeUsuario" class="form-label">Nome</label>
 									<input type="text" class="form-control" id="inputNomeUsuario"
-										placeholder="Digite o nome do usuário" th:field="*{nome}" />
+										placeholder="Digite o nome do usuário" name="nome" th:field="*{nome}" />
 									<div class="col">
 										<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
 											th:errors="*{nome}"></span>
@@ -44,16 +44,24 @@
 								<div class="mb-3">
 									<label for="inputLoginUsuario" class="form-label">Login</label>
 									<input type="text" class="form-control" id="inputLoginUsuario"
-										placeholder="Digite o login do usuário" th:field="*{login}" />
+										placeholder="Digite o login do usuário" name="login" th:field="*{login}" />
 									<span class="mensagem" th:if="${#fields.hasErrors('login')}"
 										th:errors="*{login}"></span>
 								</div>
 								<div class="mb-3">
 									<label for="inputSenhaUsuario" class="form-label">Senha</label>
 									<input type="password" class="form-control" id="inputSenhaUsuario"
-										placeholder="Digite a senha do usuário" th:field="*{senha}" />
+										placeholder="Digite a senha do usuário" name="senha" th:field="*{senha}" />
 									<span class="mensagem" th:if="${#fields.hasErrors('senha')}"
 										th:errors="*{senha}"></span>
+								</div>
+								<div class="mb-3">
+									<th:block th:each="perfil : ${listaPerfis}">
+											<input class="form-check-input" type="checkbox"
+												th:value="${perfil.id}" name="pfl"/>
+											<label class="form-check-label" th:text="${perfil.nome}"></label>
+											<br>
+									</th:block>
 								</div>
 								<div>
 									<button type="submit" class="btn btn-primary">

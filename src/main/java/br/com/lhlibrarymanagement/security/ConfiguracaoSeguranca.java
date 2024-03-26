@@ -31,9 +31,10 @@ public class ConfiguracaoSeguranca {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/js/*", "/img/*", "/css/*").permitAll()
 				.requestMatchers("/login", "/index").permitAll()
-				.requestMatchers("/categoria/*", "/livro/*", "/usuario/*").hasAuthority(ADMIN)
-				.requestMatchers("/categoria/*", "/livro/*").hasAuthority(FUNCIONARIO).anyRequest().authenticated())
-				.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/usuario/inicio", true).permitAll())
+				.requestMatchers("/categoria/*", "/livro/*", "/autentica/*").hasAnyAuthority(FUNCIONARIO)
+				.requestMatchers("/categoria/*", "/livro/*", "/usuario/*", "/autentica/*").hasAuthority(ADMIN)
+				.anyRequest().authenticated())
+				.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/autentica/inicio", true).permitAll())
 				.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 						.logoutSuccessUrl("/").deleteCookies("JSESSIONID").permitAll())
 				.exceptionHandling((ex) -> ex.accessDeniedPage("/acesso-negado"));

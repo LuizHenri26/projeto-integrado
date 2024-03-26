@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 	<meta charset="UTF-8" />
@@ -21,13 +22,13 @@
 			</div>
 		</div>
 		<ul class="sidebar-nav">
-			<li class="sidebar-item">
+			<li class="sidebar-item" th:if="${ #authorization.expression('hasAuthority(''ADMIN'')')}">
 				<a th:href="@{/usuario/salvar}" class="sidebar-link">
 					<i class="lni lni-user"></i>
 					<span>Cadastrar Usuário</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
+			<li class="sidebar-item" 			th:if="${ #authorization.expression('hasAuthority(''ADMIN'')')}">
 				<a th:href="@{/usuario/listar}" class="sidebar-link">
 					<i class="lni lni-search-alt"></i>
 					<span>Consulta Usuários</span>

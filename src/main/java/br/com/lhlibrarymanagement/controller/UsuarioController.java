@@ -3,7 +3,6 @@ package br.com.lhlibrarymanagement.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,18 +27,6 @@ public class UsuarioController {
 	@Autowired
 	public PerfilService perfilService;
 
-	@GetMapping("/inicio")
-	public String index(@CurrentSecurityContext(expression = "authentication.name") String login) {
-		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
-		String redirectURL = "";
-		if (usuarioService.isAutoriza(usuario, "ADMIN")) {
-			redirectURL = "redirect:/usuario/listar";
-		} else if (usuarioService.isAutoriza(usuario, "FUCIONARIO")) {
-			redirectURL = "redirect:/categoria/listar";
-		}
-		return redirectURL;
-	}
-
 	@GetMapping("/salvar")
 	public String adicionarUsuario(Model model) {
 		List<Perfil> perfis = perfilService.listarPerfil();
@@ -49,7 +36,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/cadastrar")
-	public String salvarUsuario(@Valid Usuario usuario, // @RequestParam(value = "pps", required = false) int[] perfis,
+	public String salvarUsuario(@Valid Usuario usuario, @RequestParam(value = "pfl", required = false) int[] perfis,
 			BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return "/admin/cadastrar-usuario";
@@ -58,19 +45,18 @@ public class UsuarioController {
 		Usuario usr = usuarioService.buscaUsuarioPorLogin(usuario.getLogin());
 
 		if (usr != null) {
-			model.addAttribute("emailExistente", "Email já cadastrado, por favor insira um E-mail diferente!");
+			model.addAttribute("loginExistente", "Login já cadastrado, por favor insira um Login diferente!");
 			return "/admin/cadastrar-usuario";
 		}
 
-		/*
-		 * if (perfis == null) { attributes.addFlashAttribute("mensage",
-		 * "Pelo menos um perfil deve ser escolhido!"); return
-		 * "/admin/cadastrarUsuario"; }
-		 */
+		if (perfis == null) {
+			attributes.addFlashAttribute("mensage", "Pelo menos um perfil deve ser escolhido!");
+			return "/admin/cadastrar-usuario";
+		}
 
-		// usuarioService.atribuirPerfil(usuario, perfis);
+		usuarioService.atribuirPerfil(usuario, perfis);
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
-		return "redirect:/usuario/novo";
+		return "redirect:/usuario/salvar";
 	}
 
 	@GetMapping("/listar")

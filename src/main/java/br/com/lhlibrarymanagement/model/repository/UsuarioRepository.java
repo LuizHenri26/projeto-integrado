@@ -3,6 +3,8 @@ package br.com.lhlibrarymanagement.model.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import br.com.lhlibrarymanagement.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
@@ -14,5 +16,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	List<Usuario> findByLoginContainingIgnoreCase(String login);
 	
 	List<Usuario> findByNomeAndLoginContainingIgnoreCase(String nome, String login);
+	
+	//Porque foi inserido via script o usuario do sistema
+	@Query(value = "select max(u.id) from usuario u", nativeQuery = true)
+	Usuario MaxId();
 
 }

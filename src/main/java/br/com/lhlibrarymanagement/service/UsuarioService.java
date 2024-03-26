@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Perfil;
@@ -50,7 +51,10 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public void alterarUsuario(Usuario usuario) {
-		usuario.setSenha(usuario.getSenha());
+		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
+	    usuario = usuarioRepository.MaxId();
+	    usuario.setId(usuario.getId() + 1);
+		usuario.setSenha(crypt);
 		usuarioRepository.save(usuario);
 	}
 

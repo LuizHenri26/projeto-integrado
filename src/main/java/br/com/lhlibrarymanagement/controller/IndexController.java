@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import br.com.lhlibrarymanagement.model.Livro;
 import br.com.lhlibrarymanagement.service.LivroService;
@@ -38,7 +37,7 @@ public class IndexController {
 	@PostMapping("/buscar")
 	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo, @RequestParam("autor") String autor) {
 		List<Livro> livros;
-		if (titulo == null && autor == null) {
+		if (titulo.isBlank() && autor.isBlank()) {
 			return "redirect:/listar";
 		} else {
 			livros = service.filtrarLivros(titulo, autor);
