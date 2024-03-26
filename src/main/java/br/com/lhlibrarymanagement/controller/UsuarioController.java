@@ -32,7 +32,7 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
 		String redirectURL = "";
 		if (usuarioService.isAutoriza(usuario, "ADMIN")) {
-			redirectURL = "/admin/cadastrar-usuario";
+			redirectURL = "/admin/consultar-usuarios";
 		} else if (usuarioService.isAutoriza(usuario, "FUCIONARIO")) {
 			redirectURL = "/cadastrar-categoria";
 		}
@@ -70,6 +70,13 @@ public class UsuarioController {
 		//usuarioService.atribuirPerfil(usuario, perfis);
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
 		return "redirect:/usuario/novo";
+	}
+	
+	@GetMapping("/listar")
+	public String consultaUsuarios(Model model) {
+		Iterable<Usuario> usuarios = usuarioService.listarUsuarios();
+		model.addAttribute("usuarios", usuarios);
+		return "/admin/consultar-usuarios";
 	}
 
 }

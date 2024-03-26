@@ -58,7 +58,6 @@
 							<th>Perfil</th>
 							<th>Ação</th>
 						</tr>
-						<tr>
 						<tr th:each="usuario : ${usuarios}">
 							<td th:text="${usuario.nome}"></td>
 							<td th:text="${usuario.login}"></td>
@@ -69,8 +68,9 @@
 								</th:block>
 							</td>
 							<th class="d-flex align-center justify-content-center gap-2">
-								<a href="EditarUsuario.html" data-buttonEdit><img th:src="@{/img/edit.svg}" alt="Logo editar" /></a><a
-									href="./" data-buttonTrash><img src="img/trash.svg" alt="" /></a>
+								<a href="EditarUsuario.html" data-buttonEdit><img th:src="@{/img/edit.svg}"
+										alt="Logo editar" /></a><a href="./" data-buttonTrash><img src="img/trash.svg"
+										alt="" /></a>
 							</th>
 						</tr>
 					</table>
