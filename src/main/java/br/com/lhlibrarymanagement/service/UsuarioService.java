@@ -52,48 +52,48 @@ public class UsuarioService implements UserDetailsService {
 
 	public void alterarUsuario(Usuario usuario) {
 		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
-	    usuario = usuarioRepository.MaxId();
-	    usuario.setId(usuario.getId() + 1);
+		Integer id = usuarioRepository.MaxId();
+		
+		if (id == 1) {
+			usuario.setId(Long.valueOf(id) + 1);
+		}
+		
 		usuario.setSenha(crypt);
 		usuarioRepository.save(usuario);
 	}
 
 	/**
-	 * Atribui Perfis de usuário na tela de cadastro,
+	 * Cadastra os dados do usuario da aplicação.
 	 * 
 	 * @param usuario  - entidade usuário.
 	 * @param idsPefis - identificador dos perfis habilitados.
 	 */
-	public void atribuirPerfil(Usuario usuario, int[] idsPefis) {
+	public void cadastrarUsuario(Usuario usuario) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
-		for (int i = 0; i < idsPefis.length; i++) {
-			long idPefil = idsPefis[i];
-			Perfil papel = perfilService.buscarPerfilPorId(idPefil);
-			perfis.add(papel);
-		}
+		long idPefil = 2;
+		Perfil papel = perfilService.buscarPerfilPorId(idPefil);
+		perfis.add(papel);
 		usuario.setPerfis(perfis);
-		usuario.setAtivo(true);
 		alterarUsuario(usuario);
 	}
 
 	/**
-	 * Atribui perfil para o usuário da aplicação, na tela de edição.
+	 * Edita os dados do usuário da aplicação, na tela de edição.
 	 * 
 	 * @param id       - identificador do usuário.
 	 * @param idsPefis - ids de perfis caso mais de um tenha sigo habilitado.
 	 * @param isAtivo  - se o usuário está ativo ou inativo.
 	 */
-	public void atribuirPerfilParaUsuario(Long id, int[] idsPefis, boolean isAtivo) {
+	public void editarUsuario(Long id) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
-		for (int i = 0; i < idsPefis.length; i++) {
-			long idPefil = idsPefis[i];
-			Perfil papel = perfilService.buscarPerfilPorId(idPefil);
-			perfis.add(papel);
-		}
+		long idPefil = 2;
+		Perfil papel = perfilService.buscarPerfilPorId(idPefil);
+		perfis.add(papel);
 		Usuario usuario = buscarUsuarioPorId(id);
+		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
+		usuario.setSenha(crypt);
 		usuario.setPerfis(perfis);
-		usuario.setAtivo(isAtivo);
-		alterarUsuario(usuario);
+		usuarioRepository.save(usuario);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class UsuarioService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository.findByLogin(username);
 
-		if (usuario != null && usuario.isAtivo()) {
+		if (usuario != null) {
 			DetalheUsuario detalheUsuario = new DetalheUsuario(usuario);
 			return detalheUsuario;
 

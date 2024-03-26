@@ -31,8 +31,8 @@ public class ConfiguracaoSeguranca {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/js/*", "/img/*", "/css/*").permitAll()
 				.requestMatchers("/login", "/index").permitAll()
-				.requestMatchers("/categoria/*", "/livro/*", "/autentica/*").hasAnyAuthority(FUNCIONARIO)
-				.requestMatchers("/categoria/*", "/livro/*", "/usuario/*", "/autentica/*").hasAuthority(ADMIN)
+				.requestMatchers("/categoria/*", "/livro/*", "/autentica/*").hasAnyAuthority(FUNCIONARIO, ADMIN)
+				.requestMatchers("/usuario/*").hasAuthority(ADMIN)
 				.anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/autentica/inicio", true).permitAll())
 				.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

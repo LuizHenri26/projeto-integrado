@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.lhlibrarymanagement.model.Perfil;
 import br.com.lhlibrarymanagement.model.Usuario;
 import br.com.lhlibrarymanagement.service.PerfilService;
 import br.com.lhlibrarymanagement.service.UsuarioService;
@@ -29,15 +29,13 @@ public class UsuarioController {
 
 	@GetMapping("/salvar")
 	public String adicionarUsuario(Model model) {
-		List<Perfil> perfis = perfilService.listarPerfil();
-		model.addAttribute("listaPerfis", perfis);
 		model.addAttribute("usuario", new Usuario());
 		return "/admin/cadastrar-usuario";
 	}
 
 	@PostMapping("/cadastrar")
-	public String salvarUsuario(@Valid Usuario usuario, @RequestParam(value = "pfl", required = false) int[] perfis,
-			BindingResult result, Model model, RedirectAttributes attributes) {
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, Model model,
+			RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return "/admin/cadastrar-usuario";
 		}
@@ -49,13 +47,8 @@ public class UsuarioController {
 			return "/admin/cadastrar-usuario";
 		}
 
-		if (perfis == null) {
-			attributes.addFlashAttribute("mensage", "Pelo menos um perfil deve ser escolhido!");
-			return "/admin/cadastrar-usuario";
-		}
-
-		usuarioService.atribuirPerfil(usuario, perfis);
-		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
+		usuarioService.cadastrarUsuario(usuario);
+		attributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
 		return "redirect:/usuario/salvar";
 	}
 
@@ -77,6 +70,25 @@ public class UsuarioController {
 		}
 		model.addAttribute("usuarios", usuarios);
 		return "/admin/consultar-usuarios";
+	}
+
+	@GetMapping("/editar/{id}")
+	public String editarUsuario(@PathVariable("id") long id, Model model) {
+		Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+		model.addAttribute("usuario", usuario);
+		return "/admin/editar-usuario";
+	}
+
+	@PostMapping("/editar/{id}")
+	public String atribuirPefilAoUsuario(@PathVariable("id") long idUsuario,
+			@RequestParam(value = "pfl", required = false) int[] pfl, Usuario usuario, RedirectAttributes attributes,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			usuario.setId(idUsuario);
+			return "/admin/editar-usuario";
+		}
+		usuarioService.editarUsuario(idUsuario);
+		return "redirect:/usuario/listar";
 	}
 
 }

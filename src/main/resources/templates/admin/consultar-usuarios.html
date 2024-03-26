@@ -54,23 +54,20 @@
 						<tr class="table-blue table-active text-uppercase">
 							<th>Nome</th>
 							<th>Login</th>
-							<th>Ativo</th>
 							<th>Perfil</th>
 							<th>Ação</th>
 						</tr>
 						<tr th:each="usuario : ${usuarios}">
 							<td th:text="${usuario.nome}"></td>
 							<td th:text="${usuario.login}"></td>
-							<td th:text="${usuario.ativo} ? 'ATIVO' : 'NÃO ATIVO'"></td>
 							<td>
 								<th:block th:each="perfil : ${usuario.perfis}">
 									<span th:text="${perfil.nome}"></span><br />
 								</th:block>
 							</td>
 							<th class="d-flex align-center justify-content-center gap-2">
-								<a href="EditarUsuario.html" data-buttonEdit><img th:src="@{/img/edit.svg}"
-										alt="Logo editar" /></a><a href="./" data-buttonTrash><img src="img/trash.svg"
-										alt="" /></a>
+								<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" data-buttonEdit><img
+										th:src="@{/img/edit.svg}" alt="Logo editar" /></a>
 							</th>
 						</tr>
 					</table>

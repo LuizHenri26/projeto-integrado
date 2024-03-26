@@ -19,6 +19,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	//Porque foi inserido via script o usuario do sistema
 	@Query(value = "select max(u.id) from usuario u", nativeQuery = true)
-	Usuario MaxId();
+	Integer MaxId();
+	
+	@Query(value = "select * from usuario u where u.login <> 'admin'", nativeQuery = true)
+	List<Usuario> findAll();
 
 }

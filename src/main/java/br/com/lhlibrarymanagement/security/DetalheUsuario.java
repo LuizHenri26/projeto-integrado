@@ -13,7 +13,7 @@ import br.com.lhlibrarymanagement.model.Perfil;
 import br.com.lhlibrarymanagement.model.Usuario;
 
 public class DetalheUsuario implements UserDetails, Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 
@@ -61,7 +61,7 @@ public class DetalheUsuario implements UserDetails, Serializable {
 
 	@Override
 	public boolean isEnabled() {
-		return usuario.isAtivo();
+		return true;
 	}
 
 	public String getNome() {

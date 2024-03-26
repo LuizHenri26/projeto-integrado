@@ -21,7 +21,7 @@ import lombok.Data;
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,10 +30,9 @@ public class Usuario implements Serializable {
 	private String nome;
 	@NotBlank(message = "O campo login do usuário é obrigatório!")
 	private String login;
-	@NotEmpty(message = "O campo senha é obrigatório!")
-	@Size(min = 6, message = "A senha deve conter no minímo 8 digitos.")
+	@NotBlank(message = "O campo senha é obrigatório!")
+	@Size(min = 6, message = "A senha deve conter no minímo 6 digitos.")
 	private String senha;
-	private boolean ativo;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private List<Perfil> perfis;
