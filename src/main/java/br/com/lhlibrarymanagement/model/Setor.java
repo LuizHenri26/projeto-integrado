@@ -3,6 +3,7 @@ package br.com.lhlibrarymanagement.model;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class Setor implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "O campo nome do setor é obrigatório")
+	@Column(nullable = true, length = 65)
 	private String nome;
 	@OneToMany(mappedBy = "setor")
 	private List<Livro> livro;

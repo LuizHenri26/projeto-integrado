@@ -66,8 +66,10 @@
 								</th:block>
 							</td>
 							<th class="d-flex align-center justify-content-center gap-2">
-								<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" data-buttonEdit><img
-										th:src="@{/img/edit.svg}" alt="Logo editar" /></a>
+								<a th:href="@{/usuario/deletar/{id}(id=${usuario.id})}"
+									th:data-confirm-delete="|Você deseja deletar o usuario ${usuario.nome}?|"
+									onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+									data-buttonTrash><img th:src="@{/img/trash.svg}" alt=""></a>
 							</th>
 						</tr>
 					</table>

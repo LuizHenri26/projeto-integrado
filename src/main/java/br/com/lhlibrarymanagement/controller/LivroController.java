@@ -44,17 +44,13 @@ public class LivroController {
 			List<Setor> filtroSetores = service.getSetores();
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
+			model.addAttribute("mensagemCategoriaVazia", "ISBN já cadastrado, por favor coloque um valor diferente");
 			return "/cadastrar-livro";
 		}
 
 		Livro l = service.findByIsbn(livro.getIsbn());
 		if (l != null) {
 			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
-			return "/cadastrar-livro";
-		}
-
-		if (livro.getCategoria().getId() == null && livro.getCategoria().getNome() == null) {
-			redirect.addFlashAttribute("mensagemCategoriaVazia", "Preencher o campo categoria!");
 			return "/cadastrar-livro";
 		}
 

@@ -42,6 +42,8 @@
 											<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"
 												th:text="${categoria.nome}">
 											</option>
+											<span class="mensagem" th:if="${mensagemCategoriaVazia}"
+												th:text="${mensagemCategoriaVazia}"></span>
 										</select>
 									</div>
 									<div class="mb-3">

@@ -2,6 +2,7 @@ package br.com.lhlibrarymanagement.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,8 +19,11 @@ public class Contato implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = true, length = 30)
 	private String numeroTelefone;
+	@Column(nullable = true, length = 30)
 	private String numeroCelular;
+	@Column(nullable = true, length = 65)
 	private String email;
 	@OneToOne(mappedBy = "contato")
 	private Membro membro;

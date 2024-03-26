@@ -71,25 +71,6 @@ public class UsuarioController {
 		return "/admin/consultar-usuarios";
 	}
 
-	@GetMapping("/editar/{id}")
-	public String editarUsuario(@PathVariable("id") long id, Model model) {
-		Usuario usuario = usuarioService.buscarUsuarioPorId(id);
-		model.addAttribute("usuario", usuario);
-		return "/admin/editar-usuario";
-	}
-
-	@PostMapping("/editar/{id}")
-	public String atribuirPefilAoUsuario(@PathVariable("id") long idUsuario,
-			@RequestParam(value = "pfl", required = false) int[] pfl, Usuario usuario, RedirectAttributes attributes,
-			BindingResult result) {
-		if (result.hasErrors()) {
-			usuario.setId(idUsuario);
-			return "/admin/editar-usuario";
-		}
-		usuarioService.editarUsuario(idUsuario);
-		return "redirect:/usuario/listar";
-	}
-	
 	@GetMapping("/deletar/{id}")
 	public String deletarUsuario(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Usuario usuario = usuarioService.buscarUsuarioPorId(id);

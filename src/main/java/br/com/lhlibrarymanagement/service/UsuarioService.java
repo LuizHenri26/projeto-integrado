@@ -55,7 +55,8 @@ public class UsuarioService implements UserDetailsService {
 		Integer id = usuarioRepository.MaxId();
 		
 		if (id == 1) {
-			usuario.setId(Long.valueOf(id) + 1);
+			Long vlrId = Long.valueOf(id) + 1;
+			usuario.setId(vlrId);
 		}
 		
 		usuario.setSenha(crypt);
@@ -90,8 +91,6 @@ public class UsuarioService implements UserDetailsService {
 		Perfil papel = perfilService.buscarPerfilPorId(idPefil);
 		perfis.add(papel);
 		Usuario usuario = buscarUsuarioPorId(id);
-		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
-		usuario.setSenha(crypt);
 		usuario.setPerfis(perfis);
 		usuarioRepository.save(usuario);
 	}

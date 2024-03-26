@@ -3,6 +3,7 @@ package br.com.lhlibrarymanagement.model;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,11 +28,14 @@ public class Usuario implements Serializable {
 	private Long id;
 	@NotBlank(message = "O campo nome é obrigatório!")
 	@Size(min = 2, max = 65, message = "O nome deve conter entre 2 a 65 caracteres")
+	@Column(nullable = true, length = 65)
 	private String nome;
 	@NotBlank(message = "O campo login do usuário é obrigatório!")
+	@Column(nullable = true, length = 65)
 	private String login;
 	@NotBlank(message = "O campo senha é obrigatório!")
 	@Size(min = 6, message = "A senha deve conter no minímo 6 digitos.")
+	@Column(nullable = true, length = 30)
 	private String senha;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_perfil"))
