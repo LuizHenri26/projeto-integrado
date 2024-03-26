@@ -39,14 +39,15 @@
 								<div class="mb-3">
 									<label for="inputNomeUsuario" class="form-label">Nome</label>
 									<input type="text" class="form-control" id="inputNomeUsuario"
-										placeholder="Digite o nome do usuário" name="nome" th:field="*{nome}" />
-									<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
+										placeholder="Digite o nome do usuário" name="nome" th:field="*{nome}"
+										maxlength="65" /> <span class="mensagem" th:if="${#fields.hasErrors('nome')}"
 										th:errors="*{nome}"></span>
 								</div>
 								<div class="mb-3">
 									<label for="inputLoginUsuario" class="form-label">Login</label>
 									<input type="text" class="form-control" id="inputLoginUsuario"
-										placeholder="Digite o login do usuário" name="login" th:field="*{login}" />
+										placeholder="Digite o login do usuário" name="login" th:field="*{login}"
+										maxlength="65" />
 									<span class="mensagem" th:if="${#fields.hasErrors('login')}"
 										th:errors="*{login}"></span>
 									<span class="mensagem" th:if="${loginExistente}" th:text="${loginExistente}"></span>
@@ -54,7 +55,8 @@
 								<div class="mb-3">
 									<label for="inputSenhaUsuario" class="form-label">Senha</label>
 									<input type="password" class="form-control" id="inputSenhaUsuario"
-										placeholder="Digite a senha do usuário" name="senha" th:field="*{senha}" />
+										placeholder="Digite a senha do usuário" name="senha" th:field="*{senha}"
+										maxlength="30" />
 									<span class="mensagem" th:if="${#fields.hasErrors('senha')}"
 										th:errors="*{senha}"></span>
 								</div>

@@ -74,7 +74,7 @@ public class LivroService {
 				livro = livroRepository.findByTituloContainingIgnoreCase(titulo);
 			}
 			if (!autor.isBlank()) {
-				livro = livroRepository.findByAutorContainingIgnoreCase(titulo);
+				livro = livroRepository.findByAutorContainingIgnoreCase(autor);
 			}
 		}
 

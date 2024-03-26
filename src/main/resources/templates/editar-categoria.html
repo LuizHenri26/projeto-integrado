@@ -40,7 +40,8 @@
 									<div class="col-9">
 										<label for="inputNome" class="form-label">Nome da Categoria *</label>
 										<input type="text" class="form-control" id="inputCategoria"
-											placeholder="Digite o nome da categoria" name="nome" th:field="*{nome}">
+											placeholder="Digite o nome da categoria" name="nome" th:field="*{nome}" 
+											maxlength="65">
 									</div>
 									<div class="col-sm-15">
 										<span class="mensagem" th:if="${#fields.hasErrors('nome')}"

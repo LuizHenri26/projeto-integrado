@@ -42,15 +42,13 @@
 											<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"
 												th:text="${categoria.nome}">
 											</option>
-											<span class="mensagem" th:if="${mensagemCategoriaVazia}"
-												th:text="${mensagemCategoriaVazia}"></span>
 										</select>
 									</div>
 									<div class="mb-3">
 										<label for="inputTitulo" class="form-label">Título do Livro *</label>
 										<input type="text" class="form-control" id="inputTitulo"
 											placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
-											maxlength="60" />
+											maxlength="65" />
 										<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
 											th:errors="*{titulo}"></span>
 									</div>
@@ -70,7 +68,7 @@
 												<label for="inputAutor" class="form-label">Autor *</label>
 												<input type="text" class="form-control" id="inputAutor"
 													placeholder="Digite o nome do autor" th:field="*{autor}"
-													name="autor" maxlength="60" />
+													name="autor" maxlength="65" />
 												<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
 													th:errors="*{autor}"></span>
 											</div>
@@ -89,7 +87,7 @@
 												<label for="inputEditora" class="form-label">Nome da Editora *</label>
 												<input type="text" class="form-control" id="inputEditora"
 													placeholder="Digite o nome da editora" th:field="*{editora}"
-													name="editora" maxlength="60" />
+													name="editora" maxlength="65" />
 												<span class="mensagem" th:if="${#fields.hasErrors('editora')}"
 													th:errors="*{editora}"></span>
 											</div>
