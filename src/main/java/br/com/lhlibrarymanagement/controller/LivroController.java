@@ -75,7 +75,7 @@ public class LivroController {
 	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo,
 			@RequestParam("autor") String autor) {
 		List<Livro> livros;
-		if (titulo == null && autor == null) {
+		if (titulo.isBlank() && autor.isBlank()) {
 			return "redirect:/livro/listar";
 		} else {
 			livros = service.filtrarLivros(titulo, autor);

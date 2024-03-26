@@ -56,7 +56,7 @@ public class CategoriaController {
 
 	@PostMapping("/buscar")
 	public String pesquisarPeloNomeDaCategoria(Model model, @RequestParam("nome") String nome) {
-		if (nome == null) {
+		if (nome.isBlank()) {
 			return "redirect:/categoria/listar";
 		}
 		List<Categoria> categorias = categoriaService.filtrarPeloNome(nome);

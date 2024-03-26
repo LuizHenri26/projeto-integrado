@@ -64,7 +64,7 @@
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a th:href="@{/logout}" class="sidebar-link">
+				<a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="sidebar-link">
 					<i class="lni lni-power-switch"></i>
 					<span>Sair</span>
 				</a>

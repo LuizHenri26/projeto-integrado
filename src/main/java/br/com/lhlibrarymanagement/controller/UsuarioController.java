@@ -10,8 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.lhlibrarymanagement.model.Categoria;
 import br.com.lhlibrarymanagement.model.Perfil;
 import br.com.lhlibrarymanagement.model.Usuario;
 import br.com.lhlibrarymanagement.service.PerfilService;
@@ -32,9 +34,9 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
 		String redirectURL = "";
 		if (usuarioService.isAutoriza(usuario, "ADMIN")) {
-			redirectURL = "/admin/consultar-usuarios";
+			redirectURL = "redirect:/usuario/listar";
 		} else if (usuarioService.isAutoriza(usuario, "FUCIONARIO")) {
-			redirectURL = "/cadastrar-categoria";
+			redirectURL = "redirect:/categoria/listar";
 		}
 		return redirectURL;
 	}
@@ -48,7 +50,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/salvar")
-	public String salvarUsuario(@Valid Usuario usuario,// @RequestParam(value = "pps", required = false) int[] perfis,
+	public String salvarUsuario(@Valid Usuario usuario, // @RequestParam(value = "pps", required = false) int[] perfis,
 			BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return "/admin/cadastrar-usuario";
@@ -66,15 +68,28 @@ public class UsuarioController {
 		 * "Pelo menos um perfil deve ser escolhido!"); return
 		 * "/admin/cadastrarUsuario"; }
 		 */
-		
-		//usuarioService.atribuirPerfil(usuario, perfis);
+
+		// usuarioService.atribuirPerfil(usuario, perfis);
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
 		return "redirect:/usuario/novo";
 	}
-	
+
 	@GetMapping("/listar")
 	public String consultaUsuarios(Model model) {
 		Iterable<Usuario> usuarios = usuarioService.listarUsuarios();
+		model.addAttribute("usuarios", usuarios);
+		return "/admin/consultar-usuarios";
+	}
+
+	@PostMapping("/buscar")
+	public String pesquisarPeloFiltroNomeLoginUsuario(Model model, @RequestParam("nome") String nome,
+			@RequestParam("login") String login) {
+		List<Usuario> usuarios;
+		if (nome.isBlank() && login.isBlank()) {
+			return "redirect:/usuario/listar";
+		} else {
+			usuarios = usuarioService.filtrarUsuarios(nome, login);
+		}
 		model.addAttribute("usuarios", usuarios);
 		return "/admin/consultar-usuarios";
 	}

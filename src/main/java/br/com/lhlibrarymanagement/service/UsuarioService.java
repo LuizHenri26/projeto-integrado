@@ -104,6 +104,22 @@ public class UsuarioService implements UserDetailsService {
 		return false;
 	}
 
+	public List<Usuario> filtrarUsuarios(String nome, String login) {
+		List<Usuario> usuarios = null;
+
+		if (!nome.isBlank() && !login.isBlank()) {
+			usuarios = usuarioRepository.findByNomeAndLoginContainingIgnoreCase(nome, login);
+		}
+		if (!nome.isBlank()) {
+			usuarios = usuarioRepository.findByNomeContainingIgnoreCase(nome);
+		}
+		if (!login.isBlank()) {
+			usuarios = usuarioRepository.findByLoginContainingIgnoreCase(login);
+		}
+
+		return usuarios;
+	}
+
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
