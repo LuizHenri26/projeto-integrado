@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.lhlibrarymanagement.model.Categoria;
 import br.com.lhlibrarymanagement.model.Perfil;
 import br.com.lhlibrarymanagement.model.Usuario;
 import br.com.lhlibrarymanagement.service.PerfilService;
@@ -41,15 +40,15 @@ public class UsuarioController {
 		return redirectURL;
 	}
 
-	@GetMapping("/novo")
+	@GetMapping("/salvar")
 	public String adicionarUsuario(Model model) {
-		List<Perfil> perfis = perfilService.listarPapel();
+		List<Perfil> perfis = perfilService.listarPerfil();
 		model.addAttribute("listaPerfis", perfis);
 		model.addAttribute("usuario", new Usuario());
 		return "/admin/cadastrar-usuario";
 	}
 
-	@PostMapping("/salvar")
+	@PostMapping("/cadastrar")
 	public String salvarUsuario(@Valid Usuario usuario, // @RequestParam(value = "pps", required = false) int[] perfis,
 			BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {

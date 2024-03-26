@@ -31,7 +31,7 @@
 				<div class="container p-4 mt-2">
 					<div class="row">
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
-							<form th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
+							<form th:action="@{/usuario/cadastrar}" th:object="${usuario}" method="post">
 								<div class="mb-3">
 									<label for="inputNomeUsuario" class="form-label">Nome</label>
 									<input type="text" class="form-control" id="inputNomeUsuario"
@@ -42,18 +42,11 @@
 									</div>
 								</div>
 								<div class="mb-3">
-									<label for="inputEmailUsuario" class="form-label">Email</label>
-									<input type="text" class="form-control" id="inputEmailUsuario"
-										placeholder="Digite o e-mail do usuário" th:field="*{email}" />
-									<span class="mensagem" th:if="${#fields.hasErrors('email')}"
-										th:errors="*{email}"></span>
-								</div>
-								<div class="mb-3">
-									<label for="inputSenhaUsuario" class="form-label">Senha</label>
-									<input type="password" class="form-control" id="inputSenhaUsuario"
-										placeholder="Digite a senha do usuário" th:field="*{senha}" />
-									<span class="mensagem" th:if="${#fields.hasErrors('senha')}"
-										th:errors="*{senha}"></span>
+									<label for="inputLoginUsuario" class="form-label">Login</label>
+									<input type="text" class="form-control" id="inputLoginUsuario"
+										placeholder="Digite o login do usuário" th:field="*{login}" />
+									<span class="mensagem" th:if="${#fields.hasErrors('login')}"
+										th:errors="*{login}"></span>
 								</div>
 								<div class="mb-3">
 									<label for="inputSenhaUsuario" class="form-label">Senha</label>
@@ -67,8 +60,9 @@
 										Cadastrar
 									</button>
 								</div>
+							</form>
 						</div>
-						</form>
+
 					</div>
 				</div>
 		</div>

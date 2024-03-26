@@ -29,7 +29,7 @@ public class PerfilService {
 		return perfil;
 	}
 	
-	public List<Perfil> listarPapel() {
+	public List<Perfil> listarPerfil() {
 		List<Perfil> papeis = perfilRepository.findAll();
 		return papeis;
 	}
