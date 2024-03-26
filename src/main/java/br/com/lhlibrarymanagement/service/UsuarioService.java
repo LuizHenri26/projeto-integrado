@@ -5,14 +5,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Perfil;
 import br.com.lhlibrarymanagement.model.Usuario;
 import br.com.lhlibrarymanagement.model.repository.UsuarioRepository;
+import br.com.lhlibrarymanagement.security.DetalheUsuario;
+import jakarta.transaction.Transactional;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -97,6 +102,20 @@ public class UsuarioService {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario usuario = usuarioRepository.findByLogin(username);
+
+		if (usuario != null && usuario.isAtivo()) {
+			DetalheUsuario detalheUsuario = new DetalheUsuario(usuario);
+			return detalheUsuario;
+
+		} else {
+			throw new UsernameNotFoundException("Usuário não encontrado");
+		}
 	}
 
 }
