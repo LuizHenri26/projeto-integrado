@@ -21,7 +21,7 @@ public class Perfil implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = true, length = 30)
+	@Column(nullable = false, length = 30)
 	private String nome;
 	@ManyToMany(mappedBy = "perfis", fetch = FetchType.EAGER)
 	private List<Usuario> usuarios;

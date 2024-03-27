@@ -22,7 +22,7 @@ public class Setor implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "O campo nome do setor é obrigatório")
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String nome;
 	@OneToMany(mappedBy = "setor")
 	private List<Livro> livro;

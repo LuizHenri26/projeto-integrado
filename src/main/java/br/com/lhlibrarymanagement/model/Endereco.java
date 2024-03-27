@@ -19,17 +19,17 @@ public class Endereco implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String logradouro;
-	@Column(nullable = true, length = 30)
+	@Column(nullable = false, length = 30)
 	private String numero;
-	@Column(nullable = true, length = 8)
+	@Column(nullable = false, length = 8)
 	private String cep;
-	@Column(nullable = true, length = 30)
+	@Column(nullable = false, length = 30)
 	private String complemento;
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String cidade;
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String estado;
 	@OneToOne(mappedBy = "endereco")
 	private Membro membro;

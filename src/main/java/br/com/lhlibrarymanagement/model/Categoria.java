@@ -22,7 +22,7 @@ public class Categoria implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "O campo nome da categoria é obrigatório.")
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String nome;
 	@OneToMany(mappedBy = "categoria")
 	private List<Livro> livro;

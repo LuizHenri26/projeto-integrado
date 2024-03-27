@@ -25,20 +25,20 @@ public class Livro implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "O campo titulo do livro é obrigatório.")
-	@Column(nullable = true, length = 30)
+	@Column(nullable = false, length = 30)
 	private String titulo;
 	@NotBlank(message = "O campo ISBN do livro é obrigatório.")
-	@Column(nullable = true, length = 14)
+	@Column(nullable = false, length = 14)
 	private String isbn;
 	@NotBlank(message = "O campo nome do autor é obrigatório.")
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String autor;
 	@NotNull(message = "O campo numero de paginas é obrigatório.")
 	private Integer numeroPaginas;
 	@NotBlank(message = "O campo nome da editora é obrigatório.")
-	@Column(nullable = true, length = 65)
+	@Column(nullable = false, length = 65)
 	private String editora;
-	@Column(nullable = true, length = 30)
+	@Column(nullable = false, length = 30)
 	private String status;
 	@NotNull
 	@ManyToOne

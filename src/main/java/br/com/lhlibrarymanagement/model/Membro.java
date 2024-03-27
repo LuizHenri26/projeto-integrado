@@ -22,12 +22,12 @@ public class Membro implements Serializable{
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
-	 @Column(nullable = true, length = 65)
+	 @Column(nullable = false, length = 65)
 	 private String nome;
 	 private LocalDate dataNascimento;
-	 @Column(nullable = true, length = 11)
+	 @Column(nullable = false, length = 11)
 	 private String cpf;
-	 @Column(nullable = true, length = 20)
+	 @Column(nullable = false, length = 20)
 	 private String sexo;
 	 @OneToOne(cascade={CascadeType.ALL})
 	 @JoinColumn(name="id_carteirinha")
