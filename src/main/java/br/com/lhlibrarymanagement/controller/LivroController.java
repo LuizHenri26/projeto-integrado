@@ -56,7 +56,7 @@ public class LivroController {
 
 		livro.setStatus("Disponivel");
 		service.cadastraLivro(livro);
-		redirect.addFlashAttribute("mensagem", "Livro adicionado com sucesso!");
+		redirect.addFlashAttribute("mensagem", "Livro cadastrado com sucesso!");
 		return "redirect:/livro/salvar";
 	}
 

@@ -43,7 +43,7 @@ public class CategoriaController {
 			return "/cadastrar-categoria";
 		}
 		categoriaService.cadastrarCategoria(categoria);
-		redirect.addFlashAttribute("mensagem", "Categoria adicionada com sucesso!");
+		redirect.addFlashAttribute("mensagem", "Categoria cadastrada com sucesso!");
 		return "redirect:/categoria/salvar";
 	}
 

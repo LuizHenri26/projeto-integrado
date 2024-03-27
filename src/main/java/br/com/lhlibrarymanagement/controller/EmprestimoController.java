@@ -45,7 +45,7 @@ public class EmprestimoController {
 			return "/registrar-emprestimo";
 		}
 		service.registrarEmprestimo(emprestimo);
-		redirect.addFlashAttribute("mensagem", "Emprestimo Efetuado com sucesso!");
+		redirect.addFlashAttribute("mensagem", "Emprestimo efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
 	}
 

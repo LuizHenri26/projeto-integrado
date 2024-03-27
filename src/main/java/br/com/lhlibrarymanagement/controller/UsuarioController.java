@@ -40,7 +40,7 @@ public class UsuarioController {
 		Usuario usr = usuarioService.buscaUsuarioPorLogin(usuario.getLogin());
 
 		if (usr != null) {
-			model.addAttribute("loginExistente", "Login já cadastrado, por favor insira um Login diferente!");
+			model.addAttribute("loginExistente", "Login já cadastrado, por favor insira um login diferente!");
 			return "/admin/cadastrar-usuario";
 		}
 
