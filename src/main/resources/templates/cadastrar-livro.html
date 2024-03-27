@@ -29,7 +29,7 @@
 				<section class="d-block">
 					<h1 class="m-3 fs-1 roboto-bold">
 						<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management" /></span>
-						Cadastrar Livro
+						Cadastrar Livros
 					</h1>
 					<div class="container p-4 mt-2">
 						<div class="row">
@@ -63,6 +63,7 @@
 											<span class="mensagem" th:if="${isbnExistente}"
 												th:text="${isbnExistente}"></span>
 										</div>
+									</div>	
 										<div class="row mb-3">
 											<div class="col">
 												<label for="inputAutor" class="form-label">Autor *</label>
