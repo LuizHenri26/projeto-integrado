@@ -29,7 +29,7 @@ public class ConfiguracaoSeguranca {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/js/*", "/img/*", "/css/*").permitAll()
+		http.csrf().disable().authorizeHttpRequests((authorize) -> authorize.requestMatchers("/js/*", "/img/*", "/css/*").permitAll()
 				.requestMatchers("/").permitAll()
 				.requestMatchers("/login").permitAll()
 				.requestMatchers("/categoria/*", "/livro/*", "/autentica/*").hasAnyAuthority(FUNCIONARIO, ADMIN)
