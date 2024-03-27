@@ -32,6 +32,7 @@ public class Usuario implements Serializable {
 	private String nome;
 	@NotBlank(message = "O campo login do usuário é obrigatório!")
 	@Column(nullable = true, length = 65)
+	@Size(min = 5, message = "O login deve conter no minímo 5 digitos.")
 	private String login;
 	@NotBlank(message = "O campo senha é obrigatório!")
 	@Size(min = 6, message = "A senha deve conter no minímo 6 digitos.")

@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.lhlibrarymanagement.model.Categoria;
 import br.com.lhlibrarymanagement.model.Usuario;
-import br.com.lhlibrarymanagement.service.PerfilService;
 import br.com.lhlibrarymanagement.service.UsuarioService;
 import jakarta.validation.Valid;
 

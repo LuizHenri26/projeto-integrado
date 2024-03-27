@@ -41,13 +41,6 @@ INSERT INTO SETOR VALUES(36, 'Setor L - Superior');
 INSERT INTO SETOR VALUES(37, 'Setor M - Inferior.');
 INSERT INTO SETOR VALUES(38, 'Setor M - Intermediário.');
 INSERT INTO SETOR VALUES(39, 'Setor M - Superior');
-INSERT INTO CATEGORIA VALUES(1, 'Ação');
-INSERT INTO CATEGORIA VALUES(2, 'Drama');
-INSERT INTO CATEGORIA VALUES(3, 'Contos');
-INSERT INTO CATEGORIA VALUES(4, 'Romance');
-INSERT INTO CATEGORIA VALUES(5, 'Infantil');
-INSERT INTO CATEGORIA VALUES(6, 'Poesia');
-INSERT INTO CATEGORIA VALUES(7, 'Biografias e autobiografias');
 INSERT INTO endereco(id, cep, cidade, complemento, estado, logradouro, numero) 
 VALUES(1, '00000000', 'São paulo', 'cs', 'SP', 'Rua Azuleira', '400');
 INSERT INTO endereco(id, cep, cidade, complemento, estado, logradouro, numero) 
