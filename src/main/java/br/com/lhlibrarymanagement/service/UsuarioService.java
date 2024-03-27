@@ -51,14 +51,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public void alterarUsuario(Usuario usuario) {
-		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
-		Integer id = usuarioRepository.MaxId();
-		
-		if (id == 1) {
-			Long vlrId = Long.valueOf(id) + 1;
-			usuario.setId(vlrId);
-		}
-		
+		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());		
 		usuario.setSenha(crypt);
 		usuarioRepository.save(usuario);
 	}
