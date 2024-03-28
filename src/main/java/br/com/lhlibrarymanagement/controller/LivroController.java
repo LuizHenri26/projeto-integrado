@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,23 +19,22 @@ import br.com.lhlibrarymanagement.service.LivroService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/livro")
 public class LivroController {
 
 	@Autowired
 	private LivroService service;
 
-	@GetMapping("/salvar")
+	@GetMapping("/livro/salvar")
 	public String formCadastrarLivro(Model model) {
 		List<Categoria> filtroCategorias = service.getCategorias();
 		List<Setor> filtroSetores = service.getSetores();
 		model.addAttribute("livro", new Livro());
 		model.addAttribute("categoriasList", filtroCategorias);
 		model.addAttribute("setoresList", filtroSetores);
-		return "/cadastrar-livro";
+		return "cadastrar-livro";
 	}
 
-	@PostMapping("/cadastrar")
+	@PostMapping("/livro/cadastrar")
 	public String adicionarNovoLivro(@Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
@@ -45,13 +43,13 @@ public class LivroController {
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
 			model.addAttribute("mensagemCategoriaVazia", "ISBN já cadastrado, por favor coloque um valor diferente");
-			return "/cadastrar-livro";
+			return "cadastrar-livro";
 		}
 
 		Livro l = service.findByIsbn(livro.getIsbn());
 		if (l != null) {
 			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
-			return "/cadastrar-livro";
+			return "cadastrar-livro";
 		}
 
 		livro.setStatus("Disponivel");
@@ -60,14 +58,14 @@ public class LivroController {
 		return "redirect:/livro/salvar";
 	}
 
-	@GetMapping("/listar")
+	@GetMapping("/livro/listar")
 	public String listarLivros(Model model) {
 		List<Livro> livros = this.service.getListarLivros();
 		model.addAttribute("livros", livros);
-		return "/consulta-livros";
+		return "consulta-livros";
 	}
 
-	@PostMapping("/buscar")
+	@PostMapping("/livro/buscar")
 	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo,
 			@RequestParam("autor") String autor) {
 		List<Livro> livros;
@@ -77,10 +75,10 @@ public class LivroController {
 			livros = service.filtrarLivros(titulo, autor);
 		}
 		model.addAttribute("livros", livros);
-		return "/consulta-livros";
+		return "consulta-livros";
 	}
 
-	@GetMapping("/deletar/{id}")
+	@GetMapping("/livro/deletar/{id}")
 	public String deletarLivro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Livro livro = service.findById(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
 		if (!livro.getEmprestimos().isEmpty()) {
