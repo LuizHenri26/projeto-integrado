@@ -66,13 +66,12 @@ public class LivroController {
 	}
 
 	@PostMapping("/livro/buscar")
-	public String pesquisarPeloTituloAutor(Model model, @RequestParam("titulo") String titulo,
-			@RequestParam("autor") String autor) {
+	public String pesquisarPeloTitulo(Model model, @RequestParam("titulo") String titulo) {
 		List<Livro> livros;
-		if (titulo.isBlank() && autor.isBlank()) {
+		if (titulo.isBlank()) {
 			return "redirect:/livro/listar";
 		} else {
-			livros = service.filtrarLivros(titulo, autor);
+			livros = service.filtrarLivroPeloTitulo(titulo);
 		}
 		model.addAttribute("livros", livros);
 		return "consulta-livros";

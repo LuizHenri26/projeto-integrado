@@ -63,26 +63,9 @@ public class LivroService {
 		livroRepository.delete(livro);
 	}
 
-	public List<Livro> filtrarLivros(String titulo, String autor) {
-
-		List<Livro> livro = null;
-
-		if (isFiltroTituloDoLivroAutorPreenchidos(titulo, autor)) {
-			livro = livroRepository.findByTituloAndAutorContainingIgnoreCase(titulo, autor);
-		} else {
-			if (!titulo.isBlank()) {
-				livro = livroRepository.findByTituloContainingIgnoreCase(titulo);
-			}
-			if (!autor.isBlank()) {
-				livro = livroRepository.findByAutorContainingIgnoreCase(autor);
-			}
-		}
-
+	public List<Livro> filtrarLivroPeloTitulo(String titulo) {
+		List<Livro> livro = livroRepository.findByTituloContainingIgnoreCase(titulo);
 		return livro;
-	}
-
-	public boolean isFiltroTituloDoLivroAutorPreenchidos(String titulo, String autor) {
-		return !titulo.isBlank() && !autor.isBlank();
 	}
 	
 	public Livro findByIsbn(String isbn) {
