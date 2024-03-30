@@ -57,7 +57,7 @@
 											<label for="inputIsbn" class="form-label">ISBN *</label>
 											<input type="text" class="form-control" id="inputIsbn"
 												placeholder="Digite o numero do isbn" th:field="*{isbn}" name="isbn"
-												maxlength="13" />
+												maxlength="14" />
 											<span class="mensagem" th:if="${#fields.hasErrors('isbn')}"
 												th:errors="*{isbn}"></span>
 											<span class="mensagem" th:if="${isbnExistente}"
