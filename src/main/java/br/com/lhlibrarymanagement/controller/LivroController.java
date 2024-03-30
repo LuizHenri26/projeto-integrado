@@ -42,7 +42,6 @@ public class LivroController {
 			List<Setor> filtroSetores = service.getSetores();
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
-			model.addAttribute("mensagemCategoriaVazia", "ISBN já cadastrado, por favor coloque um valor diferente");
 			return "cadastrar-livro";
 		}
 
