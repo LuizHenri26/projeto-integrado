@@ -48,7 +48,7 @@
 										<label for="inputTitulo" class="form-label">Título do Livro *</label>
 										<input type="text" class="form-control" id="inputTitulo"
 											placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
-											maxlength="65" />
+											maxlength="165" />
 										<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
 											th:errors="*{titulo}"></span>
 									</div>

@@ -48,6 +48,10 @@ public class LivroController {
 
 		Livro l = service.findByIsbn(livro.getIsbn());
 		if (l != null) {
+			List<Categoria> filtroCategorias = service.getCategorias();
+			List<Setor> filtroSetores = service.getSetores();
+			model.addAttribute("categoriasList", filtroCategorias);
+			model.addAttribute("setoresList", filtroSetores);
 			model.addAttribute("isbnExistente", "ISBN já cadastrado, por favor coloque um valor diferente");
 			return "cadastrar-livro";
 		}
