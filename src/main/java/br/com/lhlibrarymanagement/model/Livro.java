@@ -28,7 +28,7 @@ public class Livro implements Serializable{
 	@Column(nullable = false, length = 165)
 	private String titulo;
 	@NotBlank(message = "O campo ISBN do livro é obrigatório.")
-	@Column(nullable = false, length = 14)
+	@Column(nullable = false, length = 13)
 	private String isbn;
 	@NotBlank(message = "O campo nome do autor é obrigatório.")
 	@Column(nullable = false, length = 65)
