@@ -24,9 +24,9 @@ public class EmprestimoController {
 
 	@GetMapping("/emprestimo/salvar")
 	public String formCadastrarLivro(Model model) {
-		List<Livro> livros = service.getLivro();
+		List<Livro> livros = service.getLivrosDisponiveis();
 		List<Membro> membros = service.getMembros();
-		model.addAttribute("emprestimo", new Emprestimo());
+		model.addAttribute("emprestimo", service.getNewEmprestimo(new Emprestimo()));
 		model.addAttribute("membros", membros);
 		model.addAttribute("livros", livros);
 		return "registrar-emprestimo";
@@ -36,15 +36,36 @@ public class EmprestimoController {
 	public String adicionarNovoLivro(@Valid Emprestimo emprestimo, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			List<Livro> livros = service.getLivro();
+			List<Livro> livros = service.getLivrosDisponiveis();
 			List<Membro> membros = service.getMembros();
+			model.addAttribute("emprestimo", service.getNewEmprestimo(new Emprestimo()));
 			model.addAttribute("membros", membros);
 			model.addAttribute("livros", livros);
 			return "registrar-emprestimo";
 		}
+		
+		if (emprestimo.getLivro() == null) {
+			List<Livro> livros = service.getLivrosDisponiveis();
+			List<Membro> membros = service.getMembros();
+			model.addAttribute("membros", membros);
+			model.addAttribute("livros", livros);
+			model.addAttribute("emprestimo", service.getNewEmprestimo(new Emprestimo()));
+			model.addAttribute("tituloLivroObrigatorio", "O campo titulo do livro é obrigatório!");
+			return "registrar-emprestimo";
+		}
+		
+		if (emprestimo.getMembro() == null) {
+			List<Livro> livros = service.getLivrosDisponiveis();
+			List<Membro> membros = service.getMembros();
+			model.addAttribute("membros", membros);
+			model.addAttribute("livros", livros);
+			model.addAttribute("emprestimo", service.getNewEmprestimo(new Emprestimo()));
+			model.addAttribute("campoMembroObrigatorio", "O campo membro é obrigatório!");
+			return "registrar-emprestimo";
+		}
+		
 		service.registrarEmprestimo(emprestimo);
 		redirect.addFlashAttribute("mensagem", "Emprestimo efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
 	}
-
 }

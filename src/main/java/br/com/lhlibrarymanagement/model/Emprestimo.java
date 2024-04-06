@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -28,17 +27,10 @@ public class Emprestimo implements Serializable{
 	private LocalDate dataPrevista;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataDevolucao;
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_livro")
 	private Livro livro;
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_membro")
 	private Membro membro;
-	
-	public Emprestimo() {
-		this.dataEmprestimo = LocalDate.now();
-		dataPrevista = LocalDate.now().plusDays(14);
-	}
 }
