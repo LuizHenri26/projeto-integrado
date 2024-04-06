@@ -25,7 +25,7 @@ public class Livro implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "O campo titulo do livro é obrigatório.")
-	@Column(nullable = false, length = 165)
+	@Column(nullable = false, length = 100)
 	private String titulo;
 	@NotBlank(message = "O campo ISBN do livro é obrigatório.")
 	@Column(nullable = false, length = 14)
@@ -40,13 +40,11 @@ public class Livro implements Serializable{
 	private String editora;
 	@Column(nullable = false, length = 30)
 	private String status;
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_categoria")
 	private Categoria categoria;
 	@OneToMany(mappedBy = "livro")
 	private List<Emprestimo> emprestimos;
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_setor")
 	private Setor setor;

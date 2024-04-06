@@ -24,7 +24,7 @@ public class EmprestimoService {
 	private LivroRepository livroRepository;
 	
 	@Autowired
-	EmprestimoRepository emprestimoRepository;
+	private EmprestimoRepository emprestimoRepository;
 	
 	
 	public List<Membro> getMembros() {

@@ -36,19 +36,19 @@
 							<div class="col-md-6 bg-light shadow p-4 mb-5">
 								<form th:action="@{/livro/cadastrar}" method="post" th:object="${livro}">
 									<div class="mb-3">
-										<label for="inputCategoria" class="form-label">Categoria *</label>
-										<select class="form-select" id="inputCategoria" name="categoria">
-											<option value="" selected>Escolha uma categoria</option>
-											<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"
-												th:text="${categoria.nome}">
-											</option>
+										<label for="inputCategoria" class="form-label">Categoria</label>
+										<select class="form-select" id="inputCategoria" th:field="*{categoria}">
+											<th:block th:each="categoria : ${categoriasList}">
+												<option th:value="${categoria.id}" th:text="${categoria.nome}">
+												</option>
+											</th:block>
 										</select>
 									</div>
 									<div class="mb-3">
 										<label for="inputTitulo" class="form-label">Título do Livro *</label>
 										<input type="text" class="form-control" id="inputTitulo"
 											placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
-											maxlength="165" />
+											maxlength="100" />
 										<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
 											th:errors="*{titulo}"></span>
 									</div>
@@ -63,49 +63,49 @@
 											<span class="mensagem" th:if="${isbnExistente}"
 												th:text="${isbnExistente}"></span>
 										</div>
-									</div>	
-										<div class="row mb-3">
-											<div class="col">
-												<label for="inputAutor" class="form-label">Autor *</label>
-												<input type="text" class="form-control" id="inputAutor"
-													placeholder="Digite o nome do autor" th:field="*{autor}"
-													name="autor" maxlength="65" />
-												<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
-													th:errors="*{autor}"></span>
-											</div>
+									</div>
+									<div class="row mb-3">
+										<div class="col">
+											<label for="inputAutor" class="form-label">Autor *</label>
+											<input type="text" class="form-control" id="inputAutor"
+												placeholder="Digite o nome do autor" th:field="*{autor}" name="autor"
+												maxlength="65" />
+											<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
+												th:errors="*{autor}"></span>
 										</div>
-										<div class="row mb-3">
-											<div class="col">
-												<label for="inputNumPaginas" class="form-label">Número de Páginas
-													*</label>
-												<input type="number" class="form-control" id="inputNumPaginas"
-													placeholder="Digite o número de páginas" th:field="*{numeroPaginas}"
-													name="numeroPaginas" />
-												<span class="mensagem" th:if="${#fields.hasErrors('numeroPaginas')}"
-													th:errors="*{numeroPaginas}"></span>
-											</div>
-											<div class="col">
-												<label for="inputEditora" class="form-label">Nome da Editora *</label>
-												<input type="text" class="form-control" id="inputEditora"
-													placeholder="Digite o nome da editora" th:field="*{editora}"
-													name="editora" maxlength="65" />
-												<span class="mensagem" th:if="${#fields.hasErrors('editora')}"
-													th:errors="*{editora}"></span>
-											</div>
+									</div>
+									<div class="row mb-3">
+										<div class="col">
+											<label for="inputNumPaginas" class="form-label">Número de Páginas
+												*</label>
+											<input type="number" class="form-control" id="inputNumPaginas"
+												placeholder="Digite o número de páginas" th:field="*{numeroPaginas}"
+												name="numeroPaginas" />
+											<span class="mensagem" th:if="${#fields.hasErrors('numeroPaginas')}"
+												th:errors="*{numeroPaginas}"></span>
 										</div>
-										<div class="col mb-2">
-											<label for="inputSetorLivro" class="form-label">Setor *</label>
-											<select class="form-select" id="inputSetorLivro" name="setor">
-												<option value="" selected>Escolha um setor</option>
-												<option th:each="setor : ${setoresList}" th:value="${setor.id}"
-													th:text="${setor.nome}"></option>
-											</select>
+										<div class="col">
+											<label for="inputEditora" class="form-label">Nome da Editora *</label>
+											<input type="text" class="form-control" id="inputEditora"
+												placeholder="Digite o nome da editora" th:field="*{editora}"
+												name="editora" maxlength="65" />
+											<span class="mensagem" th:if="${#fields.hasErrors('editora')}"
+												th:errors="*{editora}"></span>
 										</div>
-										<div>
-											<button type="submit" class="btn btn-primary">
-												Cadastrar
-											</button>
-										</div>
+									</div>
+									<div class="col mb-2">
+										<label for="inputSetorLivro" class="form-label">Setor</label>
+										<select class="form-select" id="inputSetorLivro" th:field="*{setor}">
+											<th:block th:each="setor : ${setoresList}">
+												<option th:value="${setor.id}" th:text="${setor.nome}"></option>
+											</th:block>
+										</select>
+									</div>
+									<div>
+										<button type="submit" class="btn btn-primary">
+											Cadastrar
+										</button>
+									</div>
 								</form>
 							</div>
 						</div>

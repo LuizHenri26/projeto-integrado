@@ -17,4 +17,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	List<Categoria> findAllCategoriaOrdenadaPeloId();
 	
 	Categoria findByNome(String nome);
+	
+	@Query(value = "select ct.id, ct.nome from categoria ct", nativeQuery = true)
+	List<Categoria> findAll();
 }
