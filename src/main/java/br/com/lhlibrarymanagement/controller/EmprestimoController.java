@@ -33,16 +33,8 @@ public class EmprestimoController {
 	}
 
 	@PostMapping("/emprestimo/cadastrar")
-	public String adicionarNovoLivro(@Valid Emprestimo emprestimo, BindingResult result, Model model,
+	public String adicionarNovoLivro(Emprestimo emprestimo, BindingResult result, Model model,
 			RedirectAttributes redirect) {
-		if (result.hasErrors()) {
-			List<Livro> livros = service.getLivrosDisponiveis();
-			List<Membro> membros = service.getMembros();
-			model.addAttribute("emprestimo", service.getNewEmprestimo(new Emprestimo()));
-			model.addAttribute("membros", membros);
-			model.addAttribute("livros", livros);
-			return "registrar-emprestimo";
-		}
 		
 		if (emprestimo.getLivro() == null) {
 			List<Livro> livros = service.getLivrosDisponiveis();
