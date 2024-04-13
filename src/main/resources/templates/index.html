@@ -44,20 +44,24 @@
 			<section class="d-flex container-sm flex-column">
 				<div class="table-wrapper">
 					<table
-						class="table table-striped table-responsive table-bordered table-hover text-center container-sm p-4 mt-2">
+						class="table table-bordered table-responsive table-bordered text-center container-sm p-4 mt-2">
 						<tr class="table-blue table-active text-uppercase">
 							<th>Categoria</th>
 							<th>Titulo do Livro</th>
 							<th>Autor</th>
-							<th>Status</th>
+							<th>Editora</th>
+							<th>Idioma</th>
 							<th>Setor</th>
+							<th>Status</th>
 						</tr>
 						<tr th:each="livro : ${livros}">
 							<td th:text="${livro.categoria.nome}"></td>
 							<td th:text="${livro.titulo}"></td>
 							<td th:text="${livro.autor}"></td>
-							<td th:text="${livro.status}"></td>
+							<td th:text="${livro.editora}"></td>
+							<td th:text="${livro.idioma.descricao}"></td>
 							<td th:text="${livro.setor.nome}"></td>
+							<td th:text="${livro.status.descricao}"></td>
 						</tr>
 					</table>
 				</div>

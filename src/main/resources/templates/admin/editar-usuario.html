@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 	<meta charset="UTF-8" />
@@ -10,7 +11,7 @@
 	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script th:href="@{/js/bootstrap.bundle.min.js}"></script>
 
-	<title>Cadastrar Usuário - LH Library Management</title>
+	<title>Editar Usuário - LH Library Management</title>
 </head>
 
 <body>
@@ -23,12 +24,13 @@
 			<section class="d-block">
 				<h1 class="m-3 fs-1 roboto-bold">
 					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management" /></span>
-					Cadastrar Usuários
+					Editar Usuários
 				</h1>
 				<div class="container p-4 mt-2">
 					<div class="row">
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
-							<form th:action="@{/usuario/cadastrar}" th:object="${usuario}" method="post">
+							<form th:action="@{/usuario/editar/{id}(id=${usuario.id})}" th:object="${usuario}"
+								method="post">
 								<div class="mb-3">
 									<label for="inputNomeUsuario" class="form-label">Nome *</label>
 									<input type="text" class="form-control" id="inputNomeUsuario"
@@ -56,22 +58,26 @@
 											th:errors="*{senha}"></span>
 									</div>
 								</div>
-								<div class="row mb-3">
+								<div class="mb-3">
 									<label for="inputPerfisUsuario" class="form-label">Perfis *</label>
-									<div class="col-sm">
-										<th:block th:each="perfil : ${listaPerfis}">
-											<input type="checkbox" class="form-check-input" id="inputPerfilUsuario"
-												name="perfil" th:value="${perfil.id}" />
-											<label for="inputPerfilUsuario" class="form-check-label"
-												th:text="${perfil.nome}"></label>
-											<br>
-										</th:block>
-										<span class="mensagem" th:if="${campoPerfilObrigatorio}"
-											th:text="${campoPerfilObrigatorio}"></span>
-									</div>
+									<br>
+									<th:block th:each="perfil : ${listaPerfis}">
+										<div th:if="${#lists.contains(usuario.perfis, perfil)}" class="form-check">
+											<input class="form-check-input" type="checkbox" name="perfis"
+												th:value="${perfil.id}" checked />
+											<label class="form-check-label" th:text="${perfil.nome}"></label>
+										</div>
+										<div th:unless="${#lists.contains(usuario.perfis, perfil)}" class="form-check">
+											<input class="form-check-input" type="checkbox" name="perfis"
+												th:value="${perfil.id}" />
+											<label class="form-check-label" th:text="${perfil.nome}"></label>
+										</div>
+									</th:block>
+									<span class="mensagem" th:if="${campoPerfilObrigatorio}"
+										th:text="${campoPerfilObrigatorio}"></span>
 								</div>
 								<button type="submit" class="btn btn-primary">
-									Cadastrar
+									Atualizar
 								</button>
 							</form>
 						</div>

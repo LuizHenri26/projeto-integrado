@@ -19,7 +19,7 @@ import br.com.lhlibrarymanagement.service.UsuarioService;
 @EnableWebSecurity
 public class ConfiguracaoSeguranca {
 
-	private static final String ADMIN = "ADMIN";
+	private static final String ADMIN = "ADMINISTRADOR";
 	private static final String FUNCIONARIO = "FUNCIONARIO";
 
 	@Bean
@@ -30,12 +30,10 @@ public class ConfiguracaoSeguranca {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/js/*", "/img/*", "/css/*").permitAll()
-				.requestMatchers("/").permitAll()
-				.requestMatchers("/buscar").permitAll()
-				.requestMatchers("/login").permitAll()
-				.requestMatchers("/categoria/*", "/livro/*", "/autentica/*").hasAnyAuthority(FUNCIONARIO, ADMIN)
-				.requestMatchers("/usuario/*").hasAuthority(ADMIN)
-				.anyRequest().authenticated())
+				.requestMatchers("/").permitAll().requestMatchers("/buscar").permitAll().requestMatchers("/login")
+				.permitAll().requestMatchers("/categoria/*", "/livro/*", "/autentica/*", "/emprestimo/*", "/membro/*")
+				.hasAnyAuthority(FUNCIONARIO, ADMIN).requestMatchers("/usuario/*").hasAuthority(ADMIN).anyRequest()
+				.authenticated())
 				.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/autentica/inicio", true).permitAll())
 				.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 						.logoutSuccessUrl("/").deleteCookies("JSESSIONID").permitAll())

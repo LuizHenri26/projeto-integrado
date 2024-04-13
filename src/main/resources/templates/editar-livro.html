@@ -9,7 +9,7 @@
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<title>Cadastrar Livro - LH Library Management</title>
+	<title>Editar Livro - LH Library Management</title>
 </head>
 
 <body>
@@ -22,27 +22,29 @@
 			<section class="d-block">
 				<h1 class="m-3 fs-1 roboto-bold">
 					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management" /></span>
-					Cadastrar Livros
+					Editar Livros
 				</h1>
 				<div class="container p-4 mt-2">
 					<div class="row">
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
-							<form th:action="@{/livro/cadastrar}" method="post" th:object="${livro}">
-								<div class="mb-3">
-									<label for="inputTitulo" class="form-label">Título do Livro *</label>
-									<input type="text" class="form-control" id="inputTitulo"
-										placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
-										maxlength="100" />
-									<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
-										th:errors="*{titulo}"></span>
+							<form th:action="@{/livro/editar/{id}(id=${livro.id})}" method="post" th:object="${livro}">
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputTitulo" class="form-label">Título do Livro *</label>
+										<input type="text" class="form-control" id="inputTitulo"
+											placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
+											maxlength="100" />
+										<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
+											th:errors="*{titulo}"></span>
+									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputCategoria" class="form-label">Categoria</label>
-										<select class="form-select" id="inputCategoria" name="categoria"
-											th:field="*{categoria.id}">
+										<select class="form-select" id="inputCategoria" name="categoria">
 											<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"
-												th:text="${categoria.nome}">
+												th:text="${categoria.nome}"
+												th:selected="${categoria.id} == ${livro?.categoria?.id}">
 											</option>
 										</select>
 									</div>
@@ -80,20 +82,22 @@
 										<label for="inputSetorLivro" class="form-label">Idioma</label>
 										<select class="form-select" id="inputIdiomaLivro" name="idioma">
 											<option th:each="idioma : ${idiomasList}" th:value="${idioma.id}"
-												th:text="${idioma.descricao}">
-											</option>
+												th:text="${idioma.descricao}"
+												th:selected="${idioma.id} == ${livro?.idioma?.id}"></option>
 										</select>
 									</div>
 									<div class="col-sm">
 										<label for="inputSetorLivro" class="form-label">Setor</label>
 										<select class="form-select" id="inputSetorLivro" name="setor">
 											<option th:each="setor : ${setoresList}" th:value="${setor.id}"
-												th:text="${setor.nome}"></option>
+												th:text="${setor.nome}"
+												th:selected="${setor.id} == ${livro?.setor?.id}">
+											</option>
 										</select>
 									</div>
 								</div>
 								<button type="submit" class="btn btn-primary">
-									Cadastrar
+									Atualizar
 								</button>
 							</form>
 						</div>
@@ -102,8 +106,7 @@
 			</section>
 		</div>
 	</div>
-	<script th:src="@{/js/script.js}">
-	</script>
+	<script th:src="@{/js/script.js}"></script>
 </body>
 
 </html>

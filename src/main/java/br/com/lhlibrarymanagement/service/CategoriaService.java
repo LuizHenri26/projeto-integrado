@@ -8,7 +8,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Categoria;
-import br.com.lhlibrarymanagement.model.repository.CategoriaRepository;
+import br.com.lhlibrarymanagement.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {

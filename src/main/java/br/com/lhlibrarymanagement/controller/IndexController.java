@@ -36,7 +36,7 @@ public class IndexController {
 		if (titulo.isBlank()) {
 			return "redirect:/";
 		}
-		List<Livro> livros = service.filtrarLivroPeloTitulo(titulo);
+		List<Livro> livros = this.service.filtrarLivroPeloTitulo(titulo);
 		model.addAttribute("livros", livros);
 		return "index";
 	}

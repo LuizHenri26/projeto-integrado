@@ -10,18 +10,20 @@ import br.com.lhlibrarymanagement.service.UsuarioService;
 
 @Controller
 public class AutenticaController {
-	
+
 	@Autowired
 	public UsuarioService usuarioService;
-	
+	private static final String ADMIN = "ADMINISTRADOR";
+	private static final String FUNCIONARIO = "FUNCIONARIO";
+
 	@GetMapping("/autentica/inicio")
 	public String index(@CurrentSecurityContext(expression = "authentication.name") String login) {
 		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
 		String redirectURL = "";
-		if (usuarioService.isAutoriza(usuario, "ADMIN")) {
-			redirectURL = "redirect:/categoria/listar";
-		} else if (usuarioService.isAutoriza(usuario, "FUNCIONARIO")) {
-			redirectURL = "redirect:/categoria/listar";
+		if (usuarioService.isAutoriza(usuario, ADMIN)) {
+			redirectURL = "redirect:/usuario/listar";
+		} else if (usuarioService.isAutoriza(usuario, FUNCIONARIO)) {
+			redirectURL = "redirect:/membro/listar";
 		}
 		return redirectURL;
 	}

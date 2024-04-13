@@ -10,11 +10,6 @@
 	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<title>Registrar Emprestimo - LH Library Management</title>
-	<style>
-		.mensagem {
-			color: red;
-		}
-	</style>
 </head>
 
 <body>
@@ -22,7 +17,6 @@
 		<div th:insert="~{fragments/menu-usuarios :: menu-usuarios}"></div>
 		<div class="main p-3">
 			<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
-				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 				<span th:text="${mensagem}"></span>
 			</div>
 			<section class="d-block">
@@ -34,35 +28,38 @@
 					<div class="row">
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
 							<form th:action="@{/emprestimo/cadastrar}" method="post" th:object="${emprestimo}">
-								<div class="row mb-3">
-									<div class="col">
-										<label for="inputLivro" class="form-label">Titulo do Livro *</label>
-										<select class="form-select" id="inputLivros" name="livro">
-											<option value="">Escolha um Livro</option>
-											<option th:each="livro : ${livros}" th:value="${livro.id}"
-												th:text="${livro.titulo}"></option>
-										</select>
-										<span class="mensagem" th:if="${tituloLivroObrigatorio}" th:text="${tituloLivroObrigatorio}"></span>
-									</div>
+								<div class="mb-3">
+									<label for="inputLivro" class="form-label">Titulo do Livro *</label>
+									<select class="form-select" id="inputLivro" name="livro" th:field="*{livro}">
+										<option value="">Escolha um Livro</option>
+										<option th:each="livro : ${livros}" th:value="${livro.id}"
+											th:text="${livro.titulo}"></option>
+									</select>
+									<span class="mensagem" th:if="${#fields.hasErrors('livro')}"
+										th:errors="*{livro}"></span>
 								</div>
 								<div class="mb-3">
-									<label for="inputLeitor" class="form-label">Membro *</label>
-									<select class="form-select" id="inputMembro" name="membro">
+									<label for="inputMembro" class="form-label">Nome do Membro *</label>
+									<select class="form-select" id="inputMembro" name="membro" th:field="*{membro}">
 										<option value="">Escolha um Membro</option>
 										<option th:each="membro : ${membros}" th:value="${membro.id}"
 											th:text="${membro.nome}"></option>
 									</select>
-									<span class="mensagem" th:if="${campoMembroObrigatorio}" th:text="${campoMembroObrigatorio}"></span>
+									<span class="mensagem" th:if="${#fields.hasErrors('membro')}"
+										th:errors="*{membro}"></span>
 								</div>
-								<div class="mb-3">
-									<label for="inputNome" class="form-label">Data de emprestimo</label>
-									<input type="text" class="form-control" id="inputCategoria" name="dataEmprestimo"
-										th:field="*{dataEmprestimo}" disabled>
-								</div>
-								<div class="mb-3">
-									<label for="inputNome" class="form-label">Data Prevista para devolução</label>
-									<input type="text" class="form-control" id="inputCategoria" name="dataPrevista"
-										th:field="*{dataPrevista}" disabled>
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputDataEmprestimo" class="form-label">Data de emprestimo</label>
+										<input type="text" class="form-control" id="inputDataEmprestimo"
+											name="dataEmprestimo" th:field="*{dataEmprestimo}" disabled>
+									</div>
+									<div class="col-sm">
+										<label for="inputDataPrevista" class="form-label">Data Prevista para
+											devolução</label>
+										<input type="text" class="form-control" id="inputDataPrevista"
+											name="dataPrevista" th:field="*{dataPrevista}" disabled>
+									</div>
 								</div>
 								<button type="submit" class="btn btn-primary">
 									Registrar

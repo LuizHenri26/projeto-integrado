@@ -6,38 +6,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 	<link rel="shortcut icon" th:href="@{/img/books-svgrepo-com 1.svg}">
-	<link th:href="@{/css/style.css}" rel="stylesheet" />
-	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-	<title>Consulta Usuários - LH Library Management</title>
+	<title>Registrar Devolução - LH Library Management</title>
 </head>
 
 <body>
 	<div class="wrapper">
 		<div th:insert="~{fragments/menu-usuarios :: menu-usuarios}"></div>
 		<div class="main p-3">
-			<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
-				<span th:text="${mensagem}"></span>
+			<div class="alert alert-danger alert-dismissible fade show" th:if="${mensagemErro}">
+				<span th:text="${mensagemErro}"></span>
+			</div>
+			<div class="alert alert-success alert-dismissible fade show" th:if="${mensagemSucesso}">
+				<span th:text="${mensagemSucesso}"></span>
 			</div>
 			<section class="d-block">
 				<h1 class="m-3 fs-1 roboto-bold">
 					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management" /></span>
-					Consulta Usuários
+					Registrar Devolução
 				</h1>
 				<div class="container p-4 mt-2">
 					<div class="row">
 						<div class="col-md-6 bg-light p-4 shadow">
-							<form th:action="@{/usuario/buscar}" method="post">
+							<form th:action="@{/emprestimo/buscar}" method="post">
 								<div class="row mb-3">
 									<div class="col">
-										<label for="inputNome" class="form-label">Nome</label>
-										<input type="text" class="form-control" id="inputNome"
-											placeholder="Digite o nome do usuário" name="nome" />
-									</div>
-									<div class="col">
-										<label for="inputAutor" class="form-label">Login</label>
-										<input type="text" class="form-control" id="inputAutor"
-											placeholder="Digite o login do usuário" name="login" />
+										<label for="inputNomeMembro" class="form-label">Nome do Membro</label>
+										<input type="text" class="form-control" id="inputNomeMembro"
+											placeholder="Digite o nome do membro" name="nome" />
 									</div>
 								</div>
 								<button type="submit" class="btn btn-primary">
@@ -48,31 +46,30 @@
 					</div>
 				</div>
 			</section>
+
 			<section class="d-flex container-sm flex-column">
 				<div class="table-wrapper">
 					<table
 						class="table table-bordered table-responsive table-bordered text-center container-sm p-4 mt-2">
 						<tr class="table-blue table-active text-uppercase">
-							<th>Nome</th>
-							<th>Login</th>
-							<th>Perfil</th>
+							<th>Titulo do Livro</th>
+							<th>Nome do Membro</th>
+							<th>Data de Empréstimo</th>
+							<th>Data Prevista para Devolução</th>
+							<th>Status</th>
 							<th>Ação</th>
 						</tr>
-						<tr th:each="usuario : ${usuarios}">
-							<td th:text="${usuario.nome}"></td>
-							<td th:text="${usuario.login}"></td>
-							<td>
-								<th:block th:each="perfil : ${usuario.perfis}">
-									<span th:text="${perfil.nome}"></span><br />
-								</th:block>
-							</td>
+						<tr th:each="emprestimo : ${emprestimos}">
+							<td th:text="${emprestimo.livro.titulo}"></td>
+							<td th:text="${emprestimo.membro.nome}"></td>
+							<td th:text="${#temporals.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
+							<td th:text="${#temporals.format(emprestimo.dataPrevista, 'dd/MM/yyyy')}"></td>
+							<td th:text="${emprestimo.status.descricao}"></td>
 							<td class="d-flex align-center justify-content-center gap-2">
-								<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" data-buttonEdit><img
-										th:src="@{/img/edit.svg}" alt=""></a>
-								<a th:href="@{/usuario/deletar/{id}(id=${usuario.id})}"
-									th:data-confirm-delete="|Você deseja deletar o usuario ${usuario.nome}?|"
+								<a th:href="@{/emprestimo/devolucao/{id}(id=${emprestimo.id})}"
+									th:data-confirm-delete="|Você deseja confirmar a devolução do livro ${emprestimo.livro.titulo}?|"
 									onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
-									data-buttonTrash><img th:src="@{/img/trash.svg}" alt=""></a>
+									data-buttonTrash> <i class="lni lni-bookmark-alt"></i></a>
 							</td>
 						</tr>
 					</table>
@@ -80,6 +77,7 @@
 			</section>
 		</div>
 	</div>
+
 	<script th:src="@{/js/script.js}"></script>
 </body>
 

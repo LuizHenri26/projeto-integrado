@@ -1,26 +1,30 @@
 package br.com.lhlibrarymanagement.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
 @Data
-public class Carteirinha implements Serializable{
-	
+public class Idioma implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Integer numero;
-	private LocalDate dataEmissao;
-	@OneToOne(mappedBy = "carteirinha")
-	private Membro membro;
+	@Column(nullable = false, length = 2)
+	private String sigla;
+	@Column(nullable = false, length = 30)
+	private String descricao;
+	@OneToMany(mappedBy = "idioma")
+	private List<Livro> livro;
+
 }

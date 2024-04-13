@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+	<link rel="shortcut icon" th:href="@{/img/books-svgrepo-com 1.svg}">
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<link th:href="	@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<title>Cadastrar Membros - LH Library Management</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div th:insert="~{fragments/menu-usuarios :: menu-usuarios}"></div>
+		<div class="main p-3">
+			<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
+				<span th:text="${mensagem}"></span>
+			</div>
+			<section class="d-block">
+				<h1 class="m-3 fs-1 roboto-bold">
+					<span><img th:src="@{/img/books-svgrepo-com 1.svg}" alt="Logo LH Library Management"></span>
+					Cadastrar Membros
+				</h1>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 bg-light shadow p-4 mb-5">
+							<form th:action="@{/membro/cadastrar}" th:object="${membro}" method="post">
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputMembro" class="form-label">Nome *</label>
+										<input type="text" class="form-control" id="inputMembro" th:field="*{nome}"
+											placeholder="Digite o nome do membro" name="nome" maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
+											th:errors="*{nome}"></span>
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputCPF" class="form-label">CPF *</label>
+										<input type="text" class="form-control" id="inputCPF" th:field="*{cpf}"
+											placeholder="Digite o numero do CPF" maxlength="14" name="cpf"
+											OnKeyPress="formatar('###.###.###-##',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('cpf')}"
+											th:errors="*{cpf}"></span>
+										<span class="mensagem" th:if="${cpfExistente}" th:text="${cpfExistente}"></span>
+									</div>
+									<div class="col-sm">
+										<label for="inputDataNascimento" class="form-label">Data de Nascimento
+											*</label>
+										<input type="text" class="form-control" id="inputDataNascimento"
+											th:field="*{dataNascimento}" placeholder="Digite a data de nascimento"
+											name="dataNascimento" maxlength="10"
+											OnKeyPress="formatar('##/##/####',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}"
+											th:errors="*{dataNascimento}"></span>
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputLogradouro" class="form-label">Logradouro *</label>
+										<input type="text" class="form-control" id="inputLogradouro" name="logradouro"
+											th:field="*{endereco.logradouro}" placeholder="Digite o Logradouro"
+											maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.logradouro')}"
+											th:errors="*{endereco.logradouro}"></span>
+									</div>
+									<div class="col-sm">
+										<label for="inputNumero" class="form-label">Numero *</label>
+										<input type="text" class="form-control" id="inputNumero" name="numero"
+											th:field="*{endereco.numero}" placeholder="Digite o numero da casa"
+											maxlength="20" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.numero')}"
+											th:errors="*{endereco.numero}"></span>
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputCEP" class="form-label">CEP *</label>
+										<input type="text" class="form-control" id="inputCEP" name="cep"
+											th:field="*{endereco.cep}" placeholder="Digite o numero do CEP"
+											maxlength="10" OnKeyPress="formatar('##.###-###',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.cep')}"
+											th:errors="*{endereco.cep}"></span>
+									</div>
+									<div class="col-sm">
+										<label for="inputComplemento" class="form-label">Complemento</label>
+										<input type="text" class="form-control" id="inputComplemento" name="complemento"
+											th:field="*{endereco.complemento}" placeholder="Digite o complemento"
+											maxlength="30" />
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputCidade" class="form-label">Cidade *</label>
+										<input type="text" class="form-control" id="inputCidade" name="cidade"
+											th:field="*{endereco.cidade}" placeholder="Digite o nome da cidade"
+											maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.cidade')}"
+											th:errors="*{endereco.cidade}"></span>
+									</div>
+									<div class="col-sm">
+										<label for="inputEstado" class="form-label">Estado *</label>
+										<input type="text" class="form-control" id="inputEstado" name="estado"
+											th:field="*{endereco.estado}" placeholder="Digite o nome do estado"
+											maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.estado')}"
+											th:errors="*{endereco.estado}"></span>
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm">
+										<label for="inputNumeroContato" class="form-label">Numero de Contato
+											*</label>
+										<input type="text" class="form-control" id="inputNumeroContato" name="contato"
+											th:field="*{contato.numeroContato}" placeholder="Digite o numero de contato"
+											maxlength="15" OnKeyPress="formatar('(##) #####-####',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('contato.numeroContato')}"
+											th:errors="*{contato.numeroContato}"></span>
+									</div>
+									<div class="col-sm">
+										<label for="inputEmail" class="form-label">E-mail</label>
+										<input type="email" class="form-control" id="inputEmail" name="email"
+											th:field="*{contato.email}" placeholder="Digite o seu e-mail" maxlength="65"
+											pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+											title="Insira o E-mail no formato: teste@teste.com" />
+									</div>
+								</div>
+									<button type="submit" class="btn btn-primary">
+										Cadastrar
+									</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>

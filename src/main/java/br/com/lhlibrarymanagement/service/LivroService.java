@@ -8,11 +8,13 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Categoria;
+import br.com.lhlibrarymanagement.model.Idioma;
 import br.com.lhlibrarymanagement.model.Livro;
 import br.com.lhlibrarymanagement.model.Setor;
-import br.com.lhlibrarymanagement.model.repository.CategoriaRepository;
-import br.com.lhlibrarymanagement.model.repository.LivroRepository;
-import br.com.lhlibrarymanagement.model.repository.SetorRepository;
+import br.com.lhlibrarymanagement.repository.CategoriaRepository;
+import br.com.lhlibrarymanagement.repository.IdiomaRepository;
+import br.com.lhlibrarymanagement.repository.LivroRepository;
+import br.com.lhlibrarymanagement.repository.SetorRepository;
 
 @Service
 public class LivroService {
@@ -26,24 +28,22 @@ public class LivroService {
 	@Autowired
 	private SetorRepository setorRepository;
 
-	/**
-	 * Lista todos os registros de tabela categoria.
-	 * 
-	 * @return - registros da tabela categoria
-	 */
+	@Autowired
+	private IdiomaRepository idiomaRepository;
+
 	public List<Categoria> getCategorias() {
 		Iterable<Categoria> categorias = categoriaRepository.findAll();
 		return Streamable.of(categorias).toList();
 	}
 
-	/**
-	 * Lista todos os setores da tabela setor.
-	 * 
-	 * @return - registros da tabela setor
-	 */
 	public List<Setor> getSetores() {
 		Iterable<Setor> setores = setorRepository.findAll();
 		return Streamable.of(setores).toList();
+	}
+
+	public List<Idioma> getIdiomas() {
+		Iterable<Idioma> idiomas = idiomaRepository.findAll();
+		return Streamable.of(idiomas).toList();
 	}
 
 	public List<Livro> getListarLivros() {
@@ -51,25 +51,45 @@ public class LivroService {
 		return livros;
 	}
 
-	public void cadastraLivro(Livro livro) {
-		livroRepository.save(livro);
-	}
-
-	public Optional<Livro> findById(Long id) {
-		return livroRepository.findById(id);
-	}
-
-	public void deletarLivro(Livro livro) {
-		livroRepository.delete(livro);
+	public Livro findById(Long id) {
+		Optional<Livro> opt = livroRepository.findById(id);
+		if (opt.isPresent()) {
+			return opt.get();
+		} else {
+			throw new IllegalArgumentException("Livro com id : " + id + " não existe.");
+		}
 	}
 
 	public List<Livro> filtrarLivroPeloTitulo(String titulo) {
 		List<Livro> livro = livroRepository.findByTituloContainingIgnoreCase(titulo);
 		return livro;
 	}
-	
+
 	public Livro findByIsbn(String isbn) {
 		return livroRepository.findByIsbn(isbn);
+	}
+
+	public void cadastraLivro(Livro livro) {
+		livroRepository.save(livro);
+	}
+
+	public void deletarLivro(Livro livro) {
+		livroRepository.delete(livro);
+	}
+
+	public void editarLivro(Livro livro, final Long id) {
+		Livro livros = findById(id);
+		// Mantém o status do livro
+		livro.setStatus(livros.getStatus());
+		cadastraLivro(livro);
+	}
+
+	public boolean isIsbnExistente(final Long id, final Livro livro) {
+		Livro livroIsbn = findById(id);
+		Livro livros = findByIsbn(livro.getIsbn());
+		String isbnAtual = livroIsbn.getIsbn();
+		String isbnFuturo = livro.getIsbn();
+		return !isbnAtual.equals(isbnFuturo) && livros != null;
 	}
 
 }

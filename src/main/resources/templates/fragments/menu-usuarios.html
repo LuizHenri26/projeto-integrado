@@ -22,16 +22,28 @@
 			</div>
 		</div>
 		<ul class="sidebar-nav">
-			<li class="sidebar-item" th:if="${ #authorization.expression('hasAuthority(''ADMIN'')')}">
+			<li class="sidebar-item" th:if="${ #authorization.expression('hasAuthority(''ADMINISTRADOR'')')}">
 				<a th:href="@{/usuario/salvar}" class="sidebar-link">
 					<i class="lni lni-user"></i>
 					<span>Cadastrar Usuários</span>
 				</a>
 			</li>
-			<li class="sidebar-item" th:if="${ #authorization.expression('hasAuthority(''ADMIN'')')}">
+			<li class="sidebar-item" th:if="${ #authorization.expression('hasAuthority(''ADMINISTRADOR'')')}">
 				<a th:href="@{/usuario/listar}" class="sidebar-link">
 					<i class="lni lni-search-alt"></i>
 					<span>Consulta Usuários</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a th:href="@{/membro/salvar}" class="sidebar-link">
+					<i class="lni lni-customer"></i>
+					<span>Cadastrar Membros</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a th:href="@{/membro/listar}" class="sidebar-link">
+					<i class="lni lni-search-alt"></i>
+					<span>Consulta Membros</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
@@ -62,6 +74,12 @@
 				<a th:href="@{/emprestimo/salvar}" class="sidebar-link">
 					<i class="lni lni-agenda"></i>
 					<span>Registrar Empréstimo</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a th:href="@{/emprestimo/listar}" class="sidebar-link">
+					<i class="lni lni-layout"></i>
+					<span>Registrar Devolução</span>
 				</a>
 			</li>
 			<li class="sidebar-item">

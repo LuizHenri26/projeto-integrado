@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Perfil;
 import br.com.lhlibrarymanagement.model.Usuario;
-import br.com.lhlibrarymanagement.model.repository.UsuarioRepository;
+import br.com.lhlibrarymanagement.repository.UsuarioRepository;
 import br.com.lhlibrarymanagement.security.DetalheUsuario;
 import jakarta.transaction.Transactional;
 
@@ -50,25 +50,23 @@ public class UsuarioService implements UserDetailsService {
 		return usuario;
 	}
 
-	public void alterarUsuario(Usuario usuario) {
-		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());		
-		usuario.setSenha(crypt);
-		usuarioRepository.save(usuario);
-	}
-
 	/**
 	 * Cadastra os dados do usuario da aplicação.
 	 * 
 	 * @param usuario  - entidade usuário.
 	 * @param idsPefis - identificador dos perfis habilitados.
 	 */
-	public void cadastrarUsuario(Usuario usuario) {
+	public void cadastrarUsuario(Usuario usuario, int[] idsPerfis) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
-		long idPefil = 2;
-		Perfil papel = perfilService.buscarPerfilPorId(idPefil);
-		perfis.add(papel);
+		for (int i = 0; i < idsPerfis.length; i++) {
+			long idPerfil = idsPerfis[i];
+			Perfil perfil = perfilService.buscarPerfilPorId(idPerfil);
+			perfis.add(perfil);
+		}
 		usuario.setPerfis(perfis);
-		alterarUsuario(usuario);
+		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
+		usuario.setSenha(crypt);
+		usuarioRepository.save(usuario);
 	}
 
 	/**
@@ -78,13 +76,24 @@ public class UsuarioService implements UserDetailsService {
 	 * @param idsPefis - ids de perfis caso mais de um tenha sigo habilitado.
 	 * @param isAtivo  - se o usuário está ativo ou inativo.
 	 */
-	public void editarUsuario(Long id) {
+	public void editarUsuario(Usuario usuario, int[] idsPerfis, Long id) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
-		long idPefil = 2;
-		Perfil papel = perfilService.buscarPerfilPorId(idPefil);
-		perfis.add(papel);
-		Usuario usuario = buscarUsuarioPorId(id);
+		for (int i = 0; i < idsPerfis.length; i++) {
+			long idPerfil = idsPerfis[i];
+			Perfil perfil = perfilService.buscarPerfilPorId(idPerfil);
+			perfis.add(perfil);
+		}
+		Usuario usuarios = buscarUsuarioPorId(id);
+		String senhaAtual = usuarios.getSenha();
+		String senhaFutura = usuario.getSenha();
+
+		if (!senhaAtual.equals(senhaFutura)) {
+			String crypt = new BCryptPasswordEncoder().encode(senhaFutura);
+			usuario.setSenha(crypt);
+		}
+
 		usuario.setPerfis(perfis);
+
 		usuarioRepository.save(usuario);
 	}
 
@@ -115,7 +124,7 @@ public class UsuarioService implements UserDetailsService {
 
 		return usuarios;
 	}
-	
+
 	/**
 	 * Deleta o usuario
 	 * 
@@ -123,6 +132,14 @@ public class UsuarioService implements UserDetailsService {
 	 */
 	public void deletarUsuario(Usuario usuario) {
 		usuarioRepository.delete(usuario);
+	}
+
+	public boolean isLoginExistente(final Long id, final Usuario usuario) {
+		Usuario usr = buscarUsuarioPorId(id);
+		Usuario loginExistente = buscaUsuarioPorLogin(usuario.getLogin());
+		String usuarioAtual = usr.getLogin();
+		String usuarioFuturo = usuario.getLogin();
+		return !usuarioAtual.equals(usuarioFuturo) && loginExistente != null;
 	}
 
 	@Override

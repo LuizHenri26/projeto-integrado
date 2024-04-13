@@ -13,7 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -25,16 +24,13 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "O campo nome é obrigatório!")
-	@Size(min = 2, max = 65, message = "O nome deve conter entre 2 a 65 caracteres")
+	@NotBlank(message = "Campo obrigatório!")
 	@Column(nullable = false, length = 65)
 	private String nome;
-	@NotBlank(message = "O campo login do usuário é obrigatório!")
+	@NotBlank(message = "Campo obrigatório!")
 	@Column(nullable = false, length = 65)
-	@Size(min = 5, message = "O login deve conter no minímo 5 digitos.")
 	private String login;
-	@NotBlank(message = "O campo senha é obrigatório!")
-	@Size(min = 6, message = "A senha deve conter no minímo 6 digitos.")
+	@NotBlank(message = "Campo obrigatório!")
 	@Column(nullable = false)
 	private String senha;
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -1,4 +1,4 @@
-package br.com.lhlibrarymanagement.model.repository;
+package br.com.lhlibrarymanagement.repository;
 
 import java.util.List;
 
