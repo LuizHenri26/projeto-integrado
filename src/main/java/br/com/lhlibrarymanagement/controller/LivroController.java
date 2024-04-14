@@ -60,8 +60,7 @@ public class LivroController {
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
 			model.addAttribute("idiomasList", filtroIdiomas);
-			model.addAttribute("isbnExistente",
-					"ISBN já cadastrado na base, tente inserir um ISBN com o valor diferente!");
+			model.addAttribute("isbnExistente", "ISBN já cadastrado!");
 			return "cadastrar-livro";
 		}
 		livro.setStatus(StatusENUM.DISPONIVEL);
@@ -135,8 +134,7 @@ public class LivroController {
 			model.addAttribute("categoriasList", filtroCategorias);
 			model.addAttribute("setoresList", filtroSetores);
 			model.addAttribute("idiomasList", filtroIdiomas);
-			model.addAttribute("isbnExistente",
-					"ISBN já cadastrado na base, tente inserir um ISBN com o valor diferente!");
+			model.addAttribute("isbnExistente", "ISBN já cadastrado!");
 			return "editar-livro";
 		}
 		livroService.editarLivro(livro, id);

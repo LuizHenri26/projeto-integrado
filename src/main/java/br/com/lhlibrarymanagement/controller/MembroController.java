@@ -69,12 +69,12 @@ public class MembroController {
 		Membro membro = membroService.findById(id);
 		Integer quantidadeEmprestimoVigente = membroService.countEmprestimoVigenteMembro(id);
 		if (quantidadeEmprestimoVigente > 0) {
-			redirect.addFlashAttribute("mensagemErro", "Membro possui emprestimos vigentes!");
+			redirect.addFlashAttribute("mensagemErro", "Membro possui empréstimo vigente!");
 			return "redirect:/membro/listar";
 		}
 		this.membroService.deletarMembro(membro);
 		model.addAttribute("membro", membro);
-		redirect.addFlashAttribute("mensagemSucesso", "Exclusão realizada com sucesso!");
+		redirect.addFlashAttribute("mensagemSucesso", "Membro deletado com sucesso!!");
 		return "redirect:/membro/listar";
 	}
 

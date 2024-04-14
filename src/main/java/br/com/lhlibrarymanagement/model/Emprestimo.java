@@ -18,7 +18,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -41,12 +40,10 @@ public class Emprestimo implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_livro")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@NotNull
 	private Livro livro;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_membro")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@NotNull
 	private Membro membro;
 
 	public Emprestimo() {
