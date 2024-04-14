@@ -35,7 +35,7 @@
 										<option th:each="livro : ${livros}" th:value="${livro.id}"
 											th:text="${livro.titulo}"></option>
 									</select>
-									<span class="mensagem" th:if="${#fields.hasErrors('campoLivroObrigatorio')}"
+									<span class="mensagem" th:if="${campoLivroObrigatorio}"
 										th:text="${campoLivroObrigatorio}"></span>
 								</div>
 								<div class="mb-3">
@@ -45,7 +45,7 @@
 										<option th:each="membro : ${membros}" th:value="${membro.id}"
 											th:text="${membro.nome}"></option>
 									</select>
-									<span class="mensagem" th:if="${#fields.hasErrors('campoLivroObrigatorio')}"
+									<span class="mensagem" th:if="${campoLivroObrigatorio}"
 										th:text="${campoMembroObrigatorio}"></span>
 								</div>
 								<div class="row mb-3">

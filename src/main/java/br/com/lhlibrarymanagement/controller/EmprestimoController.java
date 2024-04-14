@@ -36,9 +36,9 @@ public class EmprestimoController {
 	@PostMapping("/emprestimo/cadastrar")
 	public String realizarEmprestimo(Emprestimo emprestimo, BindingResult result, Model model,
 			RedirectAttributes redirect) {
-
-		if (emprestimo.getLivro() != null || emprestimo.getMembro() != null) {
-			if (emprestimo.getLivro() != null) {
+		// Validador option bean validation não funciona para essa situação
+		if (emprestimo.getLivro() == null || emprestimo.getMembro() == null) {
+			if (emprestimo.getLivro() == null) {
 				List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
 				List<Membro> membros = this.emprestimoService.getMembros();
 				model.addAttribute("emprestimo", new Emprestimo());
@@ -47,7 +47,7 @@ public class EmprestimoController {
 				model.addAttribute("campoLivroObrigatorio", "Campo obrigatório!");
 				return "registrar-emprestimo";
 			}
-			if (emprestimo.getMembro() != null) {
+			if (emprestimo.getMembro() == null) {
 				List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
 				List<Membro> membros = this.emprestimoService.getMembros();
 				model.addAttribute("emprestimo", new Emprestimo());
@@ -56,7 +56,14 @@ public class EmprestimoController {
 				model.addAttribute("campoMembroObrigatorio", "Campo obrigatório!");
 				return "registrar-emprestimo";
 			}
-
+			List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
+			List<Membro> membros = this.emprestimoService.getMembros();
+			model.addAttribute("emprestimo", new Emprestimo());
+			model.addAttribute("membros", membros);
+			model.addAttribute("livros", livros);
+			model.addAttribute("campoLivroObrigatorio", "Campo obrigatório!");
+			model.addAttribute("campoMembroObrigatorio", "Campo obrigatório!");
+			return "registrar-emprestimo";
 		}
 		this.emprestimoService.registrarEmprestimo(emprestimo);
 		this.emprestimoService.registrarHistorico(emprestimo);
