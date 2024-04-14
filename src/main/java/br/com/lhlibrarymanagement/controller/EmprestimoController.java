@@ -37,31 +37,31 @@ public class EmprestimoController {
 	public String realizarEmprestimo(Emprestimo emprestimo, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		// Validador option bean validation não funciona para essa situação
-		if (emprestimo.getLivro() == null || emprestimo.getMembro() == null) {
-			if (emprestimo.getLivro() == null) {
-				List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
-				List<Membro> membros = this.emprestimoService.getMembros();
-				model.addAttribute("emprestimo", new Emprestimo());
-				model.addAttribute("membros", membros);
-				model.addAttribute("livros", livros);
-				model.addAttribute("campoLivroObrigatorio", "Campo obrigatório!");
-				return "registrar-emprestimo";
-			}
-			if (emprestimo.getMembro() == null) {
-				List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
-				List<Membro> membros = this.emprestimoService.getMembros();
-				model.addAttribute("emprestimo", new Emprestimo());
-				model.addAttribute("membros", membros);
-				model.addAttribute("livros", livros);
-				model.addAttribute("campoMembroObrigatorio", "Campo obrigatório!");
-				return "registrar-emprestimo";
-			}
+		if (emprestimo.getLivro() == null && emprestimo.getMembro() == null) {
 			List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
 			List<Membro> membros = this.emprestimoService.getMembros();
 			model.addAttribute("emprestimo", new Emprestimo());
 			model.addAttribute("membros", membros);
 			model.addAttribute("livros", livros);
 			model.addAttribute("campoLivroObrigatorio", "Campo obrigatório!");
+			model.addAttribute("campoMembroObrigatorio", "Campo obrigatório!");
+			return "registrar-emprestimo";
+		}
+		if (emprestimo.getLivro() == null) {
+			List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
+			List<Membro> membros = this.emprestimoService.getMembros();
+			model.addAttribute("emprestimo", new Emprestimo());
+			model.addAttribute("membros", membros);
+			model.addAttribute("livros", livros);
+			model.addAttribute("campoLivroObrigatorio", "Campo obrigatório!");
+			return "registrar-emprestimo";
+		}
+		if (emprestimo.getMembro() == null) {
+			List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
+			List<Membro> membros = this.emprestimoService.getMembros();
+			model.addAttribute("emprestimo", new Emprestimo());
+			model.addAttribute("membros", membros);
+			model.addAttribute("livros", livros);
 			model.addAttribute("campoMembroObrigatorio", "Campo obrigatório!");
 			return "registrar-emprestimo";
 		}
