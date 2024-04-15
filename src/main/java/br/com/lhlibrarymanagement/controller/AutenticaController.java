@@ -21,7 +21,7 @@ public class AutenticaController {
 		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
 		String redirectURL = "";
 		if (usuarioService.isAutoriza(usuario, ADMIN)) {
-			redirectURL = "redirect:/usuario/listar";
+			redirectURL = "redirect:/membro/listar";
 		} else if (usuarioService.isAutoriza(usuario, FUNCIONARIO)) {
 			redirectURL = "redirect:/membro/listar";
 		}

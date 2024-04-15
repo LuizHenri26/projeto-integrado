@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum StatusENUM {
 
-	DISPONIVEL("Disponivel"), EMPRESTADO("Emprestado"), DEVOLVIDO("Devolvido");
+	DISPONIVEL("Disponível"), EMPRESTADO("Emprestado"), DEVOLVIDO("Devolvido");
 
 	private String descricao;
 
