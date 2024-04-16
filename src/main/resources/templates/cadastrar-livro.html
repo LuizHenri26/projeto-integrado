@@ -29,12 +29,12 @@
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
 							<form th:action="@{/livro/cadastrar}" method="post" th:object="${livro}">
 								<div class="mb-3">
-									<label for="inputTitulo" class="form-label">Título do Livro *</label>
+									<label for="inputTitulo" class="form-label">Título do Livro * </label>
+									<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
+										th:errors="*{titulo}"></span>
 									<input type="text" class="form-control" id="inputTitulo"
 										placeholder="Digite o título do livro" th:field="*{titulo}" name="tiulo"
 										maxlength="100" />
-									<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
-										th:errors="*{titulo}"></span>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
@@ -46,32 +46,32 @@
 										</select>
 									</div>
 									<div class="col-sm">
-										<label for="inputIsbn" class="form-label">ISBN *</label>
-										<input type="text" class="form-control" id="inputIsbn"
-											placeholder="Digite o numero do isbn" th:field="*{isbn}" name="isbn"
-											maxlength="14" OnKeyPress="formatar('###-##########',this)" />
+										<label for="inputIsbn" class="form-label">ISBN *  </label>
 										<span class="mensagem" th:if="${#fields.hasErrors('isbn')}"
 											th:errors="*{isbn}"></span>
 										<span class="mensagem" th:if="${isbnExistente}"
 											th:text="${isbnExistente}"></span>
+										<input type="text" class="form-control" id="inputIsbn"
+											placeholder="Digite o numero do isbn" th:field="*{isbn}" name="isbn"
+											maxlength="14" OnKeyPress="formatar('###-##########',this)" />
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
-										<label for="inputAutor" class="form-label">Autor *</label>
+										<label for="inputAutor" class="form-label">Autor *  </label>
+										<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
+											th:errors="*{autor}"></span>
 										<input type="text" class="form-control" id="inputAutor"
 											placeholder="Digite o nome do autor" th:field="*{autor}" name="autor"
 											maxlength="65" />
-										<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
-											th:errors="*{autor}"></span>
 									</div>
 									<div class="col-sm">
-										<label for="inputEditora" class="form-label">Editora *</label>
+										<label for="inputEditora" class="form-label">Editora *  </label>
+										<span class="mensagem" th:if="${#fields.hasErrors('editora')}"
+											th:errors="*{editora}"></span>
 										<input type="text" class="form-control" id="inputEditora"
 											placeholder="Digite o nome da editora" th:field="*{editora}" name="editora"
 											maxlength="65" />
-										<span class="mensagem" th:if="${#fields.hasErrors('editora')}"
-											th:errors="*{editora}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">

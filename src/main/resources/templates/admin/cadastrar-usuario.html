@@ -30,34 +30,34 @@
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
 							<form th:action="@{/usuario/cadastrar}" th:object="${usuario}" method="post">
 								<div class="mb-3">
-									<label for="inputNomeUsuario" class="form-label">Nome *</label>
+									<label for="inputNomeUsuario" class="form-label">Nome *  </label>
+									<span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 									<input type="text" class="form-control" id="inputNomeUsuario"
 										placeholder="Digite o nome do usuário" name="nome" th:field="*{nome}"
-										maxlength="65" /> <span class="mensagem" th:if="${#fields.hasErrors('nome')}"
-										th:errors="*{nome}"></span>
+										maxlength="65" />
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
-										<label for="inputLoginUsuario" class="form-label">Login *</label>
-										<input type="text" class="form-control" id="inputLoginUsuario"
-											placeholder="Digite o login do usuário" name="login" th:field="*{login}"
-											maxlength="65" />
+										<label for="inputLoginUsuario" class="form-label">Login *  </label>
 										<span class="mensagem" th:if="${#fields.hasErrors('login')}"
 											th:errors="*{login}"></span>
 										<span class="mensagem" th:if="${loginExistente}"
 											th:text="${loginExistente}"></span>
+										<input type="text" class="form-control" id="inputLoginUsuario"
+											placeholder="Digite o login do usuário" name="login" th:field="*{login}"
+											maxlength="65" />
 									</div>
 									<div class="col-sm">
-										<label for="inputSenhaUsuario" class="form-label">Senha *</label>
+										<label for="inputSenhaUsuario" class="form-label">Senha *  </label>
+										<span class="mensagem" th:if="${#fields.hasErrors('senha')}"
+											th:errors="*{senha}"></span>
 										<input type="password" class="form-control" id="inputSenhaUsuario"
 											placeholder="Digite a senha do usuário" name="senha" th:value="*{senha}"
 											maxlength="30" />
-										<span class="mensagem" th:if="${#fields.hasErrors('senha')}"
-											th:errors="*{senha}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">
-									<label for="inputPerfisUsuario" class="form-label">Perfis *</label>
+									<label for="inputPerfilUsuario" class="form-label">Perfis *  </label>
 									<div class="col-sm">
 										<th:block th:each="perfil : ${listaPerfis}">
 											<input type="checkbox" class="form-check-input" id="inputPerfilUsuario"
@@ -66,9 +66,9 @@
 												th:text="${perfil.nome}"></label>
 											<br>
 										</th:block>
-										<span class="mensagem" th:if="${campoPerfilObrigatorio}"
-											th:text="${campoPerfilObrigatorio}"></span>
 									</div>
+									<span class="mensagem" th:if="${campoPerfilObrigatorio}"
+											th:text="${campoPerfilObrigatorio}"></span>
 								</div>
 								<button type="submit" class="btn btn-primary">
 									Cadastrar

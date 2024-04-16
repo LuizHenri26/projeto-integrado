@@ -29,24 +29,23 @@
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
 							<form th:action="@{/emprestimo/cadastrar}" method="post" th:object="${emprestimo}">
 								<div class="mb-3">
-									<label for="inputLivro" class="form-label">Titulo do Livro *</label>
+									<label for="inputLivro" class="form-label">Titulo do Livro *  </label>
+										<span class="mensagem" th:if="${campoLivroObrigatorio}" th:text="${campoLivroObrigatorio}"></span>
 									<select class="form-select" id="inputLivro" name="livro">
 										<option value="">Escolha um Livro</option>
 										<option th:each="livro : ${livros}" th:value="${livro.id}"
 											th:text="${livro.titulo}"></option>
 									</select>
-									<span class="mensagem" th:if="${campoLivroObrigatorio}"
-										th:text="${campoLivroObrigatorio}"></span>
 								</div>
 								<div class="mb-3">
-									<label for="inputMembro" class="form-label">Nome do Membro *</label>
+									<label for="inputMembro" class="form-label">Nome do Membro *  </label>
+									<span class="mensagem" th:if="${campoLivroObrigatorio}"
+										th:text="${campoMembroObrigatorio}"></span>
 									<select class="form-select" id="inputMembro" name="membro">
 										<option value="">Escolha um Membro</option>
 										<option th:each="membro : ${membros}" th:value="${membro.id}"
 											th:text="${membro.nome}"></option>
 									</select>
-									<span class="mensagem" th:if="${campoLivroObrigatorio}"
-										th:text="${campoMembroObrigatorio}"></span>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
