@@ -23,7 +23,7 @@ public class EmprestimoController {
 	@Autowired
 	private EmprestimoService emprestimoService;
 
-	@GetMapping("/emprestimo/salvar")
+	@GetMapping(value = "/emprestimo/salvar")
 	public String formRealizarEmprestimo(Model model) {
 		List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
 		List<Membro> membros = this.emprestimoService.getMembros();

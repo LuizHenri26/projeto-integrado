@@ -18,7 +18,7 @@ public class IndexController {
 	@Autowired
 	private LivroService service;
 
-	@GetMapping("/")
+	@GetMapping(value = "/")
 	public String index(Model model) {
 		List<Livro> livros = this.service.getListarLivros();
 		model.addAttribute("livros", livros);
@@ -30,7 +30,7 @@ public class IndexController {
 		return "login";
 	}
 
-	@PostMapping("/buscar")
+	@PostMapping(value = "/buscar")
 	public String pesquisarPeloTitulo(Model model, @RequestParam("titulo") String titulo) {
 		
 		if (titulo.isBlank()) {

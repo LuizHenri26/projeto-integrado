@@ -25,14 +25,14 @@ public class UsuarioController {
 	@Autowired
 	public PerfilService perfilService;
 
-	@GetMapping("/usuario/salvar")
+	@GetMapping(value = "/usuario/salvar")
 	public String adicionarUsuario(Model model) {
 		model.addAttribute("usuario", new Usuario());
 		model.addAttribute("listaPerfis", perfilService.listarPerfil());
 		return "admin/cadastrar-usuario";
 	}
 
-	@PostMapping("/usuario/cadastrar")
+	@PostMapping(value = "/usuario/cadastrar")
 	public String salvarUsuario(@RequestParam(value = "perfil", required = false) int[] perfis, @Valid Usuario usuario,
 			BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
@@ -59,14 +59,14 @@ public class UsuarioController {
 		return "redirect:/usuario/salvar";
 	}
 
-	@GetMapping("/usuario/listar")
+	@GetMapping(value = "/usuario/listar")
 	public String consultaUsuarios(Model model) {
 		Iterable<Usuario> usuarios = this.usuarioService.listarUsuarios();
 		model.addAttribute("usuarios", usuarios);
 		return "admin/consultar-usuarios";
 	}
 
-	@PostMapping("/usuario/buscar")
+	@PostMapping(value = "/usuario/buscar")
 	public String pesquisarPeloFiltroNomeLoginUsuario(Model model, @RequestParam("nome") String nome,
 			@RequestParam("login") String login) {
 		List<Usuario> usuarios;
@@ -79,7 +79,7 @@ public class UsuarioController {
 		return "admin/consultar-usuarios";
 	}
 
-	@GetMapping("/usuario/deletar/{id}")
+	@GetMapping(value = "/usuario/deletar/{id}")
 	public String deletarUsuario(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Usuario usuario = this.usuarioService.buscarUsuarioPorId(id);
 		this.usuarioService.deletarUsuario(usuario);
@@ -88,7 +88,7 @@ public class UsuarioController {
 		return "redirect:/usuario/listar";
 	}
 
-	@GetMapping("/usuario/editar/{id}")
+	@GetMapping(value = "/usuario/editar/{id}")
 	public String editarUsuario(@PathVariable("id") Long id, Model model) {
 		Usuario usuario = this.usuarioService.buscarUsuarioPorId(id);
 		model.addAttribute("listaPerfis", perfilService.listarPerfil());
@@ -96,7 +96,7 @@ public class UsuarioController {
 		return "admin/editar-usuario";
 	}
 
-	@PostMapping("/usuario/editar/{id}")
+	@PostMapping(value = "/usuario/editar/{id}")
 	public String editarUsuario(@PathVariable("id") Long id,
 			@RequestParam(value = "perfis", required = false) int[] perfis, @Valid Usuario usuario,
 			BindingResult result, Model model, RedirectAttributes redirect) {

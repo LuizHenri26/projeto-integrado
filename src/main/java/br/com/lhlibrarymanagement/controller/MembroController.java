@@ -22,13 +22,13 @@ public class MembroController {
 	@Autowired
 	private MembroService membroService;
 
-	@GetMapping("/membro/salvar")
+	@GetMapping(value = "/membro/salvar")
 	public String formCadastrarLivro(Model model) {
 		model.addAttribute("membro", new Membro());
 		return "cadastrar-membro";
 	}
 
-	@PostMapping("/membro/cadastrar")
+	@PostMapping(value = "/membro/cadastrar")
 	public String adicionarNovoMembro(@Valid Membro membro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
@@ -47,14 +47,14 @@ public class MembroController {
 		return "redirect:/membro/salvar";
 	}
 
-	@GetMapping("/membro/listar")
+	@GetMapping(value = "/membro/listar")
 	public String listarTodosMembros(Model model) {
 		List<Membro> membros = this.membroService.getMembros();
 		model.addAttribute("membros", membros);
 		return "consulta-membros";
 	}
 
-	@PostMapping("/membro/buscar")
+	@PostMapping(value = "/membro/buscar")
 	public String pesquisarMembroPeloNome(Model model, @RequestParam("nome") String nome) {
 		if (nome.isBlank()) {
 			return "redirect:/membro/listar";
@@ -64,7 +64,7 @@ public class MembroController {
 		return "consulta-membros";
 	}
 
-	@GetMapping("/membro/deletar/{id}")
+	@GetMapping(value = "/membro/deletar/{id}")
 	public String deletarMembro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Membro membro = membroService.findById(id);
 		Integer quantidadeEmprestimoVigente = membroService.countEmprestimoVigenteMembro(id);
@@ -78,14 +78,14 @@ public class MembroController {
 		return "redirect:/membro/listar";
 	}
 
-	@GetMapping("/membro/editar/{id}")
+	@GetMapping(value = "/membro/editar/{id}")
 	public String editarMembro(@PathVariable("id") Long id, Model model) {
 		Membro membro = this.membroService.findById(id);
 		model.addAttribute("membro", membro);
 		return "editar-membro";
 	}
 
-	@PostMapping("/membro/editar/{id}")
+	@PostMapping(value = "/membro/editar/{id}")
 	public String editarMembro(@PathVariable("id") Long id, @Valid Membro membro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {

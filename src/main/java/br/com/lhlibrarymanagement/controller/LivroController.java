@@ -26,7 +26,7 @@ public class LivroController {
 	@Autowired
 	private LivroService livroService;
 
-	@GetMapping("/livro/salvar")
+	@GetMapping(value = "/livro/salvar")
 	public String formCadastrarLivro(Model model) {
 		List<Categoria> filtroCategorias = livroService.getCategorias();
 		List<Setor> filtroSetores = livroService.getSetores();
@@ -38,7 +38,7 @@ public class LivroController {
 		return "cadastrar-livro";
 	}
 
-	@PostMapping("/livro/cadastrar")
+	@PostMapping(value = "/livro/cadastrar")
 	public String adicionarNovoLivro(@Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
@@ -69,7 +69,7 @@ public class LivroController {
 		return "redirect:/livro/salvar";
 	}
 
-	@GetMapping("/livro/listar")
+	@GetMapping(value = "/livro/listar")
 	public String listarLivros(Model model) {
 		List<Livro> livros = this.livroService.getListarLivros();
 		model.addAttribute("livros", livros);
@@ -88,7 +88,7 @@ public class LivroController {
 		return "consulta-livros";
 	}
 
-	@GetMapping("/livro/deletar/{id}")
+	@GetMapping(value = "/livro/deletar/{id}")
 	public String deletarLivro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Livro livro = livroService.findById(id);
 		if (livro.getStatus().equals(StatusENUM.EMPRESTADO)) {
@@ -101,7 +101,7 @@ public class LivroController {
 		return "redirect:/livro/listar";
 	}
 
-	@GetMapping("/livro/editar/{id}")
+	@GetMapping(value = "/livro/editar/{id}")
 	public String editarLivro(@PathVariable("id") Long id, Model model) {
 		Livro livro = livroService.findById(id);
 		List<Categoria> filtroCategorias = livroService.getCategorias();
@@ -114,7 +114,7 @@ public class LivroController {
 		return "editar-livro";
 	}
 
-	@PostMapping("/livro/editar/{id}")
+	@PostMapping(value = "/livro/editar/{id}")
 	public String editarLivro(@PathVariable("id") Long id, @Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
