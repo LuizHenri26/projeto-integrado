@@ -36,7 +36,7 @@ public class MembroService {
 	 * @return - membros cadastrados no sistema.
 	 */
 	public List<Membro> getMembros() {
-		Iterable<Membro> membros = membroRepository.findAll();
+		List<Membro> membros = membroRepository.findAll();
 		return Streamable.of(membros).toList();
 	}
 
@@ -47,7 +47,7 @@ public class MembroService {
 	 * @return - membro especifico consultado pelo nome.
 	 */
 	public List<Membro> filtrarMembroPeloNome(String nome) {
-		Iterable<Membro> membros = membroRepository.findByNomeContainingIgnoreCase(nome);
+		List<Membro> membros = membroRepository.findByNomeContainingIgnoreCase(nome);
 		return Streamable.of(membros).toList();
 	}
 

@@ -22,6 +22,6 @@ public interface MembroRepository extends JpaRepository<Membro, Long> {
 
 	Membro findByCpf(String cpf);
 
-	@Query("select me from Membro me order by me.id asc")
+	@Query(value = "select me from Membro me order by me.id asc")
 	List<Membro> findAll();
 }

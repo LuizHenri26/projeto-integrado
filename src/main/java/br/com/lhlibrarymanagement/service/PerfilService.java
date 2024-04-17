@@ -31,7 +31,7 @@ public class PerfilService {
 	}
 
 	public List<Perfil> listarPerfil() {
-		Iterable<Perfil> perfis = perfilRepository.findAll();
+		List<Perfil> perfis = perfilRepository.findAll();
 		return Streamable.of(perfis).toList();
 	}
 

@@ -15,9 +15,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	
 	Livro findByIsbn(String isbn);
 	
-	@Query("select l from Livro l where l.status = 'DISPONIVEL'")
+	@Query(value =  "select l from Livro l where l.status = 'DISPONIVEL'")
 	List<Livro> findAllStatusDisponivel();
 	
-	@Query("select l from Livro l order by l.id asc")
+	@Query(value =  "select l from Livro l order by l.id asc")
 	List<Livro> findAll();
 }

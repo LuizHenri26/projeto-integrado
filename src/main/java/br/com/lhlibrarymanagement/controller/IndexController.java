@@ -32,7 +32,6 @@ public class IndexController {
 
 	@PostMapping(value = "/buscar")
 	public String pesquisarPeloTitulo(Model model, @RequestParam("titulo") String titulo) {
-		
 		if (titulo.isBlank()) {
 			return "redirect:/";
 		}

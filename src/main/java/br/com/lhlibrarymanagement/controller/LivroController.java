@@ -81,9 +81,8 @@ public class LivroController {
 		List<Livro> livros;
 		if (titulo.isBlank()) {
 			return "redirect:/livro/listar";
-		} else {
-			livros = livroService.filtrarLivroPeloTitulo(titulo);
-		}
+		} 
+		livros = livroService.filtrarLivroPeloTitulo(titulo);
 		model.addAttribute("livros", livros);
 		return "consulta-livros";
 	}

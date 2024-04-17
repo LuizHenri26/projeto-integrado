@@ -109,19 +109,8 @@ public class UsuarioService implements UserDetailsService {
 		return false;
 	}
 
-	public List<Usuario> filtrarUsuarios(String nome, String login) {
-		List<Usuario> usuarios = null;
-
-		if (!nome.isBlank() && !login.isBlank()) {
-			usuarios = usuarioRepository.findByNomeAndLoginContainingIgnoreCase(nome, login);
-		}
-		if (!nome.isBlank()) {
-			usuarios = usuarioRepository.findByNomeContainingIgnoreCase(nome);
-		}
-		if (!login.isBlank()) {
-			usuarios = usuarioRepository.findByLoginContainingIgnoreCase(login);
-		}
-
+	public List<Usuario> filtrarUsuarioPeloNome(String nome) {
+		List<Usuario> usuarios = usuarioRepository.findByNomeContainingIgnoreCase(nome);
 		return usuarios;
 	}
 
@@ -146,7 +135,6 @@ public class UsuarioService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository.findByLogin(username);
-
 		if (usuario != null) {
 			DetalheUsuario detalheUsuario = new DetalheUsuario(usuario);
 			return detalheUsuario;

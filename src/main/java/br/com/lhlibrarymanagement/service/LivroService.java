@@ -32,17 +32,17 @@ public class LivroService {
 	private IdiomaRepository idiomaRepository;
 
 	public List<Categoria> getCategorias() {
-		Iterable<Categoria> categorias = categoriaRepository.findAll();
+		List<Categoria> categorias = categoriaRepository.findAll();
 		return Streamable.of(categorias).toList();
 	}
 
 	public List<Setor> getSetores() {
-		Iterable<Setor> setores = setorRepository.findAll();
+		List<Setor> setores = setorRepository.findAll();
 		return Streamable.of(setores).toList();
 	}
 
 	public List<Idioma> getIdiomas() {
-		Iterable<Idioma> idiomas = idiomaRepository.findAll();
+		List<Idioma> idiomas = idiomaRepository.findAll();
 		return Streamable.of(idiomas).toList();
 	}
 

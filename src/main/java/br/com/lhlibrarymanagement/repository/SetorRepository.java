@@ -10,8 +10,5 @@ import br.com.lhlibrarymanagement.model.Setor;
 
 @Repository
 public interface SetorRepository extends JpaRepository<Setor, Long>{
-	
-	@Query(value = "select s.id, s.nome from setor s", nativeQuery = true)
 	List<Setor> findAll();
-
 }

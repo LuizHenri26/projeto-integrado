@@ -29,22 +29,22 @@ public class EmprestimoService {
 	private EmprestimoRepository emprestimoRepository;
 
 	public List<Membro> getMembros() {
-		Iterable<Membro> membros = this.membroRepository.findAllMembros();
+		List<Membro> membros = this.membroRepository.findAllMembros();
 		return Streamable.of(membros).toList();
 	}
 
 	public List<Livro> getLivrosDisponiveis() {
-		Iterable<Livro> livros = this.livroRepository.findAllStatusDisponivel();
+		List<Livro> livros = this.livroRepository.findAllStatusDisponivel();
 		return Streamable.of(livros).toList();
 	}
 
 	public List<Emprestimo> getListarEmprestimosVigentes() {
-		Iterable<Emprestimo> emprestimos = this.emprestimoRepository.findAllEmprestimosVigentes();
+		List<Emprestimo> emprestimos = this.emprestimoRepository.findAllEmprestimosVigentes();
 		return Streamable.of(emprestimos).toList();
 	}
 
 	public List<Emprestimo> filtrarMembros(String nome) {
-		Iterable<Emprestimo> emprestimos = this.emprestimoRepository.findFiltrarMembro(nome);
+		List<Emprestimo> emprestimos = this.emprestimoRepository.findFiltrarMembro(nome);
 		return Streamable.of(emprestimos).toList();
 	}
 

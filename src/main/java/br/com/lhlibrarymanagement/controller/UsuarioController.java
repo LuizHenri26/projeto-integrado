@@ -67,14 +67,11 @@ public class UsuarioController {
 	}
 
 	@PostMapping(value = "/usuario/buscar")
-	public String pesquisarPeloFiltroNomeLoginUsuario(Model model, @RequestParam("nome") String nome,
-			@RequestParam("login") String login) {
-		List<Usuario> usuarios;
-		if (nome.isBlank() && login.isBlank()) {
+	public String pesquisarPeloFiltroNomeLoginUsuario(Model model, @RequestParam("nome") String nome) {
+		if (nome.isBlank()) {
 			return "redirect:/usuario/listar";
-		} else {
-			usuarios = usuarioService.filtrarUsuarios(nome, login);
 		}
+		List<Usuario> usuarios = usuarioService.filtrarUsuarioPeloNome(nome);
 		model.addAttribute("usuarios", usuarios);
 		return "admin/consultar-usuarios";
 	}
