@@ -28,7 +28,7 @@ public class UsuarioController {
 	@GetMapping(value = "/usuario/salvar")
 	public String adicionarUsuario(Model model) {
 		model.addAttribute("usuario", new Usuario());
-		model.addAttribute("listaPerfis", perfilService.listarPerfil());
+		model.addAttribute("perfis", perfilService.listarPerfil());
 		return "admin/cadastrar-usuario";
 	}
 
@@ -36,7 +36,7 @@ public class UsuarioController {
 	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, Model model,
 			RedirectAttributes attributes) {
 		if (result.hasErrors()) {
-			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
+			model.addAttribute("perfis", this.perfilService.listarPerfil());
 			return "admin/cadastrar-usuario";
 		}
 
@@ -82,7 +82,7 @@ public class UsuarioController {
 	@GetMapping(value = "/usuario/editar/{id}")
 	public String editarUsuario(@PathVariable("id") Long id, Model model) {
 		Usuario usuario = this.usuarioService.buscarUsuarioPorId(id);
-		model.addAttribute("listaPerfis", perfilService.listarPerfil());
+		model.addAttribute("perfis", perfilService.listarPerfil());
 		model.addAttribute("usuario", usuario);
 		return "admin/editar-usuario";
 	}
@@ -92,7 +92,7 @@ public class UsuarioController {
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			usuario.setId(id);
-			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
+			model.addAttribute("perfis", this.perfilService.listarPerfil());
 			return "admin/editar-usuario";
 		}
 

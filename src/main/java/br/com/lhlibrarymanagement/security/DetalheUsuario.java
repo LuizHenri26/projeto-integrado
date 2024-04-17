@@ -23,14 +23,10 @@ public class DetalheUsuario implements UserDetails, Serializable {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<Perfil> perfis = usuario.getPerfis();
+		Perfil perfil = usuario.getPerfil();
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-		for (Perfil perfil : perfis) {
-			SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(perfil.getNome());
-			authorities.add(simpleGrantedAuthority);
-		}
-
+		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(perfil.getNome());
+		authorities.add(simpleGrantedAuthority);
 		return authorities;
 	}
 

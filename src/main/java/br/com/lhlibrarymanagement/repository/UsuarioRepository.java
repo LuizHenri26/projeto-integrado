@@ -14,10 +14,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Usuario findByLogin(String login);
 
-	@Query(value = "select * from usuario u where u.nome like %:nome% and u.id <> 1", nativeQuery = true)
 	List<Usuario> findByNomeContainingIgnoreCase(@Param("nome") String nome);
 
-	@Query(value = "select u from Usuario u where u.login <> 'admin' order by u.id asc")
+	@Query(value = "select u from Usuario u order by u.id asc")
 	List<Usuario> findAll();
 
 	Integer countByLogin(String login);

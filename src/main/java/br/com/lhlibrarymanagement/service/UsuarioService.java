@@ -1,6 +1,5 @@
 package br.com.lhlibrarymanagement.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +21,6 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private PerfilService perfilService;
-
-	private static final Long ID_PERFIL_FUNCIONARIO = 2l;
 
 	public Usuario buscarUsuarioPorId(Long id) {
 		Optional<Usuario> opt = usuarioRepository.findById(id);
@@ -60,14 +54,9 @@ public class UsuarioService implements UserDetailsService {
 	/**
 	 * Cadastra os dados do usuario da aplicação.
 	 * 
-	 * @param usuario  - entidade usuário.
-	 * @param idsPefis - identificador dos perfis habilitados.
+	 * @param usuario - entidade usuário.
 	 */
 	public void cadastrarUsuario(Usuario usuario) {
-		List<Perfil> perfis = new ArrayList<Perfil>();
-		Perfil papel = perfilService.buscarPerfilPorId(ID_PERFIL_FUNCIONARIO);
-		perfis.add(papel);
-		usuario.setPerfis(perfis);
 		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
 		usuario.setSenha(crypt);
 		usuarioRepository.save(usuario);
@@ -76,26 +65,16 @@ public class UsuarioService implements UserDetailsService {
 	/**
 	 * Edita os dados do usuário da aplicação, na tela de edição.
 	 * 
-	 * @param id       - identificador do usuário.
-	 * @param idsPefis - ids de perfis caso mais de um tenha sigo habilitado.
-	 * @param isAtivo  - se o usuário está ativo ou inativo.
+	 * @param id - identificador do usuário.
 	 */
 	public void editarUsuario(Usuario usuario, Long id) {
-		List<Perfil> perfis = new ArrayList<Perfil>();
-		Perfil papel = perfilService.buscarPerfilPorId(ID_PERFIL_FUNCIONARIO);
-		perfis.add(papel);
-		usuario.setPerfis(perfis);
-		Usuario usuarios = buscarUsuarioPorId(id);
-		String senhaAtual = usuarios.getSenha();
+		Usuario usuarioId = buscarUsuarioPorId(id);
+		String senhaAtual = usuarioId.getSenha();
 		String senhaFutura = usuario.getSenha();
-
 		if (!senhaAtual.equals(senhaFutura)) {
 			String crypt = new BCryptPasswordEncoder().encode(senhaFutura);
 			usuario.setSenha(crypt);
 		}
-
-		usuario.setPerfis(perfis);
-
 		usuarioRepository.save(usuario);
 	}
 
@@ -103,10 +82,9 @@ public class UsuarioService implements UserDetailsService {
 	 * Verifica qual o tipo de perfil o possui na aplicação.
 	 */
 	public boolean isAutoriza(Usuario usuario, String nome) {
-		for (Perfil perfil : usuario.getPerfis()) {
-			if (perfil.getNome().equals(nome)) {
-				return true;
-			}
+		Perfil perfil = usuario.getPerfil();
+		if (perfil.getNome().equals(nome)) {
+			return true;
 		}
 		return false;
 	}

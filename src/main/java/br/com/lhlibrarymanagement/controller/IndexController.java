@@ -25,7 +25,7 @@ public class IndexController {
 		return "index";
 	}
 
-	@GetMapping("/login")
+	@GetMapping(value = "/login")
 	public String entrar() {
 		return "login";
 	}

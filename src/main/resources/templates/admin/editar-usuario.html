@@ -57,6 +57,14 @@
 										<span class="mensagem" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
 									</div>
 								</div>
+								<div class="mb-3">
+									<label for="inputPerfil" class="form-label">Perfil</label>
+									<select class="form-select" id="inputPerfil" name="perfil">
+										<option th:each="perfil : ${perfis}" th:value="${perfil.id}"
+											th:text="${perfil.nome}" th:selected="${perfil.id} == ${usuario?.perfil?.id}">
+										</option>
+									</select>
+								</div>
 								<button type="submit" class="btn btn-primary">
 									Atualizar
 								</button>

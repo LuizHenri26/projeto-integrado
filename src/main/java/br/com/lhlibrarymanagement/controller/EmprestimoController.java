@@ -70,7 +70,7 @@ public class EmprestimoController {
 		return "registrar-devolucao";
 	}
 
-	@GetMapping("/emprestimo/devolucao/{id}")
+	@GetMapping(value = "/emprestimo/devolucao/{id}")
 	public String registrarDevolucaoLivro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Emprestimo emprestimo = this.emprestimoService.findById(id);
 		model.addAttribute("emprestimo", emprestimo);

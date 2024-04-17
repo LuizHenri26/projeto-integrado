@@ -56,11 +56,7 @@
 						<tr th:each="usuario : ${usuarios}">
 							<td th:text="${usuario.nome}"></td>
 							<td th:text="${usuario.login}"></td>
-							<td>
-								<th:block th:each="perfil : ${usuario.perfis}">
-									<span th:text="${perfil.nome}"></span><br />
-								</th:block>
-							</td>
+							<td th:text="${usuario.perfil.nome}"></td>
 							<td class="d-flex align-center justify-content-center gap-2">
 								<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" data-buttonEdit><img
 										th:src="@{/img/edit.svg}" alt=""></a>
