@@ -35,9 +35,9 @@ public class MembroController {
 			return "cadastrar-membro";
 		}
 
-		Membro membroCpf = membroService.findByCpf(membro.getCpf());
+		Integer countCpfExistente = membroService.countCpfExistente(membro.getCpf());
 
-		if (membroCpf != null) {
+		if (countCpfExistente > 0) {
 			model.addAttribute("cpfExistente", "CPF já cadastrado!");
 			return "cadastrar-membro";
 		}

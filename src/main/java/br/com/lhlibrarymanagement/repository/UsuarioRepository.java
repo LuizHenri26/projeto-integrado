@@ -17,5 +17,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query(value = "select u from Usuario u order by u.id asc")
 	List<Usuario> findAll();
+	
+	
+	Integer countByLogin(String login);
 
 }

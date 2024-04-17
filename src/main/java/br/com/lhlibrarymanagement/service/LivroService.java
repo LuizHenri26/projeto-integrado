@@ -68,6 +68,11 @@ public class LivroService {
 	public Livro findByIsbn(String isbn) {
 		return livroRepository.findByIsbn(isbn);
 	}
+	
+	public Integer countIsbnExistente(String nome) {
+		Integer quantidadeIsbnExistente = livroRepository.countByIsbn(nome);
+		return quantidadeIsbnExistente;
+	}
 
 	public void cadastraLivro(Livro livro) {
 		livroRepository.save(livro);
@@ -86,10 +91,10 @@ public class LivroService {
 
 	public boolean isIsbnExistente(final Long id, final Livro livro) {
 		Livro livroIsbn = findById(id);
-		Livro livros = findByIsbn(livro.getIsbn());
+		Integer countIsbnExistente = countIsbnExistente(livro.getIsbn());
 		String isbnAtual = livroIsbn.getIsbn();
 		String isbnFuturo = livro.getIsbn();
-		return !isbnAtual.equals(isbnFuturo) && livros != null;
+		return !isbnAtual.equals(isbnFuturo) && countIsbnExistente > 0;
 	}
 
 }

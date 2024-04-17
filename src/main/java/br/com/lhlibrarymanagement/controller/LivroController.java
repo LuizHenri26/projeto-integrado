@@ -51,9 +51,9 @@ public class LivroController {
 			return "cadastrar-livro";
 		}
 
-		Livro livroIsbn = livroService.findByIsbn(livro.getIsbn());
+		Integer countIsbnExistente = livroService.countIsbnExistente(livro.getIsbn());
 
-		if (livroIsbn != null) {
+		if (countIsbnExistente > 0) {
 			List<Categoria> filtroCategorias = livroService.getCategorias();
 			List<Setor> filtroSetores = livroService.getSetores();
 			List<Idioma> filtroIdiomas = livroService.getIdiomas();
@@ -81,7 +81,7 @@ public class LivroController {
 		List<Livro> livros;
 		if (titulo.isBlank()) {
 			return "redirect:/livro/listar";
-		} 
+		}
 		livros = livroService.filtrarLivroPeloTitulo(titulo);
 		model.addAttribute("livros", livros);
 		return "consulta-livros";

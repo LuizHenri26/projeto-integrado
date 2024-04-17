@@ -40,9 +40,9 @@ public class UsuarioController {
 			return "admin/cadastrar-usuario";
 		}
 
-		Usuario usr = usuarioService.buscaUsuarioPorLogin(usuario.getLogin());
+		Integer countLoginExistente = usuarioService.countLoginExistente(usuario.getLogin());
 
-		if (usr != null) {
+		if (countLoginExistente > 0) {
 			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
 			model.addAttribute("loginExistente", "Login já cadastrado!");
 			return "admin/cadastrar-usuario";
@@ -103,7 +103,7 @@ public class UsuarioController {
 			redirect.addFlashAttribute("campoPerfilObrigatorio", "Campo obrigatório!");
 			return "redirect:/usuario/editar/" + id;
 		}
-		
+
 		if (result.hasErrors()) {
 			usuario.setId(id);
 			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());

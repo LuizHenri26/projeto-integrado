@@ -21,13 +21,9 @@ public class MembroService {
 		return quantidadeEmprestimoVigenteMembro;
 	}
 
-	/**
-	 * Realiza a inserção de membros no sistema.
-	 * 
-	 * @param membro - entidade membro.
-	 */
-	public void cadastrarMembro(Membro membro) {
-		membroRepository.save(membro);
+	public Integer countCpfExistente(String cpf) {
+		Integer countCpfExistente = membroRepository.countByCpf(cpf);
+		return countCpfExistente;
 	}
 
 	/**
@@ -78,6 +74,15 @@ public class MembroService {
 	}
 
 	/**
+	 * Realiza a inserção de membros no sistema.
+	 * 
+	 * @param membro - entidade membro.
+	 */
+	public void cadastrarMembro(Membro membro) {
+		membroRepository.save(membro);
+	}
+
+	/**
 	 * Realiza a deleção do membro,
 	 * 
 	 * @param membro - entidade membro.
@@ -95,10 +100,10 @@ public class MembroService {
 	 */
 	public boolean isCpfExistente(Long id, Membro membro) {
 		Membro membroCpf = findById(id);
-		Membro membroCpfExistente = findByCpf(membro.getCpf());
+		Integer countCpfExistente = countCpfExistente(membro.getCpf());
 		String cpfAtual = membroCpf.getCpf();
 		String cpfFuturo = membro.getCpf();
-		return !cpfAtual.equals(cpfFuturo) && membroCpfExistente != null;
+		return !cpfAtual.equals(cpfFuturo) && countCpfExistente > 0;
 	}
 
 }

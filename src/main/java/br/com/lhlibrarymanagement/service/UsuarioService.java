@@ -35,6 +35,11 @@ public class UsuarioService implements UserDetailsService {
 		}
 	}
 
+	public Integer countLoginExistente(String nome) {
+		Integer countLoginExistente = usuarioRepository.countByLogin(nome);
+		return countLoginExistente;
+	}
+	
 	public void apagarUsuarioPorId(Long id) {
 		Usuario usuario = buscarUsuarioPorId(id);
 		usuarioRepository.delete(usuario);
@@ -117,7 +122,7 @@ public class UsuarioService implements UserDetailsService {
 	/**
 	 * Deleta o usuario
 	 * 
-	 * @param categoria - entidade usuario
+	 * @param usuario - entidade usuario
 	 */
 	public void deletarUsuario(Usuario usuario) {
 		usuarioRepository.delete(usuario);
@@ -125,16 +130,16 @@ public class UsuarioService implements UserDetailsService {
 
 	public boolean isLoginExistente(final Long id, final Usuario usuario) {
 		Usuario usr = buscarUsuarioPorId(id);
-		Usuario loginExistente = buscaUsuarioPorLogin(usuario.getLogin());
+		Integer countLoginExistente = countLoginExistente(usuario.getLogin());
 		String usuarioAtual = usr.getLogin();
 		String usuarioFuturo = usuario.getLogin();
-		return !usuarioAtual.equals(usuarioFuturo) && loginExistente != null;
+		return !usuarioAtual.equals(usuarioFuturo) && countLoginExistente > 0;
 	}
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = usuarioRepository.findByLogin(username);
+		Usuario usuario = buscaUsuarioPorLogin(username);
 		if (usuario != null) {
 			DetalheUsuario detalheUsuario = new DetalheUsuario(usuario);
 			return detalheUsuario;

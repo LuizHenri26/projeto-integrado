@@ -17,6 +17,8 @@ public interface MembroRepository extends JpaRepository<Membro, Long> {
 
 	@Query(value = "select count(*) from membro me where me.id_membro = :id and exists (select * from emprestimo e where e.id_membro = me.id_membro and e.status = 'EMPRESTADO')", nativeQuery = true)
 	Integer quantidadeDeEmprestimoVigenteMembroEspecifico(@Param("id") Long id);
+	
+	Integer countByCpf(String cpf);
 
 	List<Membro> findByNomeContainingIgnoreCase(String nome);
 

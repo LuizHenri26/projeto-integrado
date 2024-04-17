@@ -20,4 +20,6 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	
 	@Query(value =  "select l from Livro l order by l.id asc")
 	List<Livro> findAll();
+	
+	Integer countByIsbn(String isbn);
 }
