@@ -48,7 +48,7 @@ public class LivroService {
 
 	public List<Livro> getListarLivros() {
 		List<Livro> livros = livroRepository.findAll();
-		return livros;
+		return  Streamable.of(livros).toList();
 	}
 
 	public Livro findById(Long id) {

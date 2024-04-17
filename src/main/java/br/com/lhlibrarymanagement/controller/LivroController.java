@@ -32,9 +32,9 @@ public class LivroController {
 		List<Setor> filtroSetores = livroService.getSetores();
 		List<Idioma> filtroIdiomas = livroService.getIdiomas();
 		model.addAttribute("livro", new Livro());
-		model.addAttribute("categoriasList", filtroCategorias);
-		model.addAttribute("setoresList", filtroSetores);
-		model.addAttribute("idiomasList", filtroIdiomas);
+		model.addAttribute("categorias", filtroCategorias);
+		model.addAttribute("setores", filtroSetores);
+		model.addAttribute("idiomas", filtroIdiomas);
 		return "cadastrar-livro";
 	}
 
@@ -42,24 +42,18 @@ public class LivroController {
 	public String adicionarNovoLivro(@Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			List<Categoria> filtroCategorias = livroService.getCategorias();
-			List<Setor> filtroSetores = livroService.getSetores();
-			List<Idioma> filtroIdiomas = livroService.getIdiomas();
-			model.addAttribute("categoriasList", filtroCategorias);
-			model.addAttribute("setoresList", filtroSetores);
-			model.addAttribute("idiomasList", filtroIdiomas);
+			model.addAttribute("categorias", this.livroService.getCategorias());
+			model.addAttribute("setores", this.livroService.getSetores());
+			model.addAttribute("idiomas", this.livroService.getIdiomas());
 			return "cadastrar-livro";
 		}
 
 		Integer countIsbnExistente = livroService.countIsbnExistente(livro.getIsbn());
 
 		if (countIsbnExistente > 0) {
-			List<Categoria> filtroCategorias = livroService.getCategorias();
-			List<Setor> filtroSetores = livroService.getSetores();
-			List<Idioma> filtroIdiomas = livroService.getIdiomas();
-			model.addAttribute("categoriasList", filtroCategorias);
-			model.addAttribute("setoresList", filtroSetores);
-			model.addAttribute("idiomasList", filtroIdiomas);
+			model.addAttribute("categorias", this.livroService.getCategorias());
+			model.addAttribute("setores", this.livroService.getSetores());
+			model.addAttribute("idiomas", this.livroService.getIdiomas());
 			model.addAttribute("isbnExistente", "ISBN já cadastrado!");
 			return "cadastrar-livro";
 		}
@@ -78,11 +72,10 @@ public class LivroController {
 
 	@PostMapping("/livro/buscar")
 	public String pesquisarPeloTitulo(Model model, @RequestParam("titulo") String titulo) {
-		List<Livro> livros;
 		if (titulo.isBlank()) {
 			return "redirect:/livro/listar";
 		}
-		livros = livroService.filtrarLivroPeloTitulo(titulo);
+		List<Livro> livros = this.livroService.filtrarLivroPeloTitulo(titulo);
 		model.addAttribute("livros", livros);
 		return "consulta-livros";
 	}
@@ -94,7 +87,7 @@ public class LivroController {
 			redirect.addFlashAttribute("mensagemErro", "Livro emprestado!");
 			return "redirect:/livro/listar";
 		}
-		livroService.deletarLivro(livro);
+		this.livroService.deletarLivro(livro);
 		model.addAttribute("livro", livro);
 		redirect.addFlashAttribute("mensagemSucesso", "Livro deletado com sucesso!");
 		return "redirect:/livro/listar";
@@ -106,9 +99,9 @@ public class LivroController {
 		List<Categoria> filtroCategorias = livroService.getCategorias();
 		List<Setor> filtroSetores = livroService.getSetores();
 		List<Idioma> filtroIdiomas = livroService.getIdiomas();
-		model.addAttribute("categoriasList", filtroCategorias);
-		model.addAttribute("setoresList", filtroSetores);
-		model.addAttribute("idiomasList", filtroIdiomas);
+		model.addAttribute("categorias", filtroCategorias);
+		model.addAttribute("setores", filtroSetores);
+		model.addAttribute("idiomas", filtroIdiomas);
 		model.addAttribute("livro", livro);
 		return "editar-livro";
 	}
@@ -117,22 +110,16 @@ public class LivroController {
 	public String editarLivro(@PathVariable("id") Long id, @Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			List<Categoria> filtroCategorias = livroService.getCategorias();
-			List<Setor> filtroSetores = livroService.getSetores();
-			List<Idioma> filtroIdiomas = livroService.getIdiomas();
-			model.addAttribute("categoriasList", filtroCategorias);
-			model.addAttribute("setoresList", filtroSetores);
-			model.addAttribute("idiomasList", filtroIdiomas);
+			model.addAttribute("categorias", this.livroService.getCategorias());
+			model.addAttribute("setores", this.livroService.getSetores());
+			model.addAttribute("idiomas", this.livroService.getIdiomas());
 			return "editar-livro";
 		}
 
 		if (livroService.isIsbnExistente(id, livro)) {
-			List<Categoria> filtroCategorias = livroService.getCategorias();
-			List<Setor> filtroSetores = livroService.getSetores();
-			List<Idioma> filtroIdiomas = livroService.getIdiomas();
-			model.addAttribute("categoriasList", filtroCategorias);
-			model.addAttribute("setoresList", filtroSetores);
-			model.addAttribute("idiomasList", filtroIdiomas);
+			model.addAttribute("categorias", this.livroService.getCategorias());
+			model.addAttribute("setores", this.livroService.getSetores());
+			model.addAttribute("idiomas", this.livroService.getIdiomas());
 			model.addAttribute("isbnExistente", "ISBN já cadastrado!");
 			return "editar-livro";
 		}

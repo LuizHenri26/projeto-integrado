@@ -39,7 +39,7 @@
 									<div class="col-sm">
 										<label for="inputCategoria" class="form-label">Categoria</label>
 										<select class="form-select" id="inputCategoria" name="categoria">
-											<option th:each="categoria : ${categoriasList}" th:value="${categoria.id}"
+											<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
 												th:text="${categoria.nome}">
 											</option>
 										</select>
@@ -73,7 +73,7 @@
 									<div class="col-sm">
 										<label for="inputSetorLivro" class="form-label">Idioma</label>
 										<select class="form-select" id="inputIdiomaLivro" name="idioma">
-											<option th:each="idioma : ${idiomasList}" th:value="${idioma.id}"
+											<option th:each="idioma : ${idiomas}" th:value="${idioma.id}"
 												th:text="${idioma.descricao}">
 											</option>
 										</select>
@@ -81,7 +81,7 @@
 									<div class="col-sm">
 										<label for="inputSetorLivro" class="form-label">Setor</label>
 										<select class="form-select" id="inputSetorLivro" name="setor">
-											<option th:each="setor : ${setoresList}" th:value="${setor.id}"
+											<option th:each="setor : ${setores}" th:value="${setor.id}"
 												th:text="${setor.nome}"></option>
 										</select>
 									</div>

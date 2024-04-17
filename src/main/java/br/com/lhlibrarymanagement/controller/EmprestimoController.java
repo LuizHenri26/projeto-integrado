@@ -38,16 +38,13 @@ public class EmprestimoController {
 			RedirectAttributes redirect) {
 		// Validador option bean validation não funciona para essa situação
 		if (emprestimo.getLivro() == null || emprestimo.getMembro() == null) {
-			List<Livro> livros = this.emprestimoService.getLivrosDisponiveis();
-			List<Membro> membros = this.emprestimoService.getMembros();
 			model.addAttribute("emprestimo", new Emprestimo());
-			model.addAttribute("membros", membros);
-			model.addAttribute("livros", livros);
+			model.addAttribute("membros", this.emprestimoService.getLivrosDisponiveis());
+			model.addAttribute("livros", this.emprestimoService.getMembros());
 			model.addAttribute("campoLivroObrigatorio", "Campo obrigatório!");
 			model.addAttribute("campoMembroObrigatorio", "Campo obrigatório!");
 			return "registrar-emprestimo";
 		}
-
 		this.emprestimoService.registrarEmprestimo(emprestimo);
 		redirect.addFlashAttribute("mensagem", "Empréstimo do livro efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
