@@ -103,7 +103,7 @@ public class UsuarioController {
 			redirect.addFlashAttribute("campoPerfilObrigatorio", "Campo obrigatório!");
 			return "redirect:/usuario/editar/" + id;
 		}
-
+		
 		if (result.hasErrors()) {
 			usuario.setId(id);
 			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
