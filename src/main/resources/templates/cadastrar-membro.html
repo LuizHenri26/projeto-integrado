@@ -31,59 +31,57 @@
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputMembro" class="form-label">Nome *  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
-											th:errors="*{nome}"></span>
 										<input type="text" class="form-control" id="inputMembro" th:field="*{nome}"
 											placeholder="Digite o nome do membro" name="nome" maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputCPF" class="form-label">CPF *  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('cpf')}"
-											th:errors="*{cpf}"></span>
-										<span class="mensagem" th:if="${cpfExistente}" th:text="${cpfExistente}"></span>
 										<input type="text" class="form-control" id="inputCPF" th:field="*{cpf}"
 											placeholder="Digite o numero do CPF" maxlength="14" name="cpf"
 											OnKeyPress="formatar('###.###.###-##',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+										<span class="mensagem" th:if="${cpfExistente}" th:text="${cpfExistente}"></span>
 									</div>
 									<div class="col-sm">
 										<label for="inputDataNascimento" class="form-label">Data de Nascimento
 											* </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}"
-												th:errors="*{dataNascimento}"></span>
 										<input type="text" class="form-control" id="inputDataNascimento"
 											th:field="*{dataNascimento}" placeholder="Digite a data de nascimento"
 											name="dataNascimento" maxlength="10"
 											OnKeyPress="formatar('##/##/####',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}"
+													th:errors="*{dataNascimento}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputLogradouro" class="form-label">Logradouro *  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('endereco.logradouro')}"
-											th:errors="*{endereco.logradouro}"></span>
 										<input type="text" class="form-control" id="inputLogradouro" name="logradouro"
 											th:field="*{endereco.logradouro}" placeholder="Digite o Logradouro"
 											maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.logradouro')}"
+												th:errors="*{endereco.logradouro}"></span>
 									</div>
 									<div class="col-sm">
 										<label for="inputNumero" class="form-label">Numero *  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('endereco.numero')}"
-											th:errors="*{endereco.numero}"></span>
 										<input type="text" class="form-control" id="inputNumero" name="numero"
 											th:field="*{endereco.numero}" placeholder="Digite o numero da casa"
 											maxlength="20" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.numero')}"
+												th:errors="*{endereco.numero}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputCEP" class="form-label">CEP *  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('endereco.cep')}"
-											th:errors="*{endereco.cep}"></span>
 										<input type="text" class="form-control" id="inputCEP" name="cep"
 											th:field="*{endereco.cep}" placeholder="Digite o numero do CEP"
 											maxlength="10" OnKeyPress="formatar('##.###-###',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.cep')}"
+												th:errors="*{endereco.cep}"></span>
 									</div>
 									<div class="col-sm">
 										<label for="inputComplemento" class="form-label">Complemento</label>
@@ -95,30 +93,30 @@
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputCidade" class="form-label">Cidade * </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('endereco.cidade')}"
-											th:errors="*{endereco.cidade}"></span>
 										<input type="text" class="form-control" id="inputCidade" name="cidade"
 											th:field="*{endereco.cidade}" placeholder="Digite o nome da cidade"
 											maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.cidade')}"
+												th:errors="*{endereco.cidade}"></span>
 									</div>
 									<div class="col-sm">
 										<label for="inputEstado" class="form-label">Estado *  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('endereco.estado')}"
-											th:errors="*{endereco.estado}"></span>
 										<input type="text" class="form-control" id="inputEstado" name="estado"
 											th:field="*{endereco.estado}" placeholder="Digite o nome do estado"
 											maxlength="65" />
+										<span class="mensagem" th:if="${#fields.hasErrors('endereco.estado')}"
+												th:errors="*{endereco.estado}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputNumeroContato" class="form-label">Numero de Contato
-											*  </label>
-										<span class="mensagem" th:if="${#fields.hasErrors('contato.numeroContato')}"
-												th:errors="*{contato.numeroContato}"></span>
+											*</label>
 										<input type="text" class="form-control" id="inputNumeroContato" name="contato"
 											th:field="*{contato.numeroContato}" placeholder="Digite o numero de contato"
 											maxlength="15" OnKeyPress="formatar('(##) #####-####',this)" />
+										<span class="mensagem" th:if="${#fields.hasErrors('contato.numeroContato')}"
+													th:errors="*{contato.numeroContato}"></span>
 									</div>
 									<div class="col-sm">
 										<label for="inputEmail" class="form-label">E-mail</label>

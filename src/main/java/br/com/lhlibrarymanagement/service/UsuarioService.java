@@ -26,6 +26,8 @@ public class UsuarioService implements UserDetailsService {
 	@Autowired
 	private PerfilService perfilService;
 
+	private static final Long ID_PERFIL_FUNCIONARIO = 2l;
+
 	public Usuario buscarUsuarioPorId(Long id) {
 		Optional<Usuario> opt = usuarioRepository.findById(id);
 		if (opt.isPresent()) {
@@ -39,7 +41,7 @@ public class UsuarioService implements UserDetailsService {
 		Integer countLoginExistente = usuarioRepository.countByLogin(nome);
 		return countLoginExistente;
 	}
-	
+
 	public void apagarUsuarioPorId(Long id) {
 		Usuario usuario = buscarUsuarioPorId(id);
 		usuarioRepository.delete(usuario);
@@ -61,13 +63,10 @@ public class UsuarioService implements UserDetailsService {
 	 * @param usuario  - entidade usuário.
 	 * @param idsPefis - identificador dos perfis habilitados.
 	 */
-	public void cadastrarUsuario(Usuario usuario, int[] idsPerfis) {
+	public void cadastrarUsuario(Usuario usuario) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
-		for (int i = 0; i < idsPerfis.length; i++) {
-			long idPerfil = idsPerfis[i];
-			Perfil perfil = perfilService.buscarPerfilPorId(idPerfil);
-			perfis.add(perfil);
-		}
+		Perfil papel = perfilService.buscarPerfilPorId(ID_PERFIL_FUNCIONARIO);
+		perfis.add(papel);
 		usuario.setPerfis(perfis);
 		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
 		usuario.setSenha(crypt);
@@ -81,13 +80,11 @@ public class UsuarioService implements UserDetailsService {
 	 * @param idsPefis - ids de perfis caso mais de um tenha sigo habilitado.
 	 * @param isAtivo  - se o usuário está ativo ou inativo.
 	 */
-	public void editarUsuario(Usuario usuario, int[] idsPerfis, Long id) {
+	public void editarUsuario(Usuario usuario, Long id) {
 		List<Perfil> perfis = new ArrayList<Perfil>();
-		for (int i = 0; i < idsPerfis.length; i++) {
-			long idPerfil = idsPerfis[i];
-			Perfil perfil = perfilService.buscarPerfilPorId(idPerfil);
-			perfis.add(perfil);
-		}
+		Perfil papel = perfilService.buscarPerfilPorId(ID_PERFIL_FUNCIONARIO);
+		perfis.add(papel);
+		usuario.setPerfis(perfis);
 		Usuario usuarios = buscarUsuarioPorId(id);
 		String senhaAtual = usuarios.getSenha();
 		String senhaFutura = usuario.getSenha();

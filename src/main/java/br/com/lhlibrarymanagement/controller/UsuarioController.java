@@ -33,8 +33,8 @@ public class UsuarioController {
 	}
 
 	@PostMapping(value = "/usuario/cadastrar")
-	public String salvarUsuario(@RequestParam(value = "perfil", required = false) int[] perfis, @Valid Usuario usuario,
-			BindingResult result, Model model, RedirectAttributes attributes) {
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, Model model,
+			RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
 			return "admin/cadastrar-usuario";
@@ -48,13 +48,7 @@ public class UsuarioController {
 			return "admin/cadastrar-usuario";
 		}
 
-		if (perfis == null) {
-			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
-			model.addAttribute("campoPerfilObrigatorio", "Campo obrigatório!");
-			return "admin/cadastrar-usuario";
-		}
-
-		usuarioService.cadastrarUsuario(usuario, perfis);
+		usuarioService.cadastrarUsuario(usuario);
 		attributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
 		return "redirect:/usuario/salvar";
 	}
@@ -94,16 +88,8 @@ public class UsuarioController {
 	}
 
 	@PostMapping(value = "/usuario/editar/{id}")
-	public String editarUsuario(@PathVariable("id") Long id,
-			@RequestParam(value = "perfis", required = false) int[] perfis, @Valid Usuario usuario,
-			BindingResult result, Model model, RedirectAttributes redirect) {
-
-		if (perfis == null) {
-			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
-			redirect.addFlashAttribute("campoPerfilObrigatorio", "Campo obrigatório!");
-			return "redirect:/usuario/editar/" + id;
-		}
-
+	public String editarUsuario(@PathVariable("id") Long id, @Valid Usuario usuario, BindingResult result, Model model,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			usuario.setId(id);
 			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
@@ -116,7 +102,7 @@ public class UsuarioController {
 			return "admin/editar-usuario";
 		}
 
-		usuarioService.editarUsuario(usuario, perfis, id);
+		usuarioService.editarUsuario(usuario, id);
 		redirect.addFlashAttribute("mensagem", "Alteração realizada com sucesso!");
 		return "redirect:/usuario/listar";
 	}
