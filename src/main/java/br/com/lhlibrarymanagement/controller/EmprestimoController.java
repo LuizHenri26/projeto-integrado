@@ -33,7 +33,7 @@ public class EmprestimoController {
 		return "registrar-emprestimo";
 	}
 
-	@PostMapping("/emprestimo/cadastrar")
+	@PostMapping(value = "/emprestimo/cadastrar")
 	public String realizarEmprestimo(Emprestimo emprestimo, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		// Validador option bean validation não funciona para essa situação
@@ -66,19 +66,18 @@ public class EmprestimoController {
 			return "registrar-emprestimo";
 		}
 		this.emprestimoService.registrarEmprestimo(emprestimo);
-		this.emprestimoService.registrarHistorico(emprestimo);
 		redirect.addFlashAttribute("mensagem", "Empréstimo do livro efetuado com sucesso!");
 		return "redirect:/emprestimo/salvar";
 	}
 
-	@GetMapping("/emprestimo/listar")
+	@GetMapping(value = "/emprestimo/listar")
 	public String listarEmprestimosVigentes(Model model) {
 		List<Emprestimo> emprestimos = this.emprestimoService.getListarEmprestimosVigentes();
 		model.addAttribute("emprestimos", emprestimos);
 		return "registrar-devolucao";
 	}
 
-	@PostMapping("/emprestimo/buscar")
+	@PostMapping(value = "/emprestimo/buscar")
 	public String pesquisarMembroPeloNome(Model model, @RequestParam("nome") String nome) {
 		if (nome.isBlank()) {
 			return "redirect:/emprestimo/listar";
@@ -93,7 +92,6 @@ public class EmprestimoController {
 		Emprestimo emprestimo = this.emprestimoService.findById(id);
 		model.addAttribute("emprestimo", emprestimo);
 		emprestimoService.registrarDevolucao(emprestimo);
-		emprestimoService.registrarHistorico(emprestimo);
 		redirect.addFlashAttribute("mensagemSucesso", "Devolução efetuada com sucesso!");
 		return "redirect:/emprestimo/listar";
 	}

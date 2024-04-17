@@ -97,8 +97,8 @@ public class MembroService {
 		Membro membroCpf = findById(id);
 		Membro membroCpfExistente = findByCpf(membro.getCpf());
 		String cpfAtual = membroCpf.getCpf();
-		String cpfCFuturo = membro.getCpf();
-		return !cpfAtual.equals(cpfCFuturo) && membroCpfExistente != null;
+		String cpfFuturo = membro.getCpf();
+		return !cpfAtual.equals(cpfFuturo) && membroCpfExistente != null;
 	}
 
 }

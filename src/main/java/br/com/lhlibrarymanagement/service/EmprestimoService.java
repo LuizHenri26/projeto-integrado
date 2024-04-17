@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.enums.StatusENUM;
 import br.com.lhlibrarymanagement.model.Emprestimo;
-import br.com.lhlibrarymanagement.model.HistoricoEmprestimoDevolucao;
 import br.com.lhlibrarymanagement.model.Livro;
 import br.com.lhlibrarymanagement.model.Membro;
 import br.com.lhlibrarymanagement.repository.EmprestimoRepository;
-import br.com.lhlibrarymanagement.repository.HistoricoEmprestimoDevolucaoRepository;
 import br.com.lhlibrarymanagement.repository.LivroRepository;
 import br.com.lhlibrarymanagement.repository.MembroRepository;
 
@@ -29,9 +27,6 @@ public class EmprestimoService {
 
 	@Autowired
 	private EmprestimoRepository emprestimoRepository;
-
-	@Autowired
-	private HistoricoEmprestimoDevolucaoRepository historicoEmprestimoDevolucaoRepository;
 
 	public List<Membro> getMembros() {
 		Iterable<Membro> membros = this.membroRepository.findAllMembros();
@@ -75,20 +70,6 @@ public class EmprestimoService {
 		emprestimo.getLivro().setStatus(StatusENUM.DISPONIVEL);
 		emprestimo.setDataDevolucao(LocalDate.now());
 		this.emprestimoRepository.save(emprestimo);
-	}
-
-	public void registrarHistorico(Emprestimo emprestimo) {
-		HistoricoEmprestimoDevolucao historico = new HistoricoEmprestimoDevolucao();
-		historico.setIdEmprestimo(emprestimo.getId());
-		historico.setIdLivro(emprestimo.getLivro().getId());
-		historico.setIdMembro(emprestimo.getMembro().getId());
-		historico.setDataEmprestimo(emprestimo.getDataEmprestimo());
-		historico.setDataPrevista(emprestimo.getDataPrevista());
-		historico.setDataDevolucao(emprestimo.getDataDevolucao());
-		historico.setStatus(emprestimo.getStatus());
-		historico.setNomeMembro(emprestimo.getMembro().getNome());
-		historico.setTituloLivro(emprestimo.getLivro().getTitulo());
-		this.historicoEmprestimoDevolucaoRepository.save(historico);
 	}
 
 }
