@@ -43,7 +43,7 @@ public class UsuarioController {
 		Integer countLoginExistente = usuarioService.countLoginExistente(usuario.getLogin());
 
 		if (countLoginExistente > 0) {
-			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
+			model.addAttribute("perfis", this.perfilService.listarPerfil());
 			model.addAttribute("loginExistente", "Login já cadastrado!");
 			return "admin/cadastrar-usuario";
 		}
@@ -97,7 +97,7 @@ public class UsuarioController {
 		}
 
 		if (usuarioService.isLoginExistente(id, usuario)) {
-			model.addAttribute("listaPerfis", this.perfilService.listarPerfil());
+			model.addAttribute("perfis", this.perfilService.listarPerfil());
 			model.addAttribute("loginExistente", "Login já cadastrado!");
 			return "admin/editar-usuario";
 		}
