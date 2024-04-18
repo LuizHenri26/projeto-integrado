@@ -13,8 +13,8 @@ public class AutenticaController {
 
 	@Autowired
 	public UsuarioService usuarioService;
-	private static final String ADMIN = "ADMINISTRADOR";
-	private static final String FUNCIONARIO = "FUNCIONARIO";
+	private static final String ADMIN = "Administrador";
+	private static final String FUNCIONARIO = "Funcionario";
 
 	@GetMapping(value = "/autentica/inicio")
 	public String index(@CurrentSecurityContext(expression = "authentication.name") String login) {

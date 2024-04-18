@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -42,13 +43,11 @@ public class Membro implements Serializable {
 	@NotBlank(message = "Campo obrigatório!")
 	@Column(nullable = false, length = 14)
 	private String cpf;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_contato")
+	@Embedded
 	@NotNull
 	@Valid
 	private Contato contato;
-	@OneToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_endereco")
+	@Embedded
 	@NotNull
 	@Valid
 	private Endereco endereco;

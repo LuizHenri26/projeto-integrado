@@ -2,27 +2,17 @@ package br.com.lhlibrarymanagement.model;
 
 import java.io.Serializable;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-@Entity
-@DynamicUpdate
+@Embeddable
 @Data
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	
 	@NotBlank(message = "Campo obrigatório.")
 	@Column(nullable = false, length = 65)
 	private String logradouro;
@@ -40,6 +30,4 @@ public class Endereco implements Serializable {
 	@NotBlank(message = "Campo obrigatório.")
 	@Column(nullable = false, length = 65)
 	private String estado;
-	@OneToOne(mappedBy = "endereco")
-	private Membro membro;
 }

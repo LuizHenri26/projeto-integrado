@@ -22,13 +22,13 @@
 			</div>
 		</div>
 		<ul class="sidebar-nav">
-			<li class="sidebar-item" th:if="${#authorization.expression('hasAuthority(''ADMINISTRADOR'')')}">
+			<li class="sidebar-item" th:if="${#authorization.expression('hasAuthority(''Administrador'')')}">
 				<a th:href="@{/usuario/salvar}" class="sidebar-link">
 					<i class="lni lni-user"></i>
 					<span>Cadastrar Usuários</span>
 				</a>
 			</li>
-			<li class="sidebar-item" th:if="${#authorization.expression('hasAuthority(''ADMINISTRADOR'')')}">
+			<li class="sidebar-item" th:if="${#authorization.expression('hasAuthority(''Administrador'')')}">
 				<a th:href="@{/usuario/listar}" class="sidebar-link">
 					<i class="lni lni-search-alt"></i>
 					<span>Consulta Usuários</span>

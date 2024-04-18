@@ -19,8 +19,8 @@ import br.com.lhlibrarymanagement.service.UsuarioService;
 @EnableWebSecurity
 public class ConfiguracaoSeguranca {
 
-	private static final String ADMIN = "ADMINISTRADOR";
-	private static final String FUNCIONARIO = "FUNCIONARIO";
+	private static final String ADMIN = "Administrador";
+	private static final String FUNCIONARIO = "Funcionario";
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
