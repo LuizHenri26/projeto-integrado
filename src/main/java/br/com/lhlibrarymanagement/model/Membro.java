@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
@@ -22,6 +23,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
+@DynamicUpdate
 @Data
 public class Membro implements Serializable {
 
@@ -45,7 +47,7 @@ public class Membro implements Serializable {
 	@NotNull
 	@Valid
 	private Contato contato;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_endereco")
 	@NotNull
 	@Valid

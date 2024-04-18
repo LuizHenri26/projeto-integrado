@@ -3,6 +3,8 @@ package br.com.lhlibrarymanagement.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import br.com.lhlibrarymanagement.enums.StatusENUM;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
+@DynamicUpdate
 @Data
 public class Livro implements Serializable {
 

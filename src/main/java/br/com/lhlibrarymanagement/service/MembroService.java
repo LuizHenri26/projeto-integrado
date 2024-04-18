@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.lhlibrarymanagement.model.Contato;
+import br.com.lhlibrarymanagement.model.Endereco;
 import br.com.lhlibrarymanagement.model.Membro;
 import br.com.lhlibrarymanagement.repository.MembroRepository;
 
@@ -77,6 +79,10 @@ public class MembroService {
 		membroRepository.save(membro);
 	}
 
+	public void editararMembro(Membro membro, Endereco endereco, Contato contato) {
+		membroRepository.save(membro);
+	}
+
 	/**
 	 * Realiza a deleção do membro,
 	 * 
@@ -94,11 +100,8 @@ public class MembroService {
 	 * @return - {true} se o cpf existir, {false} cpf não existe.
 	 */
 	public boolean isCpfExistente(Long id, Membro membro) {
-		Membro membroCpf = findById(id);
-		Integer countCpfExistente = countCpfExistente(membro.getCpf());
-		String cpfAtual = membroCpf.getCpf();
-		String cpfFuturo = membro.getCpf();
-		return !cpfAtual.equals(cpfFuturo) && countCpfExistente > 0;
+		int countCpfExistente = membroRepository.countByCpfAndId(membro.getCpf(), id);
+		return countCpfExistente > 0;
 	}
 
 }

@@ -96,11 +96,8 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public boolean isLoginExistente(final Long id, final Usuario usuario) {
-		Usuario usr = buscarUsuarioPorId(id);
-		int countLoginExistente = countLoginExistente(usuario.getLogin());
-		String usuarioAtual = usr.getLogin();
-		String usuarioFuturo = usuario.getLogin();
-		return !usuarioAtual.equals(usuarioFuturo) && countLoginExistente > 0;
+		int countLoginExistente = usuarioRepository.countByLoginAndId(usuario.getLogin(), id);
+		return countLoginExistente > 0;
 	}
 
 	@Override
