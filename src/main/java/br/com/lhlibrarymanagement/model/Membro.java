@@ -1,23 +1,17 @@
 package br.com.lhlibrarymanagement.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,9 +31,9 @@ public class Membro implements Serializable {
 	@NotBlank(message = "Campo obrigatório!")
 	@Column(nullable = false, length = 65)
 	private String nome;
-	@NotNull(message = "Campo obrigatório!")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataNascimento;
+	@NotBlank(message = "Campo obrigatório!")
+	@Column(nullable = false, length = 10)
+	private String dataNascimento;
 	@NotBlank(message = "Campo obrigatório!")
 	@Column(nullable = false, length = 14)
 	private String cpf;

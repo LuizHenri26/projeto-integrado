@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.lhlibrarymanagement.enums.StatusENUM;
 import jakarta.persistence.CascadeType;
@@ -29,11 +28,8 @@ public class Emprestimo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_emprestimo")
 	private Long id;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataEmprestimo;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataPrevista;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataDevolucao;
 	@Enumerated(EnumType.STRING)
 	private StatusENUM status;

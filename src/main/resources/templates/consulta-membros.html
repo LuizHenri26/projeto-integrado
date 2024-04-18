@@ -58,7 +58,7 @@
 						<tr th:each="membro : ${membros}">
 							<td th:text="${membro.nome}"></td>
 							<td th:text="${membro.cpf}"></td>
-							<td th:text="${#temporals.format(membro.dataNascimento, 'dd/MM/yyyy')}"></td>
+							<td th:text="${membro.dataNascimento}"></td>
 							<td class="d-flex align-center justify-content-center gap-2">
 								<a th:href="@{/membro/editar/{id}(id=${membro.id})}" data-buttonEdit><img
 										th:src="@{/img/edit.svg}" alt="" /></a>

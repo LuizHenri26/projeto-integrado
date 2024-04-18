@@ -48,8 +48,8 @@
 										<label for="inputDataNascimento" class="form-label">Data de Nascimento *  </label>
 										<input type="text" class="form-control" id="inputDataNascimento"
 											th:field="*{dataNascimento}" placeholder="Digite a data de nascimento"
-											name="dataNascimento" maxlength="10"
-											OnKeyPress="formatar('##/##/####',this)" />
+											name="dataNascimento" maxlength="10" 
+											OnKeyPress="formatar('##/##/####',this)"/>
 										<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 									</div>
 								</div>
