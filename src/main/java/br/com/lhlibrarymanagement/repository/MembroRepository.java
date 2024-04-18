@@ -15,7 +15,7 @@ public interface MembroRepository extends JpaRepository<Membro, Long> {
 	@Query(value = "select * from membro me where not exists (select * from emprestimo e where e.id_membro = me.id_membro and e.status = 'EMPRESTADO')", nativeQuery = true)
 	List<Membro> findAllMembros();
 
-	@Query(value = "select count(*) from membro me where me.id_membro = :id and exists (select * from emprestimo e where e.id_membro = me.id_membro and e.status = 'EMPRESTADO')", nativeQuery = true)
+	@Query(value = "select count(*) from membro me where exists (select * from emprestimo e where e.id_membro = :id and e.status = 'EMPRESTADO')", nativeQuery = true)
 	int quantidadeDeEmprestimoVigenteMembroEspecifico(@Param("id") Long id);
 	
 	int countByCpf(String cpf);
