@@ -1,9 +1,9 @@
 package br.com.lhlibrarymanagement.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,33 +22,21 @@ public class UsuarioService implements UserDetailsService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	public Usuario buscarUsuarioPorId(Long id) {
-		Optional<Usuario> opt = usuarioRepository.findById(id);
-		if (opt.isPresent()) {
-			return opt.get();
-		} else {
-			throw new IllegalArgumentException("Usuário com id : " + id + " não existe");
-		}
-	}
-
-	public Integer countLoginExistente(String nome) {
-		Integer countLoginExistente = usuarioRepository.countByLogin(nome);
-		return countLoginExistente;
-	}
-
-	public void apagarUsuarioPorId(Long id) {
-		Usuario usuario = buscarUsuarioPorId(id);
-		usuarioRepository.delete(usuario);
-	}
 
 	public List<Usuario> listarUsuarios() {
-		List<Usuario> usuarios = usuarioRepository.findAll();
-		return usuarios;
+		return usuarioRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 	}
 
 	public Usuario buscaUsuarioPorLogin(String login) {
-		Usuario usuario = usuarioRepository.findByLogin(login);
-		return usuario;
+		return usuarioRepository.findByLogin(login);
+	}
+	
+	public Usuario buscarUsuarioPorId(Long id) {
+		return usuarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário com id : " + id + " não existe"));
+	}
+
+	public int countLoginExistente(String nome) {
+		return usuarioRepository.countByLogin(nome);
 	}
 
 	/**
@@ -61,7 +49,7 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setSenha(crypt);
 		usuarioRepository.save(usuario);
 	}
-
+	
 	/**
 	 * Edita os dados do usuário da aplicação, na tela de edição.
 	 * 
@@ -77,6 +65,11 @@ public class UsuarioService implements UserDetailsService {
 		}
 		usuarioRepository.save(usuario);
 	}
+	
+	public void apagarUsuarioPorId(Long id) {
+		Usuario usuario = buscarUsuarioPorId(id);
+		usuarioRepository.delete(usuario);
+	}
 
 	/**
 	 * Verifica qual o tipo de perfil o possui na aplicação.
@@ -90,8 +83,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public List<Usuario> filtrarUsuarioPeloNome(String nome) {
-		List<Usuario> usuarios = usuarioRepository.findByNomeContainingIgnoreCase(nome);
-		return usuarios;
+		return usuarioRepository.findByNomeContainingIgnoreCase(nome);
 	}
 
 	/**
@@ -105,7 +97,7 @@ public class UsuarioService implements UserDetailsService {
 
 	public boolean isLoginExistente(final Long id, final Usuario usuario) {
 		Usuario usr = buscarUsuarioPorId(id);
-		Integer countLoginExistente = countLoginExistente(usuario.getLogin());
+		int countLoginExistente = countLoginExistente(usuario.getLogin());
 		String usuarioAtual = usr.getLogin();
 		String usuarioFuturo = usuario.getLogin();
 		return !usuarioAtual.equals(usuarioFuturo) && countLoginExistente > 0;

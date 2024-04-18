@@ -2,10 +2,8 @@ package br.com.lhlibrarymanagement.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.enums.StatusENUM;
@@ -29,32 +27,23 @@ public class EmprestimoService {
 	private EmprestimoRepository emprestimoRepository;
 
 	public List<Membro> getMembros() {
-		List<Membro> membros = this.membroRepository.findAllMembros();
-		return Streamable.of(membros).toList();
+		return membroRepository.findAllMembros();
 	}
 
 	public List<Livro> getLivrosDisponiveis() {
-		List<Livro> livros = this.livroRepository.findAllStatusDisponivel();
-		return Streamable.of(livros).toList();
+		return livroRepository.findAllByStatus(StatusENUM.DISPONIVEL);
 	}
 
 	public List<Emprestimo> getListarEmprestimosVigentes() {
-		List<Emprestimo> emprestimos = this.emprestimoRepository.findAllEmprestimosVigentes();
-		return Streamable.of(emprestimos).toList();
+		return emprestimoRepository.findAllByStatusOrderByIdAsc(StatusENUM.EMPRESTADO);
 	}
 
 	public List<Emprestimo> filtrarMembros(String nome) {
-		List<Emprestimo> emprestimos = this.emprestimoRepository.findFiltrarMembro(nome);
-		return Streamable.of(emprestimos).toList();
+		return emprestimoRepository.findFiltrarNomeDoMembro(nome, StatusENUM.EMPRESTADO);
 	}
 
 	public Emprestimo findById(final Long id) {
-		Optional<Emprestimo> opt = this.emprestimoRepository.findById(id);
-		if (opt.isPresent()) {
-			return opt.get();
-		} else {
-			throw new IllegalArgumentException("Emprestimo com id : " + id + " não existe.");
-		}
+		return emprestimoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Emprestimo com id : " + id + " não existe."));
 	}
 
 	public void registrarEmprestimo(Emprestimo emprestimo) {

@@ -7,7 +7,5 @@ import br.com.lhlibrarymanagement.model.Perfil;
 
 @Repository
 public interface PerfilRepository extends JpaRepository<Perfil, Long>{
-	
-	Perfil findByNome(String nome);
 
 }

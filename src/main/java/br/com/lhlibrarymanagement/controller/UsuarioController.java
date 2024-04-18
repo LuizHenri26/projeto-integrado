@@ -1,7 +1,5 @@
 package br.com.lhlibrarymanagement.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +38,7 @@ public class UsuarioController {
 			return "admin/cadastrar-usuario";
 		}
 
-		Integer countLoginExistente = usuarioService.countLoginExistente(usuario.getLogin());
+		int countLoginExistente = usuarioService.countLoginExistente(usuario.getLogin());
 
 		if (countLoginExistente > 0) {
 			model.addAttribute("perfis", this.perfilService.listarPerfil());
@@ -55,8 +53,7 @@ public class UsuarioController {
 
 	@GetMapping(value = "/usuario/listar")
 	public String consultaUsuarios(Model model) {
-		Iterable<Usuario> usuarios = this.usuarioService.listarUsuarios();
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuarios", this.usuarioService.listarUsuarios());
 		return "admin/consultar-usuarios";
 	}
 
@@ -65,8 +62,7 @@ public class UsuarioController {
 		if (nome.isBlank()) {
 			return "redirect:/usuario/listar";
 		}
-		List<Usuario> usuarios = usuarioService.filtrarUsuarioPeloNome(nome);
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuarios", usuarioService.filtrarUsuarioPeloNome(nome));
 		return "admin/consultar-usuarios";
 	}
 

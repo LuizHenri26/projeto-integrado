@@ -3,7 +3,6 @@ package br.com.lhlibrarymanagement.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +15,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	List<Usuario> findByNomeContainingIgnoreCase(@Param("nome") String nome);
 
-	@Query(value = "select u from Usuario u order by u.id asc")
-	List<Usuario> findAll();
-
-	Integer countByLogin(String login);
+	int countByLogin(String login);
 
 }

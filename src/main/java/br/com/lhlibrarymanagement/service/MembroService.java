@@ -1,10 +1,8 @@
 package br.com.lhlibrarymanagement.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Membro;
@@ -16,24 +14,13 @@ public class MembroService {
 	@Autowired
 	private MembroRepository membroRepository;
 
-	public Integer countEmprestimoVigenteMembro(Long id) {
-		Integer quantidadeEmprestimoVigenteMembro = membroRepository.quantidadeDeEmprestimoVigenteMembroEspecifico(id);
-		return quantidadeEmprestimoVigenteMembro;
-	}
-
-	public Integer countCpfExistente(String cpf) {
-		Integer countCpfExistente = membroRepository.countByCpf(cpf);
-		return countCpfExistente;
-	}
-
 	/**
 	 * Realiza a consulta de todos os membros.
 	 * 
 	 * @return - membros cadastrados no sistema.
 	 */
 	public List<Membro> getMembros() {
-		List<Membro> membros = membroRepository.findAll();
-		return Streamable.of(membros).toList();
+		return membroRepository.findAllByOrderByIdAsc();
 	}
 
 	/**
@@ -43,8 +30,7 @@ public class MembroService {
 	 * @return - membro especifico consultado pelo nome.
 	 */
 	public List<Membro> filtrarMembroPeloNome(String nome) {
-		List<Membro> membros = membroRepository.findByNomeContainingIgnoreCase(nome);
-		return Streamable.of(membros).toList();
+		return membroRepository.findByNomeContainingIgnoreCase(nome);
 	}
 
 	/**
@@ -54,12 +40,8 @@ public class MembroService {
 	 * @return - membro pelo id.
 	 */
 	public Membro findById(Long id) {
-		Optional<Membro> opt = membroRepository.findById(id);
-		if (opt.isPresent()) {
-			return opt.get();
-		} else {
-			throw new IllegalArgumentException("Membro com id : " + id + " não existe.");
-		}
+		return membroRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Membro com id : " + id + " não existe."));
 	}
 
 	/**
@@ -69,8 +51,21 @@ public class MembroService {
 	 * @return - cpf do membro.
 	 */
 	public Membro findByCpf(String cpf) {
-		Membro membro = membroRepository.findByCpf(cpf);
-		return membro;
+		return membroRepository.findByCpf(cpf);
+	}
+
+	public int countEmprestimoVigenteMembro(Long id) {
+		return membroRepository.quantidadeDeEmprestimoVigenteMembroEspecifico(id);
+	}
+
+	/**
+	 * Realiza a consulta da quantidade de cpf cadastrado com esse numero
+	 * 
+	 * @param cpf - numero do cpf
+	 * @return - quantidade de cpf com numero existente.
+	 */
+	public int countCpfExistente(String cpf) {
+		return membroRepository.countByCpf(cpf);
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package br.com.lhlibrarymanagement.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +33,7 @@ public class MembroController {
 			return "cadastrar-membro";
 		}
 
-		Integer countCpfExistente = membroService.countCpfExistente(membro.getCpf());
+		int countCpfExistente = membroService.countCpfExistente(membro.getCpf());
 
 		if (countCpfExistente > 0) {
 			model.addAttribute("cpfExistente", "CPF já cadastrado!");
@@ -49,8 +47,7 @@ public class MembroController {
 
 	@GetMapping(value = "/membro/listar")
 	public String listarTodosMembros(Model model) {
-		List<Membro> membros = this.membroService.getMembros();
-		model.addAttribute("membros", membros);
+		model.addAttribute("membros", this.membroService.getMembros());
 		return "consulta-membros";
 	}
 
@@ -59,15 +56,14 @@ public class MembroController {
 		if (nome.isBlank()) {
 			return "redirect:/membro/listar";
 		}
-		List<Membro> membros = this.membroService.filtrarMembroPeloNome(nome);
-		model.addAttribute("membros", membros);
+		model.addAttribute("membros", this.membroService.filtrarMembroPeloNome(nome));
 		return "consulta-membros";
 	}
 
 	@GetMapping(value = "/membro/deletar/{id}")
 	public String deletarMembro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Membro membro = membroService.findById(id);
-		Integer quantidadeEmprestimoVigente = membroService.countEmprestimoVigenteMembro(id);
+		int quantidadeEmprestimoVigente = membroService.countEmprestimoVigenteMembro(id);
 		if (quantidadeEmprestimoVigente > 0) {
 			redirect.addFlashAttribute("mensagemErro", "Membro possui empréstimo vigente!");
 			return "redirect:/membro/listar";

@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.lhlibrarymanagement.enums.StatusENUM;
-import br.com.lhlibrarymanagement.model.Categoria;
-import br.com.lhlibrarymanagement.model.Idioma;
 import br.com.lhlibrarymanagement.model.Livro;
-import br.com.lhlibrarymanagement.model.Setor;
 import br.com.lhlibrarymanagement.service.LivroService;
 import jakarta.validation.Valid;
 
@@ -28,13 +25,10 @@ public class LivroController {
 
 	@GetMapping(value = "/livro/salvar")
 	public String formCadastrarLivro(Model model) {
-		List<Categoria> filtroCategorias = livroService.getCategorias();
-		List<Setor> filtroSetores = livroService.getSetores();
-		List<Idioma> filtroIdiomas = livroService.getIdiomas();
 		model.addAttribute("livro", new Livro());
-		model.addAttribute("categorias", filtroCategorias);
-		model.addAttribute("setores", filtroSetores);
-		model.addAttribute("idiomas", filtroIdiomas);
+		model.addAttribute("categorias", this.livroService.getCategorias());
+		model.addAttribute("setores", this.livroService.getSetores());
+		model.addAttribute("idiomas", this.livroService.getIdiomas());
 		return "cadastrar-livro";
 	}
 
@@ -96,12 +90,9 @@ public class LivroController {
 	@GetMapping(value = "/livro/editar/{id}")
 	public String editarLivro(@PathVariable("id") Long id, Model model) {
 		Livro livro = livroService.findById(id);
-		List<Categoria> filtroCategorias = livroService.getCategorias();
-		List<Setor> filtroSetores = livroService.getSetores();
-		List<Idioma> filtroIdiomas = livroService.getIdiomas();
-		model.addAttribute("categorias", filtroCategorias);
-		model.addAttribute("setores", filtroSetores);
-		model.addAttribute("idiomas", filtroIdiomas);
+		model.addAttribute("categorias", this.livroService.getCategorias());
+		model.addAttribute("setores", this.livroService.getSetores());
+		model.addAttribute("idiomas", this.livroService.getIdiomas());
 		model.addAttribute("livro", livro);
 		return "editar-livro";
 	}

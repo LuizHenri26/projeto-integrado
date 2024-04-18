@@ -1,10 +1,8 @@
 package br.com.lhlibrarymanagement.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import br.com.lhlibrarymanagement.model.Categoria;
@@ -32,46 +30,36 @@ public class LivroService {
 	private IdiomaRepository idiomaRepository;
 
 	public List<Categoria> getCategorias() {
-		List<Categoria> categorias = categoriaRepository.findAll();
-		return Streamable.of(categorias).toList();
+		return categoriaRepository.findAll();
 	}
 
 	public List<Setor> getSetores() {
-		List<Setor> setores = setorRepository.findAll();
-		return Streamable.of(setores).toList();
+		return setorRepository.findAll();
 	}
 
 	public List<Idioma> getIdiomas() {
-		List<Idioma> idiomas = idiomaRepository.findAll();
-		return Streamable.of(idiomas).toList();
+		return idiomaRepository.findAll();
 	}
 
 	public List<Livro> getListarLivros() {
-		List<Livro> livros = livroRepository.findAll();
-		return  Streamable.of(livros).toList();
+		return livroRepository.findAllByOrderByIdAsc();
 	}
 
 	public Livro findById(Long id) {
-		Optional<Livro> opt = livroRepository.findById(id);
-		if (opt.isPresent()) {
-			return opt.get();
-		} else {
-			throw new IllegalArgumentException("Livro com id : " + id + " não existe.");
-		}
+		return livroRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Livro com id : " + id + " não existe."));
 	}
 
 	public List<Livro> filtrarLivroPeloTitulo(String titulo) {
-		List<Livro> livro = livroRepository.findByTituloContainingIgnoreCase(titulo);
-		return livro;
+		return livroRepository.findByTituloContainingIgnoreCase(titulo);
 	}
 
 	public Livro findByIsbn(String isbn) {
 		return livroRepository.findByIsbn(isbn);
 	}
-	
-	public Integer countIsbnExistente(String nome) {
-		Integer quantidadeIsbnExistente = livroRepository.countByIsbn(nome);
-		return quantidadeIsbnExistente;
+
+	public int countIsbnExistente(String nome) {
+		return livroRepository.countByIsbn(nome);
 	}
 
 	public void cadastraLivro(Livro livro) {
@@ -91,7 +79,7 @@ public class LivroService {
 
 	public boolean isIsbnExistente(final Long id, final Livro livro) {
 		Livro livroIsbn = findById(id);
-		Integer countIsbnExistente = countIsbnExistente(livro.getIsbn());
+		int countIsbnExistente = countIsbnExistente(livro.getIsbn());
 		String isbnAtual = livroIsbn.getIsbn();
 		String isbnFuturo = livro.getIsbn();
 		return !isbnAtual.equals(isbnFuturo) && countIsbnExistente > 0;

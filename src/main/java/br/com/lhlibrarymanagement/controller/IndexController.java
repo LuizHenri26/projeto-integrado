@@ -1,6 +1,5 @@
 package br.com.lhlibrarymanagement.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.lhlibrarymanagement.model.Livro;
 import br.com.lhlibrarymanagement.service.LivroService;
 
 @Controller
@@ -20,8 +18,7 @@ public class IndexController {
 
 	@GetMapping(value = "/")
 	public String index(Model model) {
-		List<Livro> livros = this.service.getListarLivros();
-		model.addAttribute("livros", livros);
+		model.addAttribute("livros", this.service.getListarLivros());
 		return "index";
 	}
 
@@ -35,8 +32,7 @@ public class IndexController {
 		if (titulo.isBlank()) {
 			return "redirect:/";
 		}
-		List<Livro> livros = this.service.filtrarLivroPeloTitulo(titulo);
-		model.addAttribute("livros", livros);
+		model.addAttribute("livros", this.service.filtrarLivroPeloTitulo(titulo));
 		return "index";
 	}
 }
