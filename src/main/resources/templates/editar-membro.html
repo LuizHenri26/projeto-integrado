@@ -27,11 +27,10 @@
 				<div class="container p-4 mt-2">
 					<div class="row">
 						<div class="col-md-6 bg-light shadow p-4 mb-5">
-							<form th:action="@{/membro/editar/{id}(id=${membro.id})}"
-								method="post">
+							<form th:action="@{/membro/editar/{id}(id=${membro.id})}" method="post" th:object="${membro}">
 								<div class="mb-3">
 									<label for="inputMembro" class="form-label">Nome *  </label>
-									<input type="text" class="form-control" id="inputMembro" th:field="*{membro.nome}"
+									<input type="text" class="form-control" id="inputMembro" th:field="*{nome}"
 										placeholder="Digite o nome do membro" name="nome" maxlength="65" />
 									<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
 											th:errors="*{nome}"></span>
@@ -39,7 +38,7 @@
 								<div class="row mb-3">
 									<div class="col-sm">
 										<label for="inputCPF" class="form-label">CPF *  </label>
-										<input type="text" class="form-control" id="inputCPF" th:field="*{membro.nome}"
+										<input type="text" class="form-control" id="inputCPF" th:field="*{cpf}"
 											placeholder="Digite o numero do CPF" maxlength="14" name="cpf"
 											OnKeyPress="formatar('###.###.###-##',this)" />
 										<span class="mensagem" th:if="${#fields.hasErrors('cpf')}"	th:errors="*{cpf}"></span>
@@ -51,7 +50,7 @@
 											th:field="*{dataNascimento}" placeholder="Digite a data de nascimento"
 											name="dataNascimento" maxlength="10"
 											OnKeyPress="formatar('##/##/####',this)" />
-										<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{membro.dataNascimento}"></span>
+										<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 									</div>
 								</div>
 								<div class="row mb-3">
