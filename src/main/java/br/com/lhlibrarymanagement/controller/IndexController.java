@@ -1,6 +1,5 @@
 package br.com.lhlibrarymanagement.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +15,18 @@ public class IndexController {
 	@Autowired
 	private LivroService service;
 
-	@GetMapping(value = "/")
+	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("livros", this.service.getListarLivros());
 		return "index";
 	}
 
-	@GetMapping(value = "/login")
+	@GetMapping("/login")
 	public String entrar() {
 		return "login";
 	}
 
-	@PostMapping(value = "/buscar")
+	@PostMapping("/buscar")
 	public String pesquisarPeloTitulo(Model model, @RequestParam("titulo") String titulo) {
 		if (titulo.isBlank()) {
 			return "redirect:/";

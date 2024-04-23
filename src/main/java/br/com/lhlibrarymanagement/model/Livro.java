@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -34,6 +35,7 @@ public class Livro implements Serializable {
 	@Column(nullable = false, length = 100)
 	private String titulo;
 	@NotBlank(message = "Campo obrigatório.")
+	@Size(min = 14, message = "Digite o número do ISBN por completo!")
 	@Column(nullable = false, length = 14)
 	private String isbn;
 	@NotBlank(message = "Campo obrigatório.")

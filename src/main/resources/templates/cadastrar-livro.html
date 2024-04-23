@@ -40,7 +40,8 @@
 										<label for="inputCategoria" class="form-label">Categoria</label>
 										<select class="form-select" id="inputCategoria" name="categoria">
 											<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
-												th:text="${categoria.nome}">
+												th:text="${categoria.nome}"
+												th:selected="${categoria.id} == ${livro?.categoria?.id}">
 											</option>
 										</select>
 									</div>
@@ -74,7 +75,8 @@
 										<label for="inputSetorLivro" class="form-label">Idioma</label>
 										<select class="form-select" id="inputIdiomaLivro" name="idioma">
 											<option th:each="idioma : ${idiomas}" th:value="${idioma.id}"
-												th:text="${idioma.descricao}">
+												th:text="${idioma.descricao}"
+												th:selected="${idioma.id} == ${livro?.idioma?.id}">
 											</option>
 										</select>
 									</div>
@@ -82,7 +84,8 @@
 										<label for="inputSetorLivro" class="form-label">Setor</label>
 										<select class="form-select" id="inputSetorLivro" name="setor">
 											<option th:each="setor : ${setores}" th:value="${setor.id}"
-												th:text="${setor.nome}"></option>
+												th:text="${setor.nome}"
+												th:selected="${setor.id} == ${livro?.setor?.id}"></option>
 										</select>
 									</div>
 								</div>

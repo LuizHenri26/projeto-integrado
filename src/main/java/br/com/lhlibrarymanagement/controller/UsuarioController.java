@@ -23,14 +23,14 @@ public class UsuarioController {
 	@Autowired
 	public PerfilService perfilService;
 
-	@GetMapping(value = "/usuario/salvar")
+	@GetMapping("/usuario/salvar")
 	public String adicionarUsuario(Model model) {
 		model.addAttribute("usuario", new Usuario());
 		model.addAttribute("perfis", perfilService.listarPerfil());
 		return "admin/cadastrar-usuario";
 	}
 
-	@PostMapping(value = "/usuario/cadastrar")
+	@PostMapping("/usuario/cadastrar")
 	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, Model model,
 			RedirectAttributes attributes) {
 		if (result.hasErrors()) {
@@ -51,13 +51,13 @@ public class UsuarioController {
 		return "redirect:/usuario/salvar";
 	}
 
-	@GetMapping(value = "/usuario/listar")
+	@GetMapping("/usuario/listar")
 	public String consultaUsuarios(Model model) {
 		model.addAttribute("usuarios", this.usuarioService.listarUsuarios());
 		return "admin/consultar-usuarios";
 	}
 
-	@PostMapping(value = "/usuario/buscar")
+	@PostMapping("/usuario/buscar")
 	public String pesquisarPeloFiltroNomeLoginUsuario(Model model, @RequestParam("nome") String nome) {
 		if (nome.isBlank()) {
 			return "redirect:/usuario/listar";
@@ -66,7 +66,7 @@ public class UsuarioController {
 		return "admin/consultar-usuarios";
 	}
 
-	@GetMapping(value = "/usuario/deletar/{id}")
+	@GetMapping("/usuario/deletar/{id}")
 	public String deletarUsuario(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Usuario usuario = this.usuarioService.buscarUsuarioPorId(id);
 		this.usuarioService.deletarUsuario(usuario);
@@ -75,15 +75,15 @@ public class UsuarioController {
 		return "redirect:/usuario/listar";
 	}
 
-	@GetMapping(value = "/usuario/editar/{id}")
+	@GetMapping("/usuario/editar/{id}")
 	public String editarUsuario(@PathVariable("id") Long id, Model model) {
 		Usuario usuario = this.usuarioService.buscarUsuarioPorId(id);
-		model.addAttribute("perfis", perfilService.listarPerfil());
+		model.addAttribute("perfis", this.perfilService.listarPerfil());
 		model.addAttribute("usuario", usuario);
 		return "admin/editar-usuario";
 	}
 
-	@PostMapping(value = "/usuario/editar/{id}")
+	@PostMapping("/usuario/editar/{id}")
 	public String editarUsuario(@PathVariable("id") Long id, @Valid Usuario usuario, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.lhlibrarymanagement.enums.StatusENUM;
 import br.com.lhlibrarymanagement.model.Categoria;
 import br.com.lhlibrarymanagement.model.Idioma;
 import br.com.lhlibrarymanagement.model.Livro;
@@ -63,6 +64,7 @@ public class LivroService {
 	}
 
 	public void cadastraLivro(Livro livro) {
+		livro.setStatus(StatusENUM.DISPONIVEL);
 		livroRepository.save(livro);
 	}
 
@@ -74,7 +76,7 @@ public class LivroService {
 		Livro livros = findById(id);
 		// Mantém o status do livro
 		livro.setStatus(livros.getStatus());
-		cadastraLivro(livro);
+		livroRepository.save(livro);
 	}
 
 	public boolean isIsbnExistente(final Long id, final Livro livro) {

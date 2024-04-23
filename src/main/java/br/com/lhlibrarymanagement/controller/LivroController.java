@@ -23,7 +23,7 @@ public class LivroController {
 	@Autowired
 	private LivroService livroService;
 
-	@GetMapping(value = "/livro/salvar")
+	@GetMapping("/livro/salvar")
 	public String formCadastrarLivro(Model model) {
 		model.addAttribute("livro", new Livro());
 		model.addAttribute("categorias", this.livroService.getCategorias());
@@ -32,7 +32,7 @@ public class LivroController {
 		return "cadastrar-livro";
 	}
 
-	@PostMapping(value = "/livro/cadastrar")
+	@PostMapping("/livro/cadastrar")
 	public String adicionarNovoLivro(@Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
@@ -51,13 +51,12 @@ public class LivroController {
 			model.addAttribute("isbnExistente", "ISBN já cadastrado!");
 			return "cadastrar-livro";
 		}
-		livro.setStatus(StatusENUM.DISPONIVEL);
 		livroService.cadastraLivro(livro);
 		redirect.addFlashAttribute("mensagem", "Livro cadastrado com sucesso!");
 		return "redirect:/livro/salvar";
 	}
 
-	@GetMapping(value = "/livro/listar")
+	@GetMapping("/livro/listar")
 	public String listarLivros(Model model) {
 		List<Livro> livros = this.livroService.getListarLivros();
 		model.addAttribute("livros", livros);
@@ -69,12 +68,11 @@ public class LivroController {
 		if (titulo.isBlank()) {
 			return "redirect:/livro/listar";
 		}
-		List<Livro> livros = this.livroService.filtrarLivroPeloTitulo(titulo);
-		model.addAttribute("livros", livros);
+		model.addAttribute("livros", this.livroService.filtrarLivroPeloTitulo(titulo));
 		return "consulta-livros";
 	}
 
-	@GetMapping(value = "/livro/deletar/{id}")
+	@GetMapping("/livro/deletar/{id}")
 	public String deletarLivro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Livro livro = livroService.findById(id);
 		if (livro.getStatus().equals(StatusENUM.EMPRESTADO)) {
@@ -87,7 +85,7 @@ public class LivroController {
 		return "redirect:/livro/listar";
 	}
 
-	@GetMapping(value = "/livro/editar/{id}")
+	@GetMapping("/livro/editar/{id}")
 	public String editarLivro(@PathVariable("id") Long id, Model model) {
 		Livro livro = livroService.findById(id);
 		model.addAttribute("categorias", this.livroService.getCategorias());
@@ -97,7 +95,7 @@ public class LivroController {
 		return "editar-livro";
 	}
 
-	@PostMapping(value = "/livro/editar/{id}")
+	@PostMapping("/livro/editar/{id}")
 	public String editarLivro(@PathVariable("id") Long id, @Valid Livro livro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {

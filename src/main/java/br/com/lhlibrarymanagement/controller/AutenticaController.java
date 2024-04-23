@@ -16,7 +16,7 @@ public class AutenticaController {
 	private static final String ADMIN = "Administrador";
 	private static final String FUNCIONARIO = "Funcionario";
 
-	@GetMapping(value = "/autentica/inicio")
+	@GetMapping("/autentica/inicio")
 	public String index(@CurrentSecurityContext(expression = "authentication.name") String login) {
 		Usuario usuario = usuarioService.buscaUsuarioPorLogin(login);
 		String redirectURL = "";

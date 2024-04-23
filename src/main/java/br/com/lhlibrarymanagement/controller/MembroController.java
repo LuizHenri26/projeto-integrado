@@ -20,13 +20,13 @@ public class MembroController {
 	@Autowired
 	private MembroService membroService;
 
-	@GetMapping(value = "/membro/salvar")
+	@GetMapping("/membro/salvar")
 	public String formCadastrarLivro(Model model) {
 		model.addAttribute("membro", new Membro());
 		return "cadastrar-membro";
 	}
 
-	@PostMapping(value = "/membro/cadastrar")
+	@PostMapping("/membro/cadastrar")
 	public String adicionarNovoMembro(@Valid Membro membro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
@@ -45,13 +45,13 @@ public class MembroController {
 		return "redirect:/membro/salvar";
 	}
 
-	@GetMapping(value = "/membro/listar")
+	@GetMapping("/membro/listar")
 	public String listarTodosMembros(Model model) {
 		model.addAttribute("membros", this.membroService.getMembros());
 		return "consulta-membros";
 	}
 
-	@PostMapping(value = "/membro/buscar")
+	@PostMapping("/membro/buscar")
 	public String pesquisarMembroPeloNome(Model model, @RequestParam("nome") String nome) {
 		if (nome.isBlank()) {
 			return "redirect:/membro/listar";
@@ -60,7 +60,7 @@ public class MembroController {
 		return "consulta-membros";
 	}
 
-	@GetMapping(value = "/membro/deletar/{id}")
+	@GetMapping("/membro/deletar/{id}")
 	public String deletarMembro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Membro membro = membroService.findById(id);
 		int quantidadeEmprestimoVigente = membroService.countEmprestimoVigenteMembro(id);
@@ -74,14 +74,14 @@ public class MembroController {
 		return "redirect:/membro/listar";
 	}
 
-	@GetMapping(value = "/membro/editar/{id}")
+	@GetMapping("/membro/editar/{id}")
 	public String editarMembro(@PathVariable("id") Long id, Model model) {
 		Membro membro = this.membroService.findById(id);
 		model.addAttribute("membro", membro);
 		return "editar-membro";
 	}
 
-	@PostMapping(value = "/membro/editar/{id}")
+	@PostMapping("/membro/editar/{id}")
 	public String editarMembro(@PathVariable("id") Long id, @Valid Membro membro, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 		if (result.hasErrors()) {

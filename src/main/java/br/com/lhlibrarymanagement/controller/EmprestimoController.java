@@ -20,7 +20,7 @@ public class EmprestimoController {
 	@Autowired
 	private EmprestimoService emprestimoService;
 
-	@GetMapping(value = "/emprestimo/salvar")
+	@GetMapping("/emprestimo/salvar")
 	public String formRealizarEmprestimo(Model model) {
 		model.addAttribute("emprestimo", new Emprestimo());
 		model.addAttribute("membros", this.emprestimoService.getMembros());
@@ -28,7 +28,7 @@ public class EmprestimoController {
 		return "registrar-emprestimo";
 	}
 
-	@PostMapping(value = "/emprestimo/cadastrar")
+	@PostMapping("/emprestimo/cadastrar")
 	public String realizarEmprestimo(Emprestimo emprestimo, Model model, RedirectAttributes redirect) {
 		// Validador option bean validation não funciona para essa situação
 		if (emprestimo.getLivro() == null || emprestimo.getMembro() == null) {
@@ -44,13 +44,13 @@ public class EmprestimoController {
 		return "redirect:/emprestimo/salvar";
 	}
 
-	@GetMapping(value = "/emprestimo/listar")
+	@GetMapping("/emprestimo/listar")
 	public String listarEmprestimosVigentes(Model model) {
 		model.addAttribute("emprestimos", this.emprestimoService.getListarEmprestimosVigentes());
 		return "registrar-devolucao";
 	}
 
-	@PostMapping(value = "/emprestimo/buscar")
+	@PostMapping("/emprestimo/buscar")
 	public String pesquisarMembroPeloNome(Model model, @RequestParam("nome") String nome) {
 		if (nome.isBlank()) {
 			return "redirect:/emprestimo/listar";
@@ -59,7 +59,7 @@ public class EmprestimoController {
 		return "registrar-devolucao";
 	}
 
-	@GetMapping(value = "/emprestimo/devolucao/{id}")
+	@GetMapping("/emprestimo/devolucao/{id}")
 	public String registrarDevolucaoLivro(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		Emprestimo emprestimo = this.emprestimoService.findById(id);
 		model.addAttribute("emprestimo", emprestimo);
